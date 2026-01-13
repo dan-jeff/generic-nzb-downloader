@@ -4,7 +4,10 @@
   "type": "module",
   "description": "A generic NZB downloader application built with Electron, Vite, React, and TypeScript",
   "main": "electron/main.js",
-  "author": "Dan",
+  "author": {
+    "name": "Dan",
+    "email": "dan_jeff@hotmail.co.uk"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
