@@ -4,12 +4,16 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import Store from 'electron-store';
 import electronDl from 'electron-dl';
+import electronUpdater from 'electron-updater';
 import { SearchProviderSettings } from './types/search.js';
 import { SearchManager } from './search/SearchManager.js';
 import { DownloadManager } from './download/DownloadManager.js';
 
+const { autoUpdater } = electronUpdater;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const isDev = process.env.NODE_ENV === 'development';
 
 // Initialize electron-dl
 electronDl();
@@ -23,6 +27,7 @@ interface StoreSchema {
   history: any[];
   searchSettings: SearchProviderSettings[];
   downloadSettings: DownloadSettings;
+  autoUpdate: boolean;
 }
 
 // Initialize electron-store
@@ -36,6 +41,7 @@ const store = new Store<StoreSchema>({
       downloadDirectory: '',
       autoExtract: true,
     },
+    autoUpdate: true,
   },
 });
 
@@ -48,8 +54,6 @@ let isCleaningUp = false;
 let isQuitting = false;
 
 function createWindow() {
-  const isDev = process.env.NODE_ENV === 'development';
-  
   mainWindow = new BrowserWindow({
     title: 'Generic NZB Downloader',
     icon: path.join(__dirname, '../assets/icon.png'),
@@ -182,6 +186,86 @@ ipcMain.handle('update-download-settings', (_event, settings: DownloadSettings) 
   return true;
 });
 
+const sendUpdateStatus = (payload: {
+  type: 'checking' | 'available' | 'not-available' | 'error' | 'downloading' | 'downloaded';
+  version?: string;
+  error?: string;
+  progress?: {
+    percent: number;
+    transferred: number;
+    total: number;
+  };
+}) => {
+  mainWindow?.webContents.send('update-status', payload);
+};
+
+ipcMain.handle('get-app-version', () => app.getVersion());
+
+ipcMain.handle('get-auto-update', () => store.get('autoUpdate'));
+
+ipcMain.on('set-auto-update', (_event, enable: boolean) => {
+  store.set('autoUpdate', enable);
+  if (enable && !isDev) {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+});
+
+ipcMain.on('check-for-update', async () => {
+  if (isDev) {
+    sendUpdateStatus({ type: 'not-available', version: app.getVersion() });
+    return;
+  }
+
+  try {
+    await autoUpdater.checkForUpdates();
+  } catch (error) {
+    sendUpdateStatus({
+      type: 'error',
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+});
+
+ipcMain.on('quit-and-install', () => {
+  autoUpdater.quitAndInstall();
+});
+
+const configureAutoUpdates = () => {
+  autoUpdater.on('checking-for-update', () => {
+    sendUpdateStatus({ type: 'checking' });
+  });
+
+  autoUpdater.on('update-available', (info: any) => {
+    sendUpdateStatus({ type: 'available', version: info.version });
+  });
+
+  autoUpdater.on('update-not-available', (info: any) => {
+    sendUpdateStatus({ type: 'not-available', version: info.version });
+  });
+
+  autoUpdater.on('error', (error: Error | unknown) => {
+    sendUpdateStatus({
+      type: 'error',
+      error: error instanceof Error ? error.message : String(error),
+    });
+  });
+
+  autoUpdater.on('update-downloaded', (info: any) => {
+    sendUpdateStatus({ type: 'downloaded', version: info.version });
+  });
+
+  autoUpdater.on('download-progress', (info: any) => {
+    sendUpdateStatus({
+      type: 'downloading',
+      progress: {
+        percent: info.percent,
+        transferred: info.transferred,
+        total: info.total,
+      },
+    });
+  });
+};
+
 async function performCleanup() {
   if (isCleaningUp) return;
   isCleaningUp = true;
@@ -198,6 +282,12 @@ async function performCleanup() {
 
 app.whenReady().then(() => {
   createWindow();
+  configureAutoUpdates();
+
+  const autoUpdateEnabled = store.get('autoUpdate');
+  if (autoUpdateEnabled && !isDev) {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

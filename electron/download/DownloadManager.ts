@@ -31,6 +31,7 @@ interface StoreSchema {
   history: DownloadItem[];
   searchSettings: SearchProviderSettings[];
   downloadSettings: DownloadSettings;
+  autoUpdate: boolean;
 }
 
 export class DownloadManager {

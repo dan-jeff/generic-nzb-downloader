@@ -30,6 +30,17 @@ export interface DownloadSettings {
   autoExtract?: boolean;
 }
 
+export interface UpdateStatus {
+  type: 'checking' | 'available' | 'not-available' | 'error' | 'downloading' | 'downloaded';
+  version?: string;
+  error?: string;
+  progress?: {
+    percent: number;
+    transferred: number;
+    total: number;
+  };
+}
+
 export interface ElectronBridge {
   startDownload: (url: string | ArrayBuffer, target?: 'local' | 'newsreader', filename?: string, providerId?: string) => Promise<void>;
   getHistory: () => Promise<DownloadHistoryItem[]>;
@@ -43,8 +54,14 @@ export interface ElectronBridge {
   deleteDownload: (id: string) => Promise<boolean>;
   deleteDownloadWithFiles: (id: string) => Promise<boolean>;
   openPath: (path: string) => Promise<void>;
+  getAppVersion: () => Promise<string>;
+  getAutoUpdate: () => Promise<boolean>;
+  setAutoUpdate: (enable: boolean) => void;
+  checkForUpdate: () => void;
+  quitAndInstall: () => void;
   onDownloadProgress: (callback: (progress: DownloadProgress) => void) => () => void;
   onDownloadCompleted: (callback: (item: DownloadHistoryItem) => void) => () => void;
+  onUpdateStatus: (callback: (status: UpdateStatus) => void) => () => void;
 }
 
 declare global {

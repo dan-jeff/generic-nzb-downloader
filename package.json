@@ -6,6 +6,11 @@
   "main": "electron/main.js",
   "author": "Dan",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan-jeff/generic-nzb-downloader.git"
+  },
+  "homepage": "https://github.com/dan-jeff/generic-nzb-downloader",
   "scripts": {
     "dev": "vite",
     "dev:electron": "concurrently --kill-others --raw \"npm run dev\" \"npm run build:electron:watch\" \"npm run dev:electron-only\"",
@@ -27,6 +32,7 @@
     "7zip-bin": "^5.2.0",
     "electron-dl": "^4.0.0",
     "electron-store": "^10.0.0",
+    "electron-updater": "^6.7.3",
     "fuse.js": "^7.1.0",
     "node-7z": "^3.0.0",
     "react": "^18.2.0",
@@ -45,6 +51,9 @@
     "wait-on": "^7.2.0"
   },
   "build": {
+    "publish": [
+      "github"
+    ],
     "appId": "com.dan.generic-nzb-downloader",
     "productName": "Generic NZB Downloader",
     "directories": {

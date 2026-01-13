@@ -28,6 +28,7 @@ import {
   InputLabel,
   Grid,
   Checkbox,
+  LinearProgress,
 } from '@mui/material';
 import {
   Settings as SettingsIcon,
@@ -39,6 +40,7 @@ import {
   Storage as StorageIcon,
   Cloud as CloudIcon,
   FolderOpen as FolderOpenIcon,
+  SystemUpdateAlt as UpdateIcon,
 } from '@mui/icons-material';
 import { SearchProviderSettings, IndexerConfig, NewsreaderSettings } from '../types/search';
 
@@ -46,6 +48,13 @@ const SettingsPanel: React.FC = () => {
   const [settings, setSettings] = useState<SearchProviderSettings[]>([]);
   const [downloadDirectory, setDownloadDirectory] = useState('');
   const [autoExtract, setAutoExtract] = useState(true);
+  const [autoUpdate, setAutoUpdate] = useState(true);
+  const [appVersion, setAppVersion] = useState('');
+  const [updateStatus, setUpdateStatus] = useState<
+    'idle' | 'checking' | 'available' | 'not-available' | 'error' | 'downloading' | 'downloaded'
+  >('idle');
+  const [updateMessage, setUpdateMessage] = useState('');
+  const [updateProgress, setUpdateProgress] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
@@ -58,6 +67,45 @@ const SettingsPanel: React.FC = () => {
 
   useEffect(() => {
     fetchSettings();
+    fetchUpdateInfo();
+
+    const removeUpdateListener = window.electron.onUpdateStatus
+      ? window.electron.onUpdateStatus((status) => {
+          switch (status.type) {
+            case 'checking':
+              setUpdateStatus('checking');
+              setUpdateMessage('Checking for updates...');
+              break;
+            case 'available':
+              setUpdateStatus('available');
+              setUpdateMessage(`Version ${status.version} available`);
+              break;
+            case 'not-available':
+              setUpdateStatus('not-available');
+              setUpdateMessage('Up to date');
+              break;
+            case 'error':
+              setUpdateStatus('error');
+              setUpdateMessage(status.error || 'Update check failed');
+              break;
+            case 'downloading':
+              setUpdateStatus('downloading');
+              setUpdateProgress(status.progress?.percent || 0);
+              setUpdateMessage(
+                `Downloading... ${Math.round(status.progress?.percent || 0)}%`
+              );
+              break;
+            case 'downloaded':
+              setUpdateStatus('downloaded');
+              setUpdateMessage(`Version ${status.version} ready to install`);
+              break;
+          }
+        })
+      : () => {};
+
+    return () => {
+      removeUpdateListener();
+    };
   }, []);
 
   const handleAccordionChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -79,6 +127,19 @@ const SettingsPanel: React.FC = () => {
       showSnackbar('Failed to load settings', 'error');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUpdateInfo = async () => {
+    try {
+      const [version, autoUpdateEnabled] = await Promise.all([
+        window.electron.getAppVersion(),
+        window.electron.getAutoUpdate(),
+      ]);
+      setAppVersion(version);
+      setAutoUpdate(autoUpdateEnabled);
+    } catch (error) {
+      console.error('Failed to fetch update info:', error);
     }
   };
 
@@ -104,6 +165,22 @@ const SettingsPanel: React.FC = () => {
 
   const showSnackbar = (message: string, severity: 'success' | 'error') => {
     setSnackbar({ open: true, message, severity });
+  };
+
+  const handleAutoUpdateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const enabled = event.target.checked;
+    setAutoUpdate(enabled);
+    window.electron.setAutoUpdate(enabled);
+  };
+
+  const handleCheckForUpdate = () => {
+    setUpdateStatus('checking');
+    setUpdateMessage('Checking for updates...');
+    window.electron.checkForUpdate();
+  };
+
+  const handleQuitAndInstall = () => {
+    window.electron.quitAndInstall();
   };
 
   const handleIndexerChange = (indexerId: string, field: keyof IndexerConfig, value: string | boolean) => {
@@ -363,6 +440,99 @@ const SettingsPanel: React.FC = () => {
                 }
               />
             </Box>
+          </AccordionDetails>
+        </Accordion>
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.05)' }} />
+
+        {/* Auto Updates */}
+        <Accordion
+          expanded={expanded === 'updates'}
+          onChange={handleAccordionChange('updates')}
+          disableGutters
+          sx={{
+            background: 'transparent',
+            boxShadow: 'none',
+            '&:before': { display: 'none' }
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon sx={{ fontSize: '1.325rem' }} />}
+            sx={{
+              minHeight: 48,
+              '& .MuiAccordionSummary-content': { my: 1.5 },
+              '&.Mui-expanded': { minHeight: 48 }
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between', pr: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <UpdateIcon color="primary" sx={{ opacity: 0.8, fontSize: '1.225rem' }} />
+                <Box>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.9375rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Updates</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: -0.25, fontSize: '0.775rem' }}>
+                    Manage automatic updates
+                  </Typography>
+                </Box>
+              </Box>
+              {appVersion && (
+                <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+                  v{appVersion}
+                </Typography>
+              )}
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', p: 3 }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  size="small"
+                  checked={autoUpdate}
+                  onChange={handleAutoUpdateChange}
+                />
+              }
+              label={
+                <Box>
+                  <Typography variant="body2" sx={{ fontSize: '0.9375rem' }}>Automatically install updates</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.825rem' }}>
+                    Checks GitHub releases and downloads updates
+                  </Typography>
+                </Box>
+              }
+            />
+
+            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleCheckForUpdate}
+                disabled={updateStatus === 'checking' || updateStatus === 'downloading'}
+                startIcon={<RefreshIcon sx={{ fontSize: '1.125rem !important' }} />}
+              >
+                Check for Updates
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={handleQuitAndInstall}
+                disabled={updateStatus !== 'downloaded'}
+              >
+                Install Update
+              </Button>
+            </Box>
+
+            {updateMessage && (
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, fontSize: '0.825rem' }}>
+                {updateMessage}
+              </Typography>
+            )}
+
+            {updateStatus === 'downloading' && (
+              <LinearProgress
+                variant="determinate"
+                value={updateProgress}
+                sx={{ mt: 1, height: 6, borderRadius: 999 }}
+              />
+            )}
           </AccordionDetails>
         </Accordion>
 
