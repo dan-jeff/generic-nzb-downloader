@@ -1,0 +1,70 @@
+{
+  "name": "generic-nzb-downloader",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A generic NZB downloader application built with Electron, Vite, React, and TypeScript",
+  "main": "electron/main.js",
+  "author": "Dan",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "concurrently --kill-others --raw \"npm run dev\" \"npm run build:electron:watch\" \"npm run dev:electron-only\"",
+    "dev:electron-only": "wait-on http://localhost:5174 && sleep 2 && NODE_ENV=development npx electron . --no-sandbox --disable-gpu --disable-dev-shm-usage",
+    "build": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build:electron:watch": "tsc -p tsconfig.electron.json --watch",
+    "electron:dev": "npm run dev:electron",
+    "electron:build": "npm run build && npm run build:electron && electron-builder --publish=never",
+    "electron:build:win": "npm run build && npm run build:electron && electron-builder --win --publish=never",
+    "electron:build:linux": "npm run build && npm run build:electron && electron-builder --linux --publish=never"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.2",
+    "@mui/material": "^7.3.2",
+    "@xmldom/xmldom": "^0.8.11",
+    "7zip-bin": "^5.2.0",
+    "electron-dl": "^4.0.0",
+    "electron-store": "^10.0.0",
+    "fuse.js": "^7.1.0",
+    "node-7z": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^37.4.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.2.2",
+    "vite": "^7.1.7",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.dan.generic-nzb-downloader",
+    "productName": "Generic NZB Downloader",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "icon": "assets/icon.png",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "node_modules/**/*",
+      "assets/**/*",
+      "!electron/**/*.ts"
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "${name}-v${version}-windows.${ext}"
+    },
+    "linux": {
+      "target": "AppImage",
+      "artifactName": "${name}-v${version}-linux.${ext}"
+    }
+  }
+}

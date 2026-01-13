@@ -1,0 +1,413 @@
+import React, { useRef, useState } from 'react';
+import {
+  Box,
+  Typography,
+  Paper,
+  LinearProgress,
+  List,
+  IconButton,
+  Chip,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@mui/material';
+import {
+  DeleteSweep as ClearIcon,
+  CheckCircle as CompletedIcon,
+  FileDownload as ActiveIcon,
+  Pause as PauseIcon,
+  PlayArrow as ResumeIcon,
+  FolderOpen as OpenIcon,
+  Delete as DeleteIcon,
+  DeleteForever as DeleteForeverIcon,
+  Add as AddIcon,
+} from '@mui/icons-material';
+import { useDownloads } from '../hooks/useDownloads';
+import { formatBytes } from '../utils/format';
+
+const DownloadPanel: React.FC = () => {
+  const { 
+    activeDownloads, 
+    history, 
+    startDownload,
+    clearHistory,
+    pauseDownload,
+    deleteDownload,
+    deleteDownloadWithFiles,
+  } = useDownloads();
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.name.endsWith('.nzb')) {
+      const buffer = await file.arrayBuffer();
+      startDownload(buffer, 'newsreader', file.name);
+    }
+    // Reset value
+    if (event.target) event.target.value = '';
+  };
+
+  const handleDrop = async (event: React.DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragging(false);
+    
+    const file = event.dataTransfer.files?.[0];
+    if (file && file.name.endsWith('.nzb')) {
+      const buffer = await file.arrayBuffer();
+      startDownload(buffer, 'newsreader', file.name);
+    }
+  };
+
+  const handleDragEnter = (event: React.DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+    setIsDragging(true);
+  };
+
+  const handleDragOver = (event: React.DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.currentTarget.contains(event.relatedTarget as Node)) {
+      return;
+    }
+
+    setIsDragging(false);
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'downloading': return '#4caf50'; // Green
+      case 'paused': return '#ffb300';      // Amber/Yellow
+      case 'queued': return '#00bcd4';      // Cyan
+      case 'failed': return '#f44336';      // Red
+      case 'completed': return '#4caf50';   // Green
+      default: return 'rgba(255,255,255,0.5)';
+    }
+  };
+
+  const activeDownloadsFiltered = activeDownloads.filter(d => d.status.toLowerCase() !== 'completed');
+
+  return (
+    <Box 
+      onDrop={handleDrop}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      sx={{ 
+        height: '100%',
+        position: 'relative',
+        '&::after': isDragging ? {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          border: '2px dashed #00bcd4',
+          borderRadius: 2,
+          backgroundColor: 'rgba(0, 188, 212, 0.05)',
+          pointerEvents: 'none',
+          zIndex: 10,
+        } : {},
+      }}
+    >
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        accept=".nzb"
+        onChange={handleFileUpload}
+      />
+
+      {/* Clear History Button in Title Row if needed, or elsewhere */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Typography variant="h5" sx={{ color: '#fff', display: 'flex', alignItems: 'center', gap: 2 }}>
+          <ActiveIcon sx={{ color: 'primary.main', fontSize: 26 }} /> DOWNLOADS
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Tooltip title="Add NZB">
+            <IconButton onClick={() => fileInputRef.current?.click()} size="small" sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}>
+              <AddIcon sx={{ fontSize: 22 }} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Clear History">
+            <IconButton onClick={clearHistory} size="small" sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#ff4444', background: 'rgba(255, 68, 68, 0.1)' } }}>
+              <ClearIcon sx={{ fontSize: 22 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Box>
+ 
+      {/* Active Downloads */}
+      {activeDownloadsFiltered.length > 0 && (
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2, color: 'primary.main', fontWeight: 800, letterSpacing: '0.1em', fontSize: '0.775rem' }}>
+            <ActiveIcon sx={{ fontSize: 14 }} /> ACTIVE DOWNLOADS
+          </Typography>
+          <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {activeDownloadsFiltered.map((download) => (
+              <Paper 
+                key={download.id} 
+                sx={{ 
+                  p: 2.5, 
+                  background: 'rgba(30, 41, 59, 0.4)',
+                  border: '1px solid rgba(148, 163, 184, 0.12)',
+                  borderRadius: 1,
+                  transition: 'all 0.15s ease',
+                  '&:hover': {
+                    background: 'rgba(30, 41, 59, 0.6)',
+                    borderColor: 'rgba(0, 229, 255, 0.3)',
+                    transform: 'translateY(-1px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.9375rem' }}>
+                        {download.filename}
+                      </Typography>
+                      <Chip 
+                        label={download.providerName} 
+                        size="small" 
+                        sx={{ height: 16, fontSize: '0.675rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
+                      />
+                      <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        {download.status}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', gap: 0.5, ml: 2 }}>
+                    <Tooltip title="Open Location">
+                      <IconButton size="small" onClick={() => window.electron.openPath(download.path || download.filename)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
+                        <OpenIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title={download.status === 'paused' ? "Resume" : "Pause"}>
+                      <IconButton size="small" onClick={() => pauseDownload(download.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
+                        {download.status === 'paused' ? <ResumeIcon sx={{ fontSize: 18 }} /> : <PauseIcon sx={{ fontSize: 18 }} />}
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <IconButton size="small" onClick={() => deleteDownload(download.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
+                        <DeleteIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete from Disk">
+                      <IconButton 
+                        size="small" 
+                        onClick={() => setConfirmDeleteId(download.id)} 
+                        sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                      >
+                        <DeleteForeverIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                </Box>
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <Box sx={{ flex: 1 }}>
+                    <LinearProgress 
+                      variant="determinate" 
+                      value={download.percent * 100} 
+                      sx={{ 
+                        height: 4, 
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(255,255,255,0.05)',
+                        '& .MuiLinearProgress-bar': {
+                          borderRadius: 2,
+                          backgroundColor: getStatusColor(download.status),
+                          boxShadow: `0 0 8px ${getStatusColor(download.status)}44`,
+                        }
+                      }} 
+                    />
+                  </Box>
+                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: '0.825rem', textAlign: 'right' }}>
+                    {Math.round(download.percent * 100)}%
+                  </Typography>
+                </Box>
+                
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
+                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.775rem' }}>
+                      {formatBytes(download.transferredBytes)} / {formatBytes(download.totalBytes)}
+                    </Typography>
+                    {download.speed && (
+                      <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.775rem' }}>
+                        {formatBytes(download.speed)}/s
+                      </Typography>
+                    )}
+                  </Box>
+                </Box>
+              </Paper>
+            ))}
+          </List>
+        </Box>
+      )}
+
+      {/* History */}
+      <Box>
+          <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2, color: 'text.secondary', fontWeight: 800, letterSpacing: '0.1em', fontSize: '0.775rem' }}>
+          <CompletedIcon sx={{ fontSize: 14 }} /> COMPLETED
+        </Typography>
+        {history.length === 0 ? (
+          <Paper sx={{ background: 'rgba(255,255,255,0.01)', borderRadius: 1 }}>
+            <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.2)', textAlign: 'center', display: 'block', py: 3 }}>
+              NO HISTORY
+            </Typography>
+          </Paper>
+        ) : (
+          <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {history.map((item) => (
+              <Paper 
+                key={item.id} 
+                sx={{ 
+                  p: 2.5, 
+                  background: 'rgba(30, 41, 59, 0.4)',
+                  border: '1px solid rgba(148, 163, 184, 0.12)',
+                  borderRadius: 1,
+                  transition: 'all 0.15s ease',
+                  '&:hover': {
+                    background: 'rgba(30, 41, 59, 0.6)',
+                    borderColor: 'rgba(0, 229, 255, 0.3)',
+                    transform: 'translateY(-1px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.9375rem' }}>
+                        {item.filename}
+                      </Typography>
+                      <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        COMPLETED
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', gap: 0.5, ml: 2 }}>
+                    <Tooltip title="Open Location">
+                      <IconButton size="small" onClick={() => window.electron.openPath(item.path)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
+                        <OpenIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Record">
+                      <IconButton size="small" onClick={() => deleteDownload(item.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
+                        <DeleteIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete from Disk">
+                      <IconButton 
+                        size="small" 
+                        onClick={() => setConfirmDeleteId(item.id)} 
+                        sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                      >
+                        <DeleteForeverIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                </Box>
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <Box sx={{ flex: 1 }}>
+                    <LinearProgress 
+                      variant="determinate" 
+                      value={100} 
+                      sx={{ 
+                        height: 4, 
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(255,255,255,0.05)',
+                        '& .MuiLinearProgress-bar': {
+                          borderRadius: 2,
+                          backgroundColor: '#4caf50',
+                          boxShadow: '0 0 8px #4caf5044',
+                        }
+                      }} 
+                    />
+                  </Box>
+                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: '0.825rem', textAlign: 'right' }}>
+                    100%
+                  </Typography>
+                </Box>
+                
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
+                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.775rem' }}>
+                      {formatBytes(item.size)}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.775rem' }}>
+                      {new Date(item.timestamp).toLocaleDateString()}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Paper>
+            ))}
+          </List>
+        )}
+      </Box>
+
+      {/* Confirmation Dialog */}
+      <Dialog
+        open={!!confirmDeleteId}
+        onClose={() => setConfirmDeleteId(null)}
+        PaperProps={{
+          sx: {
+            background: '#1e293b',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }
+        }}
+      >
+        <DialogTitle sx={{ color: '#fff' }}>
+          Delete File from Disk?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ color: 'rgba(255,255,255,0.7)' }}>
+            Are you sure you want to permanently delete this file? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDeleteId(null)} sx={{ color: 'rgba(255,255,255,0.5)' }}>
+            Cancel
+          </Button>
+          <Button 
+            onClick={() => {
+              if (confirmDeleteId) {
+                deleteDownloadWithFiles(confirmDeleteId);
+                setConfirmDeleteId(null);
+              }
+            }} 
+            color="error" 
+            variant="contained"
+            autoFocus
+          >
+            Delete Forever
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
+};
+
+export default DownloadPanel;
