@@ -63,7 +63,10 @@
       "artifactName": "${name}-v${version}-windows.${ext}"
     },
     "linux": {
-      "target": "AppImage",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "artifactName": "${name}-v${version}-linux.${ext}"
     }
   }

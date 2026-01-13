@@ -81,6 +81,7 @@ jobs:
         with:
           files: |
             dist-electron/*.AppImage
+            dist-electron/*.deb
             dist-electron/*.exe
             dist-electron/*.yml
             dist-electron/*.blockmap
