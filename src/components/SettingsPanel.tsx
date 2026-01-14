@@ -47,7 +47,6 @@ import { SearchProviderSettings, IndexerConfig, NewsreaderSettings } from '../ty
 const SettingsPanel: React.FC = () => {
   const [settings, setSettings] = useState<SearchProviderSettings[]>([]);
   const [downloadDirectory, setDownloadDirectory] = useState('');
-  const [autoExtract, setAutoExtract] = useState(true);
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [appVersion, setAppVersion] = useState('');
   const [updateStatus, setUpdateStatus] = useState<
@@ -121,7 +120,6 @@ const SettingsPanel: React.FC = () => {
       ]);
       setSettings(searchSettings);
       setDownloadDirectory(downloadSettings?.downloadDirectory || '');
-      setAutoExtract(downloadSettings?.autoExtract ?? true);
     } catch (error) {
       console.error('Failed to fetch settings:', error);
       showSnackbar('Failed to load settings', 'error');
@@ -148,7 +146,7 @@ const SettingsPanel: React.FC = () => {
       setSaving(true);
       const [searchSaved, downloadSaved] = await Promise.all([
         window.electron.updateSearchSettings(settings),
-        window.electron.updateDownloadSettings({ downloadDirectory, autoExtract }),
+        window.electron.updateDownloadSettings({ downloadDirectory }),
       ]);
       if (searchSaved && downloadSaved) {
         showSnackbar('Settings saved successfully', 'success');
@@ -252,7 +250,7 @@ const SettingsPanel: React.FC = () => {
   };
 
   const handleNewsreaderChange = (id: string, field: keyof NewsreaderSettings, value: any) => {
-    const parsedValue = ['maxConnections', 'articleTimeoutMs', 'retryAttempts', 'retryBackoffMs'].includes(field) 
+    const parsedValue = ['maxConnections', 'segmentConcurrency', 'articleTimeoutMs', 'retryAttempts', 'retryBackoffMs'].includes(field)
       ? (parseInt(value) || 0)
       : value;
     
@@ -421,25 +419,6 @@ const SettingsPanel: React.FC = () => {
               InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
               inputProps={{ sx: { fontSize: '0.9375rem' } }}
             />
-            <Box sx={{ mt: 2 }}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    size="small"
-                    checked={autoExtract}
-                    onChange={(e) => setAutoExtract(e.target.checked)}
-                  />
-                }
-                label={
-                  <Box>
-                    <Typography variant="body2" sx={{ fontSize: '0.9375rem' }}>Auto-Extract Archives</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.825rem' }}>
-                      Automatically extract RAR/ZIP/7z files after download completes
-                    </Typography>
-                  </Box>
-                }
-              />
-            </Box>
           </AccordionDetails>
         </Accordion>
 
@@ -905,8 +884,20 @@ const SettingsPanel: React.FC = () => {
                                   label="Max Connections"
                                   type="number"
                                   size="small"
-                                  value={nr.maxConnections ?? 10}
+                                  value={nr.maxConnections ?? 2}
                                   onChange={(e) => handleNewsreaderChange(nr.id, 'maxConnections', e.target.value)}
+                                  InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
+                                  inputProps={{ sx: { fontSize: '0.9375rem' } }}
+                                />
+                              </Grid>
+                              <Grid size={{ xs: 12, sm: 6 }}>
+                                <TextField
+                                  fullWidth
+                                  label="Segment Concurrency"
+                                  type="number"
+                                  size="small"
+                                  value={nr.segmentConcurrency ?? 10}
+                                  onChange={(e) => handleNewsreaderChange(nr.id, 'segmentConcurrency', e.target.value)}
                                   InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
                                   inputProps={{ sx: { fontSize: '0.9375rem' } }}
                                 />
@@ -935,7 +926,7 @@ const SettingsPanel: React.FC = () => {
                                   inputProps={{ sx: { fontSize: '0.9375rem' } }}
                                 />
                               </Grid>
-                              <Grid size={{ xs: 12, sm: 6 }}>
+                              <Grid size={{ xs: 12 }}>
                                 <TextField
                                   fullWidth
                                   label="Retry Backoff (ms)"

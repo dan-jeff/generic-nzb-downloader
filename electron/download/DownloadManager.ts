@@ -24,7 +24,6 @@ interface DownloadItem {
 
 interface DownloadSettings {
   downloadDirectory: string;
-  autoExtract?: boolean;
 }
 
 interface StoreSchema {
@@ -257,7 +256,6 @@ export class DownloadManager {
     // Use provider-specific path, or fall back to global download settings
     const downloadSettings = this.store.get('downloadSettings');
     const downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
-    const autoExtract = downloadSettings?.autoExtract ?? true;
 
     let buffer: Buffer;
     if (typeof content === 'string') {
@@ -267,7 +265,7 @@ export class DownloadManager {
       buffer = content;
     }
 
-    const externalId = await client.addNzb(buffer, filename, 'default', downloadPath, autoExtract);
+    const externalId = await client.addNzb(buffer, filename, 'default', downloadPath);
     const friendlyName = this.providerNames.get(selectedProviderId) || selectedProviderId;
     
     const downloadItem: DownloadItem = {

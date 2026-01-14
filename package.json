@@ -1,6 +1,6 @@
 {
   "name": "generic-nzb-downloader",
-  "version": "1.0.0",
+  "version": "0.0.5",
   "type": "module",
   "description": "A generic NZB downloader application built with Electron, Vite, React, and TypeScript",
   "main": "electron/main.js",
@@ -32,12 +32,10 @@
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
     "@xmldom/xmldom": "^0.8.11",
-    "7zip-bin": "^5.2.0",
     "electron-dl": "^4.0.0",
     "electron-store": "^10.0.0",
     "electron-updater": "^6.7.3",
     "fuse.js": "^7.1.0",
-    "node-7z": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

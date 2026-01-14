@@ -15,12 +15,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const isDev = process.env.NODE_ENV === 'development';
 
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=8192');
+
 // Initialize electron-dl
 electronDl();
 
 interface DownloadSettings {
   downloadDirectory: string;
-  autoExtract?: boolean;
 }
 
 interface StoreSchema {
@@ -39,7 +40,6 @@ const store = new Store<StoreSchema>({
     ],
     downloadSettings: {
       downloadDirectory: '',
-      autoExtract: true,
     },
     autoUpdate: true,
   },

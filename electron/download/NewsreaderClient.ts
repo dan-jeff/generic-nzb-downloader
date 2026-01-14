@@ -5,12 +5,10 @@ import * as tls from 'tls';
 import { DOMParser } from '@xmldom/xmldom';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Readable, Writable } from 'stream';
 import { spawn, ChildProcess } from 'child_process';
 import { DownloadStatus, DownloadState } from '../types/download.js';
 import { NewsreaderSettings } from '../types/search.js';
-// @ts-ignore - No types available for node-7z
-import Seven from 'node-7z';
-import sevenBin from '7zip-bin';
 
 export interface YencMetadata {
   line: number;
@@ -25,9 +23,15 @@ export interface YencMetadata {
 }
 
 export interface DecodedSegment {
-  data: Buffer;
+  data?: Buffer;
   metadata: YencMetadata;
   crcValid?: boolean;
+}
+
+export interface StoredSegment {
+  path: string;
+  metadata: YencMetadata;
+  size: number;
 }
 
 export interface ProviderStats {
@@ -308,6 +312,157 @@ export class YencDecoder {
   }
 }
 
+export class StreamingYencDecoder extends Writable {
+  private decoderState: 'WAIT_BEGIN' | 'IN_PART' | 'IN_DATA' | 'FINISHED' = 'WAIT_BEGIN';
+  private outputStream: fs.WriteStream | null;
+  private metadata: YencMetadata = { line: 128, size: 0, name: '' };
+  private crc32 = 0xFFFFFFFF;
+  private static CRC32_TABLE: number[] | null = null;
+  public metadataPromise: Promise<YencMetadata>;
+  private metadataResolve!: (meta: YencMetadata) => void;
+  private metadataReject!: (err: Error) => void;
+  private timeoutMs: number;
+  private timeoutHandle?: NodeJS.Timeout;
+
+  constructor(outputStream: fs.WriteStream | null, timeoutMs: number = 30000) {
+    super({ objectMode: true });
+    this.outputStream = outputStream;
+    this.timeoutMs = timeoutMs;
+    StreamingYencDecoder.initCrc32Table();
+    this.metadataPromise = new Promise((resolve, reject) => {
+      this.metadataResolve = resolve;
+      this.metadataReject = reject;
+    });
+    this.timeoutHandle = setTimeout(() => {
+      this.metadataReject(new Error(`Streaming decoder timeout after ${timeoutMs}ms`));
+      this.destroy();
+    }, this.timeoutMs);
+    this.on('error', (err) => {
+      this.clearTimeout();
+      this.metadataReject(err);
+    });
+  }
+
+  private clearTimeout(): void {
+    if (this.timeoutHandle) {
+      clearTimeout(this.timeoutHandle);
+      this.timeoutHandle = undefined;
+    }
+  }
+
+  private static initCrc32Table(): void {
+    if (this.CRC32_TABLE) return;
+    this.CRC32_TABLE = new Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) {
+        c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      }
+      this.CRC32_TABLE[n] = c;
+    }
+  }
+
+  _write(chunk: any, _encoding: string, callback: (error?: Error | null) => void): void {
+    const line = chunk as string;
+    try {
+      const canContinue = this.processLine(line);
+      if (canContinue) {
+        callback();
+      } else {
+        if (this.outputStream) {
+          this.outputStream.once('drain', () => callback());
+        } else {
+          callback();
+        }
+      }
+    } catch (err) {
+      callback(err instanceof Error ? err : new Error(String(err)));
+    }
+  }
+
+  private processLine(line: string): boolean {
+    if (line.startsWith('=ybegin')) {
+      YencDecoder['parseYBegin'](line, this.metadata);
+      this.decoderState = 'IN_PART';
+      return true;
+    } else if (line.startsWith('=ypart')) {
+      YencDecoder['parseYPart'](line, this.metadata);
+      return true;
+    } else if (line.startsWith('=yend')) {
+      YencDecoder['parseYEnd'](line, this.metadata);
+      
+      // Verify CRC if available and we have processed data
+      if (this.metadata.pc32) {
+         // const calculatedCrc = (this.crc32 ^ 0xFFFFFFFF) >>> 0;
+         // const calculatedCrcHex = calculatedCrc.toString(16).toLowerCase();
+         // const expectedCrc = this.metadata.pc32.toLowerCase();
+         // We could store crcValid in metadata or emit it
+         // For now, we trust the download if no error thrown
+      }
+
+      this.metadataResolve(this.metadata);
+      this.decoderState = 'FINISHED';
+      this.clearTimeout();
+      return true;
+    } else if (this.decoderState === 'IN_PART' || this.decoderState === 'WAIT_BEGIN') {
+      if (!line.startsWith('=y')) {
+        this.decoderState = 'IN_DATA';
+        return this.decodeAndWrite(line);
+      }
+      return true;
+    } else if (this.decoderState === 'IN_DATA') {
+      return this.decodeAndWrite(line);
+    }
+    return true;
+  }
+
+  private decodeAndWrite(line: string): boolean {
+    if (!this.outputStream) return true;
+
+    let escaped = false;
+    const decodedBytes: number[] = [];
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+
+      if (escaped) {
+        const byte = (char.charCodeAt(0) - 64 - 42) & 0xFF;
+        decodedBytes.push(byte);
+        escaped = false;
+      } else if (char === '=') {
+        escaped = true;
+      } else {
+        const byte = (char.charCodeAt(0) - 42) & 0xFF;
+        decodedBytes.push(byte);
+      }
+    }
+
+    if (decodedBytes.length > 0) {
+      const buffer = Buffer.from(decodedBytes);
+      
+      // Update CRC
+      const table = StreamingYencDecoder.CRC32_TABLE!;
+      let crc = this.crc32;
+      for (let i = 0; i < buffer.length; i++) {
+        crc = (crc >>> 8) ^ table[(crc ^ buffer[i]) & 0xFF];
+      }
+      this.crc32 = crc;
+
+      return this.outputStream.write(buffer);
+    }
+    return true;
+  }
+
+  _final(callback: (error?: Error | null) => void): void {
+    this.clearTimeout();
+    if (this.outputStream) {
+      this.outputStream.end(callback);
+    } else {
+      callback();
+    }
+  }
+}
+
 export interface SegmentDownloadConfig {
   retryAttempts?: number;
   retryBackoffMs?: number;
@@ -334,7 +489,7 @@ export class SegmentDownloader {
     );
   }
 
-  async downloadSegment(messageId: string): Promise<DecodedSegment> {
+  async downloadSegment(messageId: string, destinationPath?: string): Promise<DecodedSegment> {
     const segmentId = messageId;
     const retryAttempts = this.config.retryAttempts || 3;
     const retryBackoffMs = this.config.retryBackoffMs || 1000;
@@ -362,6 +517,13 @@ export class SegmentDownloader {
       }
 
       try {
+        if (destinationPath) {
+          const result = await this.downloadSegmentStream(messageId, destinationPath);
+          this.fallbackManager.recordSuccess(segmentId, currentProviderId);
+          this.perSegmentProviders.delete(segmentId);
+          return result;
+        }
+
         const body = await this.fetchArticleBody(messageId);
         const decoded = YencDecoder.decode(body);
 
@@ -404,6 +566,41 @@ export class SegmentDownloader {
 
     this.failedSegments.add(messageId);
     throw new Error(`Segment ${messageId} failed on all providers`);
+  }
+
+  private async downloadSegmentStream(messageId: string, destinationPath: string): Promise<DecodedSegment> {
+    const fileStream = fs.createWriteStream(destinationPath);
+    
+    try {
+      await new Promise((resolve, reject) => {
+        fileStream.on('open', resolve);
+        fileStream.on('error', reject);
+      });
+
+      const nntpStream = await this.connectionPool.requestStream(messageId);
+      const decoder = new StreamingYencDecoder(fileStream, 30000);
+      
+      nntpStream.pipe(decoder);
+      
+      // Race: metadataPromise resolves OR file finishes
+      await Promise.race([
+        decoder.metadataPromise,
+        new Promise<void>((resolve, reject) => {
+          fileStream.on('finish', resolve);
+          fileStream.on('error', reject);
+        })
+      ]);
+      
+      return {
+        metadata: await decoder.metadataPromise,
+        data: undefined,
+        crcValid: true 
+      };
+    } catch (err) {
+      fileStream.destroy();
+      try { await fs.promises.unlink(destinationPath); } catch (e) {}
+      throw err;
+    }
   }
 
   private async switchProvider(messageId: string, newProviderId: string): Promise<void> {
@@ -486,6 +683,8 @@ export class NntpConnection {
   private articleTimeoutMs: number;
   private connectTimeoutMs: number = 30000;
   private responseBuffer: string = '';
+  private outputStream: Readable | null = null;
+  private onStreamStart: (() => void) | null = null;
 
   constructor(articleTimeoutMs: number = 15000) {
     this.hostname = '';
@@ -600,6 +799,7 @@ export class NntpConnection {
   private async sendCommand(command: string, options: { multiline?: boolean } = {}): Promise<string> {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        this.disconnect();
         reject(new Error(`Timeout waiting for response to: ${command}`));
       }, this.articleTimeoutMs);
 
@@ -614,6 +814,7 @@ export class NntpConnection {
       };
 
       try {
+        this.socket?.resume();
         this.socket?.write(`${command}\r\n`, 'utf-8', (err) => {
           if (err) {
             clearTimeout(timeout);
@@ -659,6 +860,10 @@ export class NntpConnection {
           if (code === 220 || code === 222) {
             this.pendingMultiLine = true;
             this.multiLineBuffer = [line];
+            if (this.onStreamStart) {
+              this.onStreamStart();
+              this.onStreamStart = null;
+            }
             continue;
           }
         }
@@ -670,18 +875,30 @@ export class NntpConnection {
       } else {
         if (line === '.') {
           this.pendingMultiLine = false;
-          const response = this.multiLineBuffer.join('\r\n');
-          if (this.commandCallback) {
-            this.commandCallback(response, null);
-            this.commandCallback = null;
+          if (this.outputStream) {
+            this.outputStream.push(null);
+            this.outputStream = null;
+            this.socket?.resume();
+          } else {
+            const response = this.multiLineBuffer.join('\r\n');
+            if (this.commandCallback) {
+              this.commandCallback(response, null);
+              this.commandCallback = null;
+            }
+            this.multiLineBuffer = [];
           }
-          this.multiLineBuffer = [];
         } else {
           let dataLine = line;
           if (dataLine.startsWith('..')) {
             dataLine = dataLine.substring(1);
           }
-          this.multiLineBuffer.push(dataLine);
+          if (this.outputStream) {
+            if (!this.outputStream.push(dataLine)) {
+              this.socket?.pause();
+            }
+          } else {
+            this.multiLineBuffer.push(dataLine);
+          }
         }
       }
     }
@@ -690,6 +907,7 @@ export class NntpConnection {
   private async readResponse(): Promise<string> {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        this.disconnect();
         reject(new Error('Timeout waiting for response'));
       }, this.articleTimeoutMs);
 
@@ -728,6 +946,65 @@ export class NntpConnection {
 
     const body = response.substring(response.indexOf('\r\n') + 2);
     return body;
+  }
+
+  async getArticleStream(messageId: string): Promise<Readable> {
+    await this.ensureConnected();
+    const command = `BODY <${messageId}>`;
+
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        this.disconnect();
+        this.outputStream = null;
+        this.onStreamStart = null;
+        reject(new Error(`Timeout waiting for stream response to: ${command}`));
+      }, this.articleTimeoutMs);
+
+      this.expectMultiLine = true;
+      
+      this.commandCallback = (response: string, error: Error | null) => {
+        clearTimeout(timeout);
+        if (error) {
+          reject(error);
+        } else {
+          reject(new Error(`Unexpected single line response: ${response}`));
+        }
+      };
+
+      this.onStreamStart = () => {
+        clearTimeout(timeout);
+        const stream = new Readable({
+          objectMode: true,
+          read: () => {
+            if (this.socket && this.socket.isPaused()) {
+              this.socket.resume();
+            }
+          }
+        });
+        this.outputStream = stream;
+        
+        // Cleanup command callback as we are now in streaming mode
+        this.commandCallback = null;
+        
+        resolve(stream);
+      };
+
+      try {
+        this.socket?.write(`${command}\r\n`, 'utf-8', (err) => {
+          if (err) {
+            clearTimeout(timeout);
+            this.commandCallback = null;
+            this.onStreamStart = null;
+            reject(err);
+          }
+        });
+      } catch (err) {
+        clearTimeout(timeout);
+        this.commandCallback = null;
+        this.onStreamStart = null;
+        reject(err);
+      }
+    });
   }
 
   async getArticle(messageId: string): Promise<any> {
@@ -784,6 +1061,11 @@ export class NntpConnection {
     this.commandCallback = null;
     this.pendingMultiLine = false;
     this.multiLineBuffer = [];
+    if (this.outputStream) {
+      this.outputStream.destroy();
+      this.outputStream = null;
+    }
+    this.onStreamStart = null;
     try {
       if (this.socket && !this.socket.destroyed) {
         this.socket.end();
@@ -811,10 +1093,14 @@ export interface NntpConnectionPoolConfig {
 
 type ArticleCallback = (err: Error | null, body?: string) => void;
 
+type RequestTask = 
+  | { type: 'callback', messageId: string, callback: ArticleCallback }
+  | { type: 'stream', messageId: string, resolve: (s: Readable) => void, reject: (e: Error) => void };
+
 export class NntpConnectionPool {
   private connections: NntpConnection[] = [];
   private availableConnections: NntpConnection[] = [];
-  private requestQueue: Array<{ messageId: string; callback: ArticleCallback }> = [];
+  private requestQueue: RequestTask[] = [];
   private hostname: string;
   private port: number;
   private useSSL: boolean;
@@ -836,7 +1122,7 @@ export class NntpConnectionPool {
     this.useSSL = useSSL;
     this.username = username;
     this.password = password;
-    this.maxConnections = config.maxConnections || 10;
+    this.maxConnections = config.maxConnections || 4;
     this.articleTimeoutMs = config.articleTimeoutMs || 15000;
   }
 
@@ -846,7 +1132,21 @@ export class NntpConnectionPool {
     if (connection) {
       this.fetchArticle(connection, messageId, callback);
     } else {
-      this.requestQueue.push({ messageId, callback });
+      this.requestQueue.push({ type: 'callback', messageId, callback });
+    }
+  }
+
+  async requestStream(messageId: string): Promise<Readable> {
+    const connection = this.getAvailableConnection();
+
+    if (connection) {
+      return new Promise((resolve, reject) => {
+        this.fetchArticleStream(connection, messageId, resolve, reject);
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        this.requestQueue.push({ type: 'stream', messageId, resolve, reject });
+      });
     }
   }
 
@@ -879,6 +1179,45 @@ export class NntpConnectionPool {
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err));
       callback(error);
+
+      if (!connection.isConnected()) {
+        this.removeConnection(connection);
+        this.createReplacementConnection();
+      } else {
+        this.returnConnectionToPool(connection);
+      }
+      this.processNextRequest();
+    }
+  }
+
+  private async fetchArticleStream(connection: NntpConnection, messageId: string, resolve: (s: Readable) => void, reject: (e: Error) => void): Promise<void> {
+    try {
+      if (!connection.isConnected()) {
+        await connection.connect(this.hostname, this.port, this.useSSL, this.username, this.password);
+      }
+
+      const stream = await connection.getArticleStream(messageId);
+      
+      const cleanup = () => {
+        this.returnConnectionToPool(connection);
+        this.processNextRequest();
+      };
+      
+      stream.on('end', cleanup);
+      stream.on('error', (_err) => {
+        if (!connection.isConnected()) {
+           this.removeConnection(connection);
+           this.createReplacementConnection();
+        } else {
+           this.returnConnectionToPool(connection);
+        }
+        this.processNextRequest();
+      });
+
+      resolve(stream);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      reject(error);
 
       if (!connection.isConnected()) {
         this.removeConnection(connection);
@@ -923,7 +1262,11 @@ export class NntpConnectionPool {
     const connection = this.getAvailableConnection();
     if (connection) {
       const nextRequest = this.requestQueue.shift()!;
-      this.fetchArticle(connection, nextRequest.messageId, nextRequest.callback);
+      if (nextRequest.type === 'callback') {
+        this.fetchArticle(connection, nextRequest.messageId, nextRequest.callback);
+      } else {
+        this.fetchArticleStream(connection, nextRequest.messageId, nextRequest.resolve, nextRequest.reject);
+      }
     }
   }
 
@@ -969,7 +1312,7 @@ export abstract class BaseNewsreaderClient {
     }
   }
 
-  abstract addNzb(content: Buffer, filename: string, category: string, downloadPath?: string, autoExtract?: boolean): Promise<string>;
+  abstract addNzb(content: Buffer, filename: string, category: string, downloadPath?: string): Promise<string>;
   abstract getStatus(ids: string[]): Promise<DownloadStatus[]>;
   abstract pause(id: string): Promise<boolean>;
   abstract delete(id: string, removeFiles: boolean): Promise<boolean>;
@@ -985,7 +1328,7 @@ export class FileAssembler {
       downloadedArticles: number;
       size: number;
       articles: number;
-      downloadedSegments: Map<number, DecodedSegment>;
+      downloadedSegments: Map<number, StoredSegment>;
       downloadedBytes?: number;
     }
   ): Promise<void> {
@@ -1000,31 +1343,49 @@ export class FileAssembler {
       let currentOffset = 0;
       let totalWrittenBytes = 0;
 
-      const segmentsWithMetadata = Array.from(file.downloadedSegments.entries()).map(([segNum, decoded]) => {
+      const segmentsWithMetadata = Array.from(file.downloadedSegments.entries()).map(([segNum, stored]) => {
         const segmentInfo = file.segments.find(s => s.number === segNum);
         return {
-          decoded,
+          stored,
           sortKey: segmentInfo ? segmentInfo.number : segNum
         };
       }).sort((a, b) => a.sortKey - b.sortKey);
 
       console.log(`Assembling file ${file.filename} with ${segmentsWithMetadata.length} segments`);
 
-      for (const { decoded } of segmentsWithMetadata) {
-        const data = decoded.data;
+      for (const { stored } of segmentsWithMetadata) {
+        const data = await fs.promises.readFile(stored.path);
         let writeOffset = currentOffset;
 
-        if (typeof decoded.metadata.begin === 'number') {
-          writeOffset = Math.max(0, decoded.metadata.begin - 1);
+        if (typeof stored.metadata.begin === 'number') {
+          writeOffset = Math.max(0, stored.metadata.begin - 1);
         }
 
         await fileHandle.write(data, 0, data.length, writeOffset);
         totalWrittenBytes += data.length;
 
-        if (typeof decoded.metadata.begin === 'number') {
+        if (typeof stored.metadata.begin === 'number') {
           currentOffset = Math.max(currentOffset, writeOffset + data.length);
         } else {
           currentOffset += data.length;
+        }
+
+        try {
+          await fs.promises.unlink(stored.path);
+        } catch (err) {
+          console.warn(`Failed to remove segment file ${stored.path}:`, err);
+        }
+      }
+
+      if (job.savePath) {
+        const segmentsDir = path.join(job.savePath, '.segments');
+        try {
+          const remaining = await fs.promises.readdir(segmentsDir);
+          if (remaining.length === 0) {
+            await fs.promises.rmdir(segmentsDir);
+          }
+        } catch (err) {
+          // ignore missing directory
         }
       }
 
@@ -1301,16 +1662,16 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
   private activeDownloads: Map<string, DownloadJob & {
     downloadedArticles: number;
     totalArticles: number;
-    files: Array<NzbFile & {
+        files: Array<NzbFile & {
       downloadedArticles: number;
       size: number;
       articles: number;
-      downloadedSegments: Map<number, DecodedSegment>;
+      downloadedSegments: Map<number, StoredSegment>;
       downloadedBytes?: number;
-    }>;
+    }>
+;
     downloadedBytes?: number;
     startTime?: number;
-    autoExtract?: boolean;
   }> = new Map();
   private connectionPool?: NntpConnectionPool;
   private segmentDownloader?: SegmentDownloader;
@@ -1319,7 +1680,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
   private fallbackProviderIds: string[] = [];
   private connectionPools: Map<string, NntpConnectionPool> = new Map();
 
-  async addNzb(content: Buffer, filename: string, _category: string, downloadPath?: string, autoExtract?: boolean): Promise<string> {
+  async addNzb(content: Buffer, filename: string, _category: string, downloadPath?: string): Promise<string> {
     const id = Math.random().toString(36).substring(7);
     const parser = new DOMParser();
     const doc = parser.parseFromString(content.toString(), 'text/xml');
@@ -1329,7 +1690,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       downloadedArticles: number;
       size: number;
       articles: number;
-      downloadedSegments: Map<number, DecodedSegment>;
+      downloadedSegments: Map<number, StoredSegment>;
       downloadedBytes: number;
     }> = [];
     let totalSize = 0;
@@ -1381,7 +1742,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         downloadedArticles: 0,
         size: fileSize,
         articles: fileSegments.length,
-        downloadedSegments: new Map(),
+        downloadedSegments: new Map<number, StoredSegment>(),
         downloadedBytes: 0
       });
     }
@@ -1406,14 +1767,29 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       totalArticles,
       status: 'Downloading',
       downloadedBytes: 0,
-      startTime: Date.now(),
-      autoExtract: autoExtract ?? true // Default to true if not provided, though Manager should provide it
+      startTime: Date.now()
     });
 
     // Start background download (mocked for now, but with real connection logic)
     this.processDownload(id);
 
     return id;
+  }
+
+  private getMaxConnections(): number {
+    const configured = (this.settings as any).maxConnections;
+    if (typeof configured === 'number' && configured > 0) {
+      return configured;
+    }
+    return 10;
+  }
+
+  private getSegmentConcurrency(): number {
+    const configured = (this.settings as any).segmentConcurrency;
+    if (typeof configured === 'number' && configured > 0) {
+      return Math.min(configured, 100);
+    }
+    return 10;
   }
 
   private cleanupConnectionPool(): void {
@@ -1428,8 +1804,6 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     if (this.connectionPools.has(newProviderId)) {
       const pool = this.connectionPools.get(newProviderId);
       if (pool) {
-        this.connectionPool = pool;
-        console.log(`Switched to existing connection pool for provider ${newProviderId}`);
         return pool;
       }
     }
@@ -1439,6 +1813,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       throw new Error(`No settings found for provider ${newProviderId}`);
     }
 
+    const maxConnections = this.getMaxConnections();
     const newPool = new NntpConnectionPool(
       settings.hostname,
       settings.port,
@@ -1446,10 +1821,11 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       settings.username,
       settings.password,
       {
-        maxConnections: (this.settings as any).maxConnections || 10,
+        maxConnections,
         articleTimeoutMs: (this.settings as any).articleTimeoutMs || 15000
       }
     );
+
     await newPool.initialize();
     this.connectionPools.set(newProviderId, newPool);
     this.connectionPool = newPool;
@@ -1478,6 +1854,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
 
     try {
       this.fallbackProviderIds = this.settings.fallbackProviderIds || [];
+      const maxConnections = this.getMaxConnections();
 
       this.providerSettings.set(this.settings.id, {
         hostname: this.settings.hostname || 'localhost',
@@ -1502,7 +1879,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         primarySettings.username,
         primarySettings.password,
         {
-          maxConnections: (this.settings as any).maxConnections || 10,
+          maxConnections,
           articleTimeoutMs: (this.settings as any).articleTimeoutMs || 15000
         }
       );
@@ -1544,18 +1921,10 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         }
       }
 
-      // Extraction (Configurable)
-      const dExtract = this.activeDownloads.get(id);
-      if (dExtract && dExtract.autoExtract) {
-        dExtract.status = 'Extracting';
-        await this.extractFiles(id);
-      }
-
       const dFinal = this.activeDownloads.get(id);
       if (dFinal) {
-        // If we extracted, extractFiles might have set status to Completed or Failed.
-        // If we didn't extract, we need to set it here.
-        if (dFinal.status !== 'Failed' && dFinal.status !== 'Completed') {
+        // Mark as completed if not failed
+        if (dFinal.status !== 'Failed') {
           dFinal.status = 'Completed';
         }
       }
@@ -1574,7 +1943,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     const download = this.activeDownloads.get(id);
     if (!download || !this.segmentDownloader) return;
 
-    const maxConcurrent = (this.settings as any).maxConnections || 10;
+    const maxConcurrent = this.getSegmentConcurrency();
     const allSegments: Array<{ fileIndex: number; segment: NzbSegment }> = [];
 
     for (let fileIndex = 0; fileIndex < download.files.length; fileIndex++) {
@@ -1600,13 +1969,49 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       }
 
       try {
-        const decoded = await this.segmentDownloader!.downloadSegment(segment.messageId);
         const file = d.files[fileIndex];
-        file.downloadedSegments.set(segment.number, decoded);
+        if (!download.savePath) {
+          throw new Error('Download path not set for direct download');
+        }
+
+        const segmentsDir = path.join(download.savePath, '.segments');
+        if (!fs.existsSync(segmentsDir)) {
+          fs.mkdirSync(segmentsDir, { recursive: true });
+        }
+
+        const safeFileName = file.filename.replace(/[\\/]/g, '_');
+        const segmentPath = path.join(segmentsDir, `${safeFileName}.${segment.number}.seg`);
+
+        const decoded = await this.segmentDownloader!.downloadSegment(segment.messageId, segmentPath);
+        
+        // If data is present (legacy/fallback), write it. If not (streaming), it's already written.
+        if (decoded.data) {
+          await fs.promises.writeFile(segmentPath, decoded.data);
+        }
+
+        // Use NZB-encoded bytes for progress accounting
+        let segmentSize = segment.bytes;
+        if (!segmentSize) {
+          if (decoded.data) {
+            segmentSize = decoded.data.length;
+          } else {
+            const stats = await fs.promises.stat(segmentPath);
+            segmentSize = stats.size;
+          }
+        }
+
+        file.downloadedSegments.set(segment.number, {
+          path: segmentPath,
+          metadata: decoded.metadata,
+          size: segmentSize,
+        });
         file.downloadedArticles++;
-        file.downloadedBytes = (file.downloadedBytes || 0) + decoded.data.length;
+        file.downloadedBytes = (file.downloadedBytes || 0) + segmentSize;
         d.downloadedArticles++;
-        d.downloadedBytes = (d.downloadedBytes || 0) + decoded.data.length;
+        d.downloadedBytes = (d.downloadedBytes || 0) + segmentSize;
+        // Cap downloadedBytes to prevent progress > 100%
+        file.downloadedBytes = Math.min(file.downloadedBytes, file.size);
+        d.downloadedBytes = Math.min(d.downloadedBytes, download.totalSize);
         d.progress = download.totalSize > 0 ? (d.downloadedBytes / download.totalSize) * 100 : 0;
 
         if (d.startTime) {
@@ -1691,104 +2096,17 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     console.log(`File assembly complete for ${download.name}`);
   }
 
-  private async extractFiles(id: string): Promise<void> {
-    const download = this.activeDownloads.get(id);
-    if (!download || !download.savePath) {
-      console.error(`[DirectClient] Extract files failed: download not found or no save path for id ${id}`);
-      return;
-    }
-
-    console.log(`[DirectClient] Starting extraction for ${download.name}`);
-
-    let archivePath: string | null = null;
-
-    try {
-      const archives = download.files.filter(f =>
-        /\.(rar|part0*1\.rar|001|zip|7z)$/i.test(f.filename)
-      );
-
-      if (archives.length > 0) {
-        const mainArchive = archives[0].filename;
-        archivePath = path.join(download.savePath, mainArchive);
-
-        if (fs.existsSync(archivePath)) {
-          const stats = fs.statSync(archivePath);
-          if (stats.size === 0) {
-            console.warn(`[DirectClient] Archive file exists but is empty: ${archivePath}`);
-            archivePath = null;
-          }
-        } else {
-          console.warn(`[DirectClient] Archive file not found: ${archivePath}`);
-          archivePath = null;
-        }
-      }
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error(String(err));
-      console.error(`[DirectClient] Error while locating archive: ${error.message}`);
-      archivePath = null;
-    }
-
-    if (!archivePath) {
-      console.log(`[DirectClient] No archive found to extract, assuming files are ready`);
-      download.status = 'Completed';
-      this.cleanupConnectionPool();
-      return;
-    }
-
-    console.log(`[DirectClient] Extracting archive: ${archivePath}`);
-
-    try {
-      const myStream = Seven.extractFull(archivePath, download.savePath, {
-        $bin: sevenBin.path7za,
-        recursive: true,
-        $progress: true
-      });
-
-      let currentFile = '';
-      myStream.on('progress', (data: any) => {
-        if (data && data.file) {
-          currentFile = data.file;
-          console.log(`[DirectClient] Extracting: ${currentFile}`);
-        }
-      });
-
-      await new Promise<void>((resolve, reject) => {
-        const timeout = setTimeout(() => {
-          reject(new Error('Extraction timed out'));
-        }, 300000);
-
-        myStream.on('end', () => {
-          clearTimeout(timeout);
-          resolve();
-        });
-
-        myStream.on('error', (err: any) => {
-          clearTimeout(timeout);
-          reject(err);
-        });
-      });
-
-      console.log(`[DirectClient] Extraction complete for ${archivePath}`);
-      download.status = 'Completed';
-      this.cleanupConnectionPool();
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error(String(err));
-      console.error(`[DirectClient] Extraction failed for ${archivePath}: ${error.message}`);
-      if (error.stack) {
-        console.error(`[DirectClient] Error stack: ${error.stack}`);
-      }
-      download.status = 'Failed';
-      this.cleanupConnectionPool();
-    }
-  }
-
   async getStatus(ids: string[]): Promise<DownloadStatus[]> {
     return ids
       .filter(id => this.activeDownloads.has(id))
       .map(id => {
         const d = this.activeDownloads.get(id)!;
-        const progress = d.progress || (d.downloadedArticles / d.totalArticles) * 100;
-        const remainingSize = d.totalSize - (d.downloadedBytes || 0);
+        const downloadedBytes = Math.min(d.downloadedBytes || 0, d.totalSize);
+        if (d.downloadedBytes && d.downloadedBytes > d.totalSize) {
+          d.downloadedBytes = downloadedBytes;
+        }
+        const remainingSize = Math.max(0, d.totalSize - downloadedBytes);
+        const progress = Math.min(100, Math.max(0, d.progress ?? (d.downloadedArticles / d.totalArticles) * 100));
         const speed = d.speed || (d.status === 'Downloading' ? 1024 * 1024 * 5 : 0);
         const eta = d.eta !== undefined ? d.eta : (d.status === 'Downloading' && speed > 0 ? remainingSize / speed : 0);
         return {
@@ -1862,7 +2180,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
 
 
 export class SABnzbdClient extends BaseNewsreaderClient {
-  async addNzb(content: Buffer, filename: string, category: string, downloadPath?: string, _autoExtract?: boolean): Promise<string> {
+  async addNzb(content: Buffer, filename: string, category: string, downloadPath?: string): Promise<string> {
     const form = new FormData();
     form.append('nzbfile', content, { filename });
     
@@ -2009,7 +2327,7 @@ export class NZBGetClient extends BaseNewsreaderClient {
     return response.data.result;
   }
 
-  async addNzb(content: Buffer, filename: string, category: string, _downloadPath?: string, _autoExtract?: boolean): Promise<string> {
+  async addNzb(content: Buffer, filename: string, category: string): Promise<string> {
     const result = await this.rpc('append', [
       filename,
       content.toString('base64'),

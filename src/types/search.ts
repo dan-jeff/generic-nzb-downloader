@@ -24,6 +24,7 @@ export interface NewsreaderSettings {
   useSSL?: boolean;
   retryAttempts?: number;
   retryBackoffMs?: number;
+  segmentConcurrency?: number;
   fallbackProviderIds?: string[];
   maxConnections?: number;
   articleTimeoutMs?: number;

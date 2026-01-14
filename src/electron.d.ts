@@ -27,7 +27,6 @@ export interface DownloadHistoryItem {
 
 export interface DownloadSettings {
   downloadDirectory: string;
-  autoExtract?: boolean;
 }
 
 export interface UpdateStatus {

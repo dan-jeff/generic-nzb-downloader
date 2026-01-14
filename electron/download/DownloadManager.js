@@ -204,7 +204,6 @@ export class DownloadManager {
         // Use provider-specific path, or fall back to global download settings
         const downloadSettings = this.store.get('downloadSettings');
         const downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
-        const autoExtract = downloadSettings?.autoExtract ?? true;
         let buffer;
         if (typeof content === 'string') {
             const response = await axios.get(content, { responseType: 'arraybuffer' });
@@ -213,7 +212,7 @@ export class DownloadManager {
         else {
             buffer = content;
         }
-        const externalId = await client.addNzb(buffer, filename, 'default', downloadPath, autoExtract);
+        const externalId = await client.addNzb(buffer, filename, 'default', downloadPath);
         const friendlyName = this.providerNames.get(selectedProviderId) || selectedProviderId;
         const downloadItem = {
             id,
