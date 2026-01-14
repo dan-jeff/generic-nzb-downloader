@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -52,9 +52,22 @@ function CustomTabPanel(props: TabPanelProps) {
 
 function App() {
   const [activeTab, setActiveTab] = useState(0);
+  const [appVersion, setAppVersion] = useState('');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { activeDownloads, history } = useDownloads();
+
+  useEffect(() => {
+    const fetchVersion = async () => {
+      try {
+        const version = await window.electron.getAppVersion();
+        setAppVersion(version);
+      } catch (error) {
+        console.error('Failed to fetch app version:', error);
+      }
+    };
+    fetchVersion();
+  }, []);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -139,7 +152,7 @@ function App() {
 
           {!isMobile && (
             <Chip 
-              label="v1.0.0" 
+              label={`v${appVersion || '...'}`} 
               size="small" 
               variant="outlined" 
               sx={{ height: 20, fontSize: '0.65rem', fontWeight: 700, borderColor: 'divider', ml: 1 }} 
