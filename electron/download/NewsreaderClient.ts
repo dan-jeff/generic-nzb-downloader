@@ -9,6 +9,7 @@ import { Readable, Writable } from 'stream';
 import { spawn, ChildProcess } from 'child_process';
 import { DownloadStatus, DownloadState } from '../types/download.js';
 import { NewsreaderSettings } from '../types/search.js';
+import { NetworkFactory } from '../../src/core/interfaces/INetwork.js';
 
 export interface YencMetadata {
   line: number;
@@ -685,8 +686,10 @@ export class NntpConnection {
   private responseBuffer: string = '';
   private outputStream: Readable | null = null;
   private onStreamStart: (() => void) | null = null;
+  private _networkFactory: NetworkFactory;
 
-  constructor(articleTimeoutMs: number = 15000) {
+  constructor(networkFactory: NetworkFactory, articleTimeoutMs: number = 15000) {
+    this._networkFactory = networkFactory;
     this.hostname = '';
     this.port = 119;
     this.useSSL = false;
@@ -1108,6 +1111,7 @@ export class NntpConnectionPool {
   private password?: string;
   private maxConnections: number;
   private articleTimeoutMs: number;
+  private networkFactory: NetworkFactory;
 
   constructor(
     hostname: string,
@@ -1115,6 +1119,7 @@ export class NntpConnectionPool {
     useSSL: boolean,
     username: string | undefined,
     password: string | undefined,
+    networkFactory: NetworkFactory,
     config: NntpConnectionPoolConfig = {}
   ) {
     this.hostname = hostname;
@@ -1122,6 +1127,7 @@ export class NntpConnectionPool {
     this.useSSL = useSSL;
     this.username = username;
     this.password = password;
+    this.networkFactory = networkFactory;
     this.maxConnections = config.maxConnections || 4;
     this.articleTimeoutMs = config.articleTimeoutMs || 15000;
   }
@@ -1157,7 +1163,7 @@ export class NntpConnectionPool {
     }
 
     if (this.connections.length < this.maxConnections) {
-      const connection = new NntpConnection(this.articleTimeoutMs);
+      const connection = new NntpConnection(this.networkFactory, this.articleTimeoutMs);
       this.connections.push(connection);
       return connection;
     }
@@ -1249,7 +1255,7 @@ export class NntpConnectionPool {
 
   private createReplacementConnection(): void {
     if (this.connections.length < this.maxConnections) {
-      const connection = new NntpConnection(this.articleTimeoutMs);
+      const connection = new NntpConnection(this.networkFactory, this.articleTimeoutMs);
       this.connections.push(connection);
     }
   }
@@ -1273,7 +1279,7 @@ export class NntpConnectionPool {
   async initialize(): Promise<void> {
     const initialConnections = Math.min(2, this.maxConnections);
     for (let i = 0; i < initialConnections; i++) {
-      const connection = new NntpConnection(this.articleTimeoutMs);
+      const connection = new NntpConnection(this.networkFactory, this.articleTimeoutMs);
       await connection.connect(this.hostname, this.port, this.useSSL, this.username, this.password);
       this.connections.push(connection);
       this.availableConnections.push(connection);
@@ -1679,6 +1685,12 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
   private providerSettings: Map<string, { hostname: string; port: number; useSSL: boolean; username?: string; password?: string }> = new Map();
   private fallbackProviderIds: string[] = [];
   private connectionPools: Map<string, NntpConnectionPool> = new Map();
+  private networkFactory: NetworkFactory;
+
+  constructor(settings: NewsreaderSettings, networkFactory: NetworkFactory) {
+    super(settings);
+    this.networkFactory = networkFactory;
+  }
 
   async addNzb(content: Buffer, filename: string, _category: string, downloadPath?: string): Promise<string> {
     const id = Math.random().toString(36).substring(7);
@@ -1820,6 +1832,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       settings.useSSL,
       settings.username,
       settings.password,
+      this.networkFactory,
       {
         maxConnections,
         articleTimeoutMs: (this.settings as any).articleTimeoutMs || 15000
@@ -1878,6 +1891,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         primarySettings.useSSL,
         primarySettings.username,
         primarySettings.password,
+        this.networkFactory,
         {
           maxConnections,
           articleTimeoutMs: (this.settings as any).articleTimeoutMs || 15000

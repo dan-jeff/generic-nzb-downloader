@@ -14,7 +14,16 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
+
+const getElectronBridge = () => {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+  return (window as any).electron as any | undefined;
+};
 import {
   DeleteSweep as ClearIcon,
   CheckCircle as CompletedIcon,
@@ -29,7 +38,10 @@ import {
 import { useDownloads } from '../hooks/useDownloads';
 import { formatBytes } from '../utils/format';
 
-const DownloadPanel: React.FC = () => {
+  const DownloadPanel: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
   const { 
     activeDownloads, 
     history, 
@@ -55,6 +67,7 @@ const DownloadPanel: React.FC = () => {
   };
 
   const handleDrop = async (event: React.DragEvent) => {
+    if (isMobile) return;
     event.preventDefault();
     event.stopPropagation();
     setIsDragging(false);
@@ -67,6 +80,7 @@ const DownloadPanel: React.FC = () => {
   };
 
   const handleDragEnter = (event: React.DragEvent) => {
+    if (isMobile) return;
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = 'copy';
@@ -74,6 +88,7 @@ const DownloadPanel: React.FC = () => {
   };
 
   const handleDragOver = (event: React.DragEvent) => {
+    if (isMobile) return;
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = 'copy';
@@ -81,6 +96,7 @@ const DownloadPanel: React.FC = () => {
   };
 
   const handleDragLeave = (event: React.DragEvent) => {
+    if (isMobile) return;
     event.preventDefault();
     event.stopPropagation();
 
@@ -113,7 +129,7 @@ const DownloadPanel: React.FC = () => {
       sx={{ 
         height: '100%',
         position: 'relative',
-        '&::after': isDragging ? {
+        '&::after': !isMobile && isDragging ? {
           content: '""',
           position: 'absolute',
           top: 0,
@@ -136,20 +152,20 @@ const DownloadPanel: React.FC = () => {
         onChange={handleFileUpload}
       />
 
-      {/* Clear History Button in Title Row if needed, or elsewhere */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h5" sx={{ color: '#fff', display: 'flex', alignItems: 'center', gap: 2 }}>
-          <ActiveIcon sx={{ color: 'primary.main', fontSize: 26 }} /> DOWNLOADS
-        </Typography>
+      <Box sx={{ mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+          <ActiveIcon sx={{ color: 'primary.main', fontSize: isMobile ? 22 : 26 }} />
+          <Typography variant="h5" sx={{ color: '#fff', fontSize: isMobile ? '1.25rem' : 'h5.fontSize' }}>DOWNLOADS</Typography>
+        </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Tooltip title="Add NZB">
-            <IconButton onClick={() => fileInputRef.current?.click()} size="small" sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}>
-              <AddIcon sx={{ fontSize: 22 }} />
+            <IconButton onClick={() => fileInputRef.current?.click()} size={isMobile ? "medium" : "small"} sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}>
+              <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
             </IconButton>
           </Tooltip>
           <Tooltip title="Clear History">
-            <IconButton onClick={clearHistory} size="small" sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#ff4444', background: 'rgba(255, 68, 68, 0.1)' } }}>
-              <ClearIcon sx={{ fontSize: 22 }} />
+            <IconButton onClick={clearHistory} size={isMobile ? "medium" : "small"} sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#ff4444', background: 'rgba(255, 68, 68, 0.1)' } }}>
+              <ClearIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
             </IconButton>
           </Tooltip>
         </Box>
@@ -166,7 +182,7 @@ const DownloadPanel: React.FC = () => {
               <Paper 
                 key={download.id} 
                 sx={{ 
-                  p: 2.5, 
+                  p: isMobile ? 2 : 2.5, 
                   background: 'rgba(30, 41, 59, 0.4)',
                   border: '1px solid rgba(148, 163, 184, 0.12)',
                   borderRadius: 1,
@@ -179,46 +195,69 @@ const DownloadPanel: React.FC = () => {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                  <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.9375rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: isMobile ? 2 : 1, flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 2 : 0 }}>
+                  <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: isMobile ? '100%' : 'auto' }}>
                         {download.filename}
                       </Typography>
-                      <Chip 
-                        label={download.providerName} 
-                        size="small" 
-                        sx={{ height: 16, fontSize: '0.675rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
-                      />
-                      <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        {download.status}
-                      </Typography>
+                      {!isMobile && (
+                        <>
+                          <Chip 
+                            label={download.providerName} 
+                            size="small" 
+                            sx={{ height: 16, fontSize: '0.675rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
+                          />
+                          <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            {download.status}
+                          </Typography>
+                        </>
+                      )}
                     </Box>
+                    {isMobile && (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, flexWrap: 'wrap' }}>
+                        <Chip 
+                          label={download.providerName} 
+                          size="small" 
+                          sx={{ height: 20, fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
+                        />
+                        <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.775rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          {download.status}
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
                   
-                  <Box sx={{ display: 'flex', gap: 0.5, ml: 2 }}>
-                    <Tooltip title="Open Location">
-                      <IconButton size="small" onClick={() => window.electron.openPath(download.path || download.filename)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
-                        <OpenIcon sx={{ fontSize: 18 }} />
-                      </IconButton>
-                    </Tooltip>
+                  <Box sx={{ display: 'flex', gap: 0.5, ml: isMobile ? 0 : 2, width: isMobile ? '100%' : 'auto', justifyContent: isMobile ? 'flex-start' : 'flex-end', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+                      <Tooltip title="Open Location">
+                        <IconButton
+                          size={isMobile ? "medium" : "small"}
+                          onClick={() => {
+                            const electronBridge = getElectronBridge();
+                            electronBridge?.openPath?.(download.path || download.filename);
+                          }}
+                          sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}
+                        >
+                          <OpenIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                        </IconButton>
+                      </Tooltip>
                     <Tooltip title={download.status === 'paused' ? "Resume" : "Pause"}>
-                      <IconButton size="small" onClick={() => pauseDownload(download.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
-                        {download.status === 'paused' ? <ResumeIcon sx={{ fontSize: 18 }} /> : <PauseIcon sx={{ fontSize: 18 }} />}
+                      <IconButton size={isMobile ? "medium" : "small"} onClick={() => pauseDownload(download.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
+                        {download.status === 'paused' ? <ResumeIcon sx={{ fontSize: isMobile ? 24 : 18 }} /> : <PauseIcon sx={{ fontSize: isMobile ? 24 : 18 }} />}
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton size="small" onClick={() => deleteDownload(download.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
-                        <DeleteIcon sx={{ fontSize: 18 }} />
+                      <IconButton size={isMobile ? "medium" : "small"} onClick={() => deleteDownload(download.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
+                        <DeleteIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete from Disk">
                       <IconButton 
-                        size="small" 
+                        size={isMobile ? "medium" : "small"} 
                         onClick={() => setConfirmDeleteId(download.id)} 
-                        sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                        sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
                       >
-                        <DeleteForeverIcon sx={{ fontSize: 18 }} />
+                        <DeleteForeverIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -230,7 +269,7 @@ const DownloadPanel: React.FC = () => {
                       variant="determinate" 
                       value={download.percent * 100} 
                       sx={{ 
-                        height: 4, 
+                        height: isMobile ? 6 : 4, 
                         borderRadius: 2,
                         backgroundColor: 'rgba(255,255,255,0.05)',
                         '& .MuiLinearProgress-bar': {
@@ -241,18 +280,18 @@ const DownloadPanel: React.FC = () => {
                       }} 
                     />
                   </Box>
-                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: '0.825rem', textAlign: 'right' }}>
+                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: isMobile ? '0.875rem' : '0.825rem', textAlign: 'right' }}>
                     {Math.round(download.percent * 100)}%
                   </Typography>
                 </Box>
                 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
-                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.775rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5, flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 1 : 0, alignItems: isMobile ? 'flex-start' : 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                       {formatBytes(download.transferredBytes)} / {formatBytes(download.totalBytes)}
                     </Typography>
                     {download.speed && (
-                      <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.775rem' }}>
+                      <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 700, fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                         {formatBytes(download.speed)}/s
                       </Typography>
                     )}
@@ -281,7 +320,7 @@ const DownloadPanel: React.FC = () => {
               <Paper 
                 key={item.id} 
                 sx={{ 
-                  p: 2.5, 
+                  p: isMobile ? 2 : 2.5, 
                   background: 'rgba(30, 41, 59, 0.4)',
                   border: '1px solid rgba(148, 163, 184, 0.12)',
                   borderRadius: 1,
@@ -294,36 +333,50 @@ const DownloadPanel: React.FC = () => {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                  <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.9375rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: isMobile ? 2 : 1, flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 2 : 0 }}>
+                  <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: isMobile ? '100%' : 'auto' }}>
                         {item.filename}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {!isMobile && (
+                        <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          COMPLETED
+                        </Typography>
+                      )}
+                    </Box>
+                    {isMobile && (
+                      <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.775rem', textTransform: 'uppercase', letterSpacing: '0.05em', mt: 1, display: 'block' }}>
                         COMPLETED
                       </Typography>
-                    </Box>
+                    )}
                   </Box>
                   
-                  <Box sx={{ display: 'flex', gap: 0.5, ml: 2 }}>
+                  <Box sx={{ display: 'flex', gap: 0.5, ml: isMobile ? 0 : 2, width: isMobile ? '100%' : 'auto', justifyContent: isMobile ? 'flex-start' : 'flex-end', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
                     <Tooltip title="Open Location">
-                      <IconButton size="small" onClick={() => window.electron.openPath(item.path)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
-                        <OpenIcon sx={{ fontSize: 18 }} />
+                      <IconButton
+                        size={isMobile ? "medium" : "small"}
+                        onClick={() => {
+                          const electronBridge = getElectronBridge();
+                          electronBridge?.openPath?.(item.path);
+                        }}
+                        sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}
+                      >
+                        <OpenIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete Record">
-                      <IconButton size="small" onClick={() => deleteDownload(item.id)} sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
-                        <DeleteIcon sx={{ fontSize: 18 }} />
+                      <IconButton size={isMobile ? "medium" : "small"} onClick={() => deleteDownload(item.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
+                        <DeleteIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete from Disk">
                       <IconButton 
-                        size="small" 
+                        size={isMobile ? "medium" : "small"} 
                         onClick={() => setConfirmDeleteId(item.id)} 
-                        sx={{ width: 24, height: 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                        sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
                       >
-                        <DeleteForeverIcon sx={{ fontSize: 18 }} />
+                        <DeleteForeverIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -335,7 +388,7 @@ const DownloadPanel: React.FC = () => {
                       variant="determinate" 
                       value={100} 
                       sx={{ 
-                        height: 4, 
+                        height: isMobile ? 6 : 4, 
                         borderRadius: 2,
                         backgroundColor: 'rgba(255,255,255,0.05)',
                         '& .MuiLinearProgress-bar': {
@@ -346,17 +399,17 @@ const DownloadPanel: React.FC = () => {
                       }} 
                     />
                   </Box>
-                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: '0.825rem', textAlign: 'right' }}>
+                  <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 800, minWidth: 32, fontSize: isMobile ? '0.875rem' : '0.825rem', textAlign: 'right' }}>
                     100%
                   </Typography>
                 </Box>
                 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
-                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.775rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5, flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 1 : 0, alignItems: isMobile ? 'flex-start' : 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                       {formatBytes(item.size)}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.775rem' }}>
+                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.3)', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                       {new Date(item.timestamp).toLocaleDateString()}
                     </Typography>
                   </Box>

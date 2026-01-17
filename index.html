@@ -7,6 +7,25 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="module">
+      import { Buffer } from 'buffer';
+      import process from 'process';
+
+      console.log('GenericDownloader: Index.html script starting');
+      try {
+        console.log('GenericDownloader: Imports successful');
+        
+        window.Buffer = Buffer;
+        window.process = process;
+        window.global = window;
+        window.__dirname = '/';
+        window.__filename = '/index.html';
+        
+        console.log('GenericDownloader: Polyfills injected');
+      } catch (e) {
+        console.error('GenericDownloader: Error in polyfill injection', e);
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

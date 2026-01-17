@@ -29,7 +29,11 @@ import {
   Grid,
   Checkbox,
   LinearProgress,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
+import { Capacitor } from '@capacitor/core';
+import { serviceContainer } from '../core/ServiceContainer';
 import {
   Settings as SettingsIcon,
   ExpandMore as ExpandMoreIcon,
@@ -41,12 +45,27 @@ import {
   Cloud as CloudIcon,
   FolderOpen as FolderOpenIcon,
   SystemUpdateAlt as UpdateIcon,
+  BugReport as BugReportIcon,
+  ContentCopy as ContentCopyIcon,
 } from '@mui/icons-material';
 import { SearchProviderSettings, IndexerConfig, NewsreaderSettings } from '../types/search';
+import { useSettings } from '../hooks/useSettings';
+import DirectoryPicker from './DirectoryPicker';
+import debugLogger from '../utils/debugLogger';
+
+const getElectronBridge = () => {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+  return (window as any).electron as any | undefined;
+};
 
 const SettingsPanel: React.FC = () => {
-  const [settings, setSettings] = useState<SearchProviderSettings[]>([]);
+  const { settings, downloadSettings, loading: settingsLoading, updateSettings, updateDownloadSettings, fetchSettings } = useSettings();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [downloadDirectory, setDownloadDirectory] = useState('');
+  const [directoryPickerOpen, setDirectoryPickerOpen] = useState(false);
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [appVersion, setAppVersion] = useState('');
   const [updateStatus, setUpdateStatus] = useState<
@@ -54,7 +73,6 @@ const SettingsPanel: React.FC = () => {
   >('idle');
   const [updateMessage, setUpdateMessage] = useState('');
   const [updateProgress, setUpdateProgress] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
@@ -63,13 +81,86 @@ const SettingsPanel: React.FC = () => {
   });
 
   const [expanded, setExpanded] = useState<string | false>(false);
+  const [localSettings, setLocalSettings] = useState<SearchProviderSettings[]>([]);
+  const [debugLogs, setDebugLogs] = useState<string[]>([]);
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+  const [platform, setPlatform] = useState<string>('web');
+  const [networkStatus, setNetworkStatus] = useState<string>('Checking...');
+
+  useEffect(() => {
+    if (!settingsLoading && downloadSettings) {
+      setDownloadDirectory(downloadSettings.downloadDirectory || '');
+    }
+  }, [settingsLoading, downloadSettings]);
+
+  useEffect(() => {
+    setLocalSettings(settings);
+  }, [settings]);
+
+  useEffect(() => {
+    const refreshDebugLogs = () => {
+      const logs = debugLogger.getLogs();
+      setDebugLogs(logs);
+      setLastUpdated(new Date().toLocaleTimeString());
+    };
+
+    refreshDebugLogs();
+    const interval = setInterval(refreshDebugLogs, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const platform = Capacitor.getPlatform();
+    setPlatform(platform);
+  }, []);
+
+  useEffect(() => {
+    let networkAdapter: any;
+
+    try {
+      networkAdapter = serviceContainer.getNetworkAdapter();
+
+      if (networkAdapter && typeof networkAdapter.on === 'function') {
+        const handleNetworkEvent = (status: { online: boolean }) => {
+          setNetworkStatus(status.online ? 'online' : 'offline');
+        };
+
+        networkAdapter.on('network', handleNetworkEvent);
+
+        return () => {
+          if (networkAdapter && typeof networkAdapter.off === 'function') {
+            networkAdapter.off('network', handleNetworkEvent);
+          }
+        };
+      }
+    } catch (error) {
+      console.error('Failed to get network adapter:', error);
+    }
+
+    setNetworkStatus('unknown');
+
+    const handleOnline = () => setNetworkStatus('online');
+    const handleOffline = () => setNetworkStatus('offline');
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    setNetworkStatus(navigator.onLine ? 'online' : 'offline');
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     fetchSettings();
     fetchUpdateInfo();
 
-    const removeUpdateListener = window.electron.onUpdateStatus
-      ? window.electron.onUpdateStatus((status) => {
+    const electronBridge = getElectronBridge();
+    const removeUpdateListener = electronBridge?.onUpdateStatus
+      ? electronBridge.onUpdateStatus((status: any) => {
           switch (status.type) {
             case 'checking':
               setUpdateStatus('checking');
@@ -111,28 +202,15 @@ const SettingsPanel: React.FC = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const fetchSettings = async () => {
-    try {
-      setLoading(true);
-      const [searchSettings, downloadSettings] = await Promise.all([
-        window.electron.getSearchSettings(),
-        window.electron.getDownloadSettings(),
-      ]);
-      setSettings(searchSettings);
-      setDownloadDirectory(downloadSettings?.downloadDirectory || '');
-    } catch (error) {
-      console.error('Failed to fetch settings:', error);
-      showSnackbar('Failed to load settings', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchUpdateInfo = async () => {
     try {
+      const electronBridge = getElectronBridge();
+      if (!electronBridge?.getAppVersion || !electronBridge?.getAutoUpdate) {
+        return;
+      }
       const [version, autoUpdateEnabled] = await Promise.all([
-        window.electron.getAppVersion(),
-        window.electron.getAutoUpdate(),
+        electronBridge.getAppVersion(),
+        electronBridge.getAutoUpdate(),
       ]);
       setAppVersion(version);
       setAutoUpdate(autoUpdateEnabled);
@@ -144,10 +222,51 @@ const SettingsPanel: React.FC = () => {
   const handleSave = async () => {
     try {
       setSaving(true);
+      
+      // Normalize direct newsreader ports AND useSSL before saving
+      const settingsToSave = localSettings.map(p => {
+        if (p.type === 'nzb' && p.newsreaders) {
+          const newsreaders = p.newsreaders.map(nr => {
+            const port = nr.port;
+            const useSSL = nr.useSSL;
+            
+            // Log current state
+            console.log(`[SettingsPanel] Newsreader "${nr.name || nr.id}" - current port:`, port, `useSSL:`, useSSL);
+            
+            // If port is undefined/empty, set default based on SSL
+            const finalPort = (port === undefined || port === null || port === 0 || port === 563) 
+              ? (useSSL || true ? 563 : 119) 
+              : parseInt(String(port || ''), 10);
+            
+            // CRITICAL FIX: If useSSL is undefined, force it to true for direct newsreaders
+            const finalUseSSL = useSSL === undefined ? true : useSSL;
+            
+            console.log(`[SettingsPanel] Newsreader "${nr.name || nr.id}" - normalized useSSL:`, finalUseSSL);
+            
+            return {
+              ...nr,
+              port: finalPort,
+              useSSL: finalUseSSL
+            };
+          });
+          
+          return {
+            ...p,
+            newsreaders
+          };
+        }
+        return p;
+      });
+      
+      console.log('[SettingsPanel] Final settings before save:', JSON.stringify(settingsToSave));
+      
       const [searchSaved, downloadSaved] = await Promise.all([
-        window.electron.updateSearchSettings(settings),
-        window.electron.updateDownloadSettings({ downloadDirectory }),
+        updateSettings(settingsToSave),
+        updateDownloadSettings({ downloadDirectory }),
       ]);
+      
+      console.log('[SettingsPanel] Save results - searchSaved:', searchSaved, 'downloadSaved:', downloadSaved);
+      
       if (searchSaved && downloadSaved) {
         showSnackbar('Settings saved successfully', 'success');
       } else {
@@ -168,21 +287,31 @@ const SettingsPanel: React.FC = () => {
   const handleAutoUpdateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const enabled = event.target.checked;
     setAutoUpdate(enabled);
-    window.electron.setAutoUpdate(enabled);
+    const electronBridge = getElectronBridge();
+    electronBridge?.setAutoUpdate?.(enabled);
   };
 
   const handleCheckForUpdate = () => {
     setUpdateStatus('checking');
     setUpdateMessage('Checking for updates...');
-    window.electron.checkForUpdate();
+    const electronBridge = getElectronBridge();
+    electronBridge?.checkForUpdate?.();
   };
 
   const handleQuitAndInstall = () => {
-    window.electron.quitAndInstall();
+    const electronBridge = getElectronBridge();
+    electronBridge?.quitAndInstall?.();
+  };
+
+  const handleProviderToggle = (type: string) => {
+    console.log(`Toggling provider ${type}`);
+    setLocalSettings(prev => prev.map(p => 
+      p.type === type ? { ...p, enabled: !p.enabled } : p
+    ));
   };
 
   const handleIndexerChange = (indexerId: string, field: keyof IndexerConfig, value: string | boolean) => {
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.indexers) {
           return {
@@ -206,21 +335,26 @@ const SettingsPanel: React.FC = () => {
       enabled: true,
     };
 
-    setSettings(prev =>
-      prev.map(p => {
-        if (p.type === 'nzb') {
-          return {
-            ...p,
-            indexers: [...(p.indexers || []), newIndexer],
-          };
-        }
-        return p;
-      })
-    );
+    setLocalSettings(prev => {
+      const nzbProvider = prev.find(p => p.type === 'nzb');
+      if (nzbProvider) {
+        return prev.map(p => {
+          if (p.type === 'nzb') {
+            return {
+              ...p,
+              indexers: [...(p.indexers || []), newIndexer],
+            };
+          }
+          return p;
+        });
+      } else {
+        return [...prev, { type: 'nzb', enabled: true, indexers: [newIndexer], newsreaders: [] }];
+      }
+    });
   };
 
   const removeIndexer = (id: string) => {
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.indexers) {
           return {
@@ -234,7 +368,7 @@ const SettingsPanel: React.FC = () => {
   };
 
   const handleNewsreaderToggle = (id: string) => {
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.newsreaders) {
           return {
@@ -254,7 +388,7 @@ const SettingsPanel: React.FC = () => {
       ? (parseInt(value) || 0)
       : value;
     
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.newsreaders) {
           return {
@@ -270,7 +404,7 @@ const SettingsPanel: React.FC = () => {
   };
 
   const handleFallbackProviderToggle = (providerId: string, newsreaderId: string) => {
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.newsreaders) {
           return {
@@ -304,21 +438,26 @@ const SettingsPanel: React.FC = () => {
       downloadPath: '',
     };
 
-    setSettings(prev =>
-      prev.map(p => {
-        if (p.type === 'nzb') {
-          return {
-            ...p,
-            newsreaders: [...(p.newsreaders || []), newNewsreader],
-          };
-        }
-        return p;
-      })
-    );
+    setLocalSettings(prev => {
+      const nzbProvider = prev.find(p => p.type === 'nzb');
+      if (nzbProvider) {
+        return prev.map(p => {
+          if (p.type === 'nzb') {
+            return {
+              ...p,
+              newsreaders: [...(p.newsreaders || []), newNewsreader],
+            };
+          }
+          return p;
+        });
+      } else {
+        return [...prev, { type: 'nzb', enabled: true, indexers: [], newsreaders: [newNewsreader] }];
+      }
+    });
   };
 
   const removeNewsreader = (id: string) => {
-    setSettings(prev =>
+    setLocalSettings(prev =>
       prev.map(p => {
         if (p.type === 'nzb' && p.newsreaders) {
           return {
@@ -331,7 +470,22 @@ const SettingsPanel: React.FC = () => {
     );
   };
 
-  if (loading) {
+  const handleCopyLogs = () => {
+    const logsText = debugLogs.join('\n');
+    navigator.clipboard.writeText(logsText).then(() => {
+      showSnackbar('Logs copied to clipboard', 'success');
+    }).catch(() => {
+      showSnackbar('Failed to copy logs', 'error');
+    });
+  };
+
+  const handleClearLogs = () => {
+    debugLogger.clearLogs();
+    setDebugLogs([]);
+    showSnackbar('Logs cleared', 'success');
+  };
+
+  if (settingsLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
         <CircularProgress />
@@ -339,18 +493,19 @@ const SettingsPanel: React.FC = () => {
     );
   }
 
-  const nzbProvider = settings.find(p => p.type === 'nzb');
+  const nzbProvider = localSettings.find(p => p.type === 'nzb');
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h5" sx={{ color: '#fff', display: 'flex', alignItems: 'center', gap: 2 }}>
-          <SettingsIcon sx={{ color: 'primary.main', fontSize: 26 }} /> SETTINGS
-        </Typography>
+      <Box sx={{ mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+          <SettingsIcon sx={{ color: 'primary.main', fontSize: 26 }} />
+          <Typography variant="h5" sx={{ color: '#fff' }}>SETTINGS</Typography>
+        </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Tooltip title="Discard changes and reload from disk">
-            <Button 
-              startIcon={<RefreshIcon sx={{ fontSize: '1.125rem !important' }} />} 
+            <Button
+              startIcon={<RefreshIcon sx={{ fontSize: '1.125rem !important' }} />}
               onClick={fetchSettings}
               variant="outlined"
               size="small"
@@ -376,6 +531,7 @@ const SettingsPanel: React.FC = () => {
       </Box>
 
       <Paper sx={{ background: 'rgba(15, 23, 42, 0.3)', borderRadius: 1, overflow: 'hidden', border: '1px solid rgba(148, 163, 184, 0.12)' }}>
+
         {/* Download Settings */}
         <Accordion 
           expanded={expanded === 'downloads'} 
@@ -408,17 +564,31 @@ const SettingsPanel: React.FC = () => {
             </Box>
           </AccordionSummary>
           <AccordionDetails sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', p: 3 }}>
-            <TextField
-              fullWidth
-              label="Download Directory"
-              size="small"
-              value={downloadDirectory}
-              onChange={(e) => setDownloadDirectory(e.target.value)}
-              placeholder="e.g. C:\\Downloads"
-              helperText="Leave blank to use the system default downloads folder"
-              InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
-              inputProps={{ sx: { fontSize: '0.9375rem' } }}
-            />
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+              <TextField
+                fullWidth
+                label="Download Directory"
+                size="small"
+                value={downloadDirectory}
+                onChange={(e) => setDownloadDirectory(e.target.value)}
+                placeholder="e.g. C:\\Downloads"
+                helperText="Leave blank to use the system default downloads folder"
+                InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
+                inputProps={{ sx: { fontSize: '0.9375rem' } }}
+              />
+              <Tooltip title="Browse folders">
+                <IconButton
+                  onClick={() => setDirectoryPickerOpen(true)}
+                  sx={{
+                    mt: isMobile ? 0 : 0.5,
+                    color: 'primary.main',
+                    '&:hover': { backgroundColor: 'rgba(124, 58, 237, 0.1)' }
+                  }}
+                >
+                  <FolderOpenIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </AccordionDetails>
         </Accordion>
 
@@ -546,6 +716,21 @@ const SettingsPanel: React.FC = () => {
                   </Typography>
                 </Box>
               </Box>
+              <FormControlLabel
+                control={
+                  <Switch 
+                    checked={nzbProvider?.enabled ?? false} 
+                    onChange={(e) => { 
+                      e.stopPropagation(); 
+                      handleProviderToggle('nzb'); 
+                    }} 
+                    size="small"
+                  />
+                }
+                label={<Typography variant="body2" sx={{ fontSize: '0.875rem' }}>{nzbProvider?.enabled ? "Enabled" : "Disabled"}</Typography>}
+                onClick={(e) => e.stopPropagation()}
+                sx={{ mr: 0 }}
+              />
             </Box>
           </AccordionSummary>
           <AccordionDetails sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', p: 3 }}>
@@ -560,71 +745,141 @@ const SettingsPanel: React.FC = () => {
                 Add Indexer
               </Button>
             </Box>
-            
-            <TableContainer component={Box} sx={{ border: '1px solid rgba(255,255,255,0.05)', borderRadius: 1 }}>
-              <Table size="small" sx={{ '& .MuiTableCell-root': { py: 0.75, borderBottom: '1px solid rgba(255,255,255,0.05)' } }}>
-                <TableHead sx={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
-                  <TableRow sx={{ '& th': { borderBottom: '1px solid rgba(255,255,255,0.08)', fontWeight: 800, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', fontSize: '0.725rem', letterSpacing: '0.05em' } }}>
-                    <TableCell>Name</TableCell>
-                    <TableCell>API URL</TableCell>
-                    <TableCell>API Key</TableCell>
-                    <TableCell align="right" sx={{ width: 40 }}></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {nzbProvider?.indexers?.map((indexer) => (
-                    <TableRow key={indexer.id} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.01)' } }}>
-                      <TableCell>
-                        <TextField
-                          fullWidth
-                          size="small"
-                          variant="standard"
-                          value={indexer.name}
-                          onChange={(e) => handleIndexerChange(indexer.id, 'name', e.target.value)}
-                          placeholder="e.g. NZBGeek"
-                          InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <TextField
-                          fullWidth
-                          size="small"
-                          variant="standard"
-                          value={indexer.url}
-                          onChange={(e) => handleIndexerChange(indexer.id, 'url', e.target.value)}
-                          placeholder="https://api.nzbgeek.info"
-                          InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <TextField
-                          fullWidth
-                          size="small"
-                          variant="standard"
-                          type="password"
-                          value={indexer.apiKey}
-                          onChange={(e) => handleIndexerChange(indexer.id, 'apiKey', e.target.value)}
-                          placeholder="Your API Key"
-                          InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
-                        />
-                      </TableCell>
-                      <TableCell align="right">
-                        <IconButton size="small" color="error" onClick={() => removeIndexer(indexer.id)} sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}>
-                          <DeleteIcon sx={{ fontSize: '1.225rem' }} />
-                        </IconButton>
-                      </TableCell>
+
+            {isMobile ? (
+              <Box>
+                {nzbProvider?.indexers?.map((indexer: IndexerConfig) => (
+                  <Paper
+                    key={indexer.id}
+                    sx={{
+                      p: 2,
+                      mb: 2,
+                      background: 'rgba(30, 41, 59, 0.4)',
+                      border: '1px solid rgba(148, 163, 184, 0.12)',
+                      position: 'relative',
+                    }}
+                  >
+                    <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+                      <IconButton
+                        size="small"
+                        color="error"
+                        onClick={() => removeIndexer(indexer.id)}
+                        sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}
+                      >
+                        <DeleteIcon sx={{ fontSize: '1.125rem' }} />
+                      </IconButton>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <TextField
+                        fullWidth
+                        label="Name"
+                        size="small"
+                        variant="outlined"
+                        value={indexer.name}
+                        onChange={(e) => handleIndexerChange(indexer.id, 'name', e.target.value)}
+                        placeholder="e.g. NZBGeek"
+                        InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
+                        inputProps={{ sx: { fontSize: '0.9375rem' } }}
+                      />
+                      <TextField
+                        fullWidth
+                        label="API URL"
+                        size="small"
+                        variant="outlined"
+                        value={indexer.url}
+                        onChange={(e) => handleIndexerChange(indexer.id, 'url', e.target.value)}
+                        placeholder="https://api.nzbgeek.info"
+                        InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
+                        inputProps={{ sx: { fontSize: '0.9375rem' } }}
+                      />
+                      <TextField
+                        fullWidth
+                        label="API Key"
+                        size="small"
+                        variant="outlined"
+                        type="password"
+                        value={indexer.apiKey}
+                        onChange={(e) => handleIndexerChange(indexer.id, 'apiKey', e.target.value)}
+                        placeholder="Your API Key"
+                        InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
+                        inputProps={{ sx: { fontSize: '0.9375rem' } }}
+                      />
+                    </Box>
+                  </Paper>
+                ))}
+                {(!nzbProvider?.indexers || nzbProvider.indexers.length === 0) && (
+                  <Typography align="center" sx={{ py: 2, color: 'text.secondary', fontSize: '0.875rem' }}>
+                    No indexers configured.
+                  </Typography>
+                )}
+              </Box>
+            ) : (
+              <TableContainer component={Box} sx={{ border: '1px solid rgba(255,255,255,0.05)', borderRadius: 1 }}>
+                <Table size="small" sx={{ '& .MuiTableCell-root': { py: 0.75, borderBottom: '1px solid rgba(255,255,255,0.05)' } }}>
+                  <TableHead sx={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                    <TableRow sx={{ '& th': { borderBottom: '1px solid rgba(255,255,255,0.08)', fontWeight: 800, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', fontSize: '0.725rem', letterSpacing: '0.05em' } }}>
+                      <TableCell>Name</TableCell>
+                      <TableCell>API URL</TableCell>
+                      <TableCell>API Key</TableCell>
+                      <TableCell align="right" sx={{ width: 40 }}></TableCell>
                     </TableRow>
-                  ))}
-                  {(!nzbProvider?.indexers || nzbProvider.indexers.length === 0) && (
-                    <TableRow>
-                      <TableCell colSpan={4} align="center" sx={{ py: 2, color: 'text.secondary', fontSize: '0.875rem' }}>
-                        No indexers configured.
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {nzbProvider?.indexers?.map((indexer: IndexerConfig) => (
+                      <TableRow key={indexer.id} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.01)' } }}>
+                        <TableCell>
+                          <TextField
+                            fullWidth
+                            size="small"
+                            variant="standard"
+                            value={indexer.name}
+                            onChange={(e) => handleIndexerChange(indexer.id, 'name', e.target.value)}
+                            placeholder="e.g. NZBGeek"
+                            InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <TextField
+                            fullWidth
+                            size="small"
+                            variant="standard"
+                            value={indexer.url}
+                            onChange={(e) => handleIndexerChange(indexer.id, 'url', e.target.value)}
+                            placeholder="https://api.nzbgeek.info"
+                            InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <TextField
+                            fullWidth
+                            size="small"
+                            variant="standard"
+                            type="password"
+                            value={indexer.apiKey}
+                            onChange={(e) => handleIndexerChange(indexer.id, 'apiKey', e.target.value)}
+                            placeholder="Your API Key"
+                            InputProps={{ disableUnderline: true, sx: { fontSize: '0.9375rem' } }}
+                          />
+                        </TableCell>
+                        <TableCell align="right">
+                          <IconButton size="small" color="error" onClick={() => removeIndexer(indexer.id)} sx={{ opacity: 0.5, '&:hover': { opacity: 1 } }}>
+                            <DeleteIcon sx={{ fontSize: '1.225rem' }} />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    {(!nzbProvider?.indexers || nzbProvider.indexers.length === 0) && (
+                      <TableRow>
+                        <TableCell colSpan={4} align="center" sx={{ py: 2, color: 'text.secondary', fontSize: '0.875rem' }}>
+                          No indexers configured.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
           </AccordionDetails>
         </Accordion>
 
@@ -989,7 +1244,135 @@ const SettingsPanel: React.FC = () => {
             )}
           </AccordionDetails>
         </Accordion>
+
+        <Divider sx={{ borderColor: 'rgba(255,255,255,0.05)' }} />
+
+        <Accordion
+            expanded={expanded === 'debug'}
+            onChange={handleAccordionChange('debug')}
+            disableGutters
+            sx={{
+              background: 'transparent',
+              boxShadow: 'none',
+              '&:before': { display: 'none' }
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon sx={{ fontSize: '1.325rem' }} />}
+              sx={{
+                minHeight: 48,
+                '& .MuiAccordionSummary-content': { my: 1.5 },
+                '&.Mui-expanded': { minHeight: 48 }
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between', pr: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <BugReportIcon color="primary" sx={{ opacity: 0.8, fontSize: '1.225rem' }} />
+                  <Box>
+                    <Typography sx={{ fontWeight: 700, fontSize: '0.9375rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Debug</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: -0.25, fontSize: '0.775rem' }}>
+                      View debug information and logs
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', p: 3 }}>
+              <Box sx={{ mb: 3 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: '0.875rem', mb: 2 }}>
+                  System Information
+                </Typography>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2 }}>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>App Version</Typography>
+                    <Typography sx={{ fontSize: '0.9375rem' }}>{appVersion || 'Unknown'}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>Platform</Typography>
+                    <Typography sx={{ fontSize: '0.9375rem' }}>{platform}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>Build</Typography>
+                    <Typography sx={{ fontSize: '0.9375rem' }}>debug</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>Network</Typography>
+                    <Typography sx={{ fontSize: '0.9375rem' }}>{networkStatus}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>Last Updated</Typography>
+                    <Typography sx={{ fontSize: '0.9375rem' }}>{lastUpdated || 'Never'}</Typography>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  startIcon={<ContentCopyIcon sx={{ fontSize: '1.125rem !important' }} />}
+                  onClick={handleCopyLogs}
+                  disabled={debugLogs.length === 0}
+                >
+                  Copy Logs
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  startIcon={<DeleteIcon sx={{ fontSize: '1.125rem !important' }} />}
+                  onClick={handleClearLogs}
+                  disabled={debugLogs.length === 0}
+                >
+                  Clear Logs
+                </Button>
+              </Box>
+
+              <Box
+                sx={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  borderRadius: 1,
+                  p: 2,
+                  fontFamily: 'monospace',
+                  fontSize: '0.8125rem',
+                  maxHeight: 400,
+                  overflow: 'auto',
+                  color: '#e2e8f0',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                }}
+              >
+                {debugLogs.length > 0 ? (
+                  debugLogs.map((log, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        color: log.includes('[ERROR]') ? '#f87171' : log.includes('[WARN]') ? '#fbbf24' : '#e2e8f0',
+                        py: 0.25,
+                        '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.05)' }
+                      }}
+                    >
+                      {log}
+                    </Box>
+                  ))
+                ) : (
+                  <Typography sx={{ color: 'rgba(255, 255, 255, 0.5)', fontStyle: 'italic' }}>
+                    No logs available
+                  </Typography>
+                )}
+              </Box>
+            </AccordionDetails>
+          </Accordion>
       </Paper>
+
+      <DirectoryPicker
+        open={directoryPickerOpen}
+        onClose={() => setDirectoryPickerOpen(false)}
+        onSelect={(path) => {
+          setDownloadDirectory(path);
+          setDirectoryPickerOpen(false);
+        }}
+        initialPath={downloadDirectory}
+      />
 
       <Snackbar
         open={snackbar.open}
