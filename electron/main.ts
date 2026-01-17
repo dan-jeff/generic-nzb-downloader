@@ -3,11 +3,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import Store from 'electron-store';
-import electronDl from 'electron-dl';
+import { download } from 'electron-dl';
 import electronUpdater from 'electron-updater';
 import { SearchProviderSettings } from './types/search.js';
 import { SearchManager } from './search/SearchManager.js';
-import { DownloadManager } from './download/DownloadManager.js';
+import { DownloadManager as SharedDownloadManager } from '../src/core/download/DownloadManager.js';
+import { NodeNetworkAdapter } from './adapters/NodeNetworkAdapter.js';
+import { NodeFSAdapter } from './adapters/NodeFSAdapter.js';
+import { NodeStorageAdapter } from './adapters/NodeStorageAdapter.js';
 
 const { autoUpdater } = electronUpdater;
 
@@ -16,10 +19,6 @@ const __dirname = path.dirname(__filename);
 const isDev = process.env.NODE_ENV === 'development';
 
 app.commandLine.appendSwitch('js-flags', '--max-old-space-size=8192');
-
-// Initialize electron-dl
-electronDl();
-
 interface DownloadSettings {
   downloadDirectory: string;
 }
@@ -49,7 +48,7 @@ const store = new Store<StoreSchema>({
 const searchManager = new SearchManager(store.get('searchSettings'));
 
 let mainWindow: BrowserWindow | null = null;
-let downloadManager: DownloadManager | null = null;
+let downloadManager: SharedDownloadManager | null = null;
 let isCleaningUp = false;
 let isQuitting = false;
 
@@ -69,8 +68,26 @@ function createWindow() {
 
   mainWindow.setMenuBarVisibility(false);
 
-  // Initialize Download Manager
-  downloadManager = new DownloadManager(mainWindow, store);
+  // Initialize adapters for Electron
+  const storageAdapter = new NodeStorageAdapter();
+  const fileSystemAdapter = new NodeFSAdapter();
+  const networkFactory = () => new NodeNetworkAdapter();
+
+  // Initialize shared Download Manager with Node adapters
+  downloadManager = new SharedDownloadManager(storageAdapter, fileSystemAdapter, networkFactory);
+
+  // Set up event bridging from DownloadManager to renderer
+  downloadManager.on('download-progress', (progress) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('download-progress', progress);
+    }
+  });
+
+  downloadManager.on('download-completed', (item) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('download-completed', item);
+    }
+  });
 
   if (isDev) {
     mainWindow.loadURL('http://localhost:5174');
@@ -93,12 +110,116 @@ function createWindow() {
 
 // IPC Handlers
 ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target?: 'local' | 'newsreader', filename?: string, providerId?: string) => {
-  if (!downloadManager) return { success: false, error: 'Download Manager not initialized' };
+  if (!downloadManager || !mainWindow) return { success: false, error: 'Download Manager not initialized' };
 
   try {
     const downloadContent = typeof url === 'string' ? url : Buffer.from(url as any);
-    const id = await downloadManager.addDownload(downloadContent, filename || '', providerId, target);
-    return { success: true, id };
+    const id = Math.random().toString(36).substring(7);
+    const isNzb = Buffer.isBuffer(downloadContent) || (typeof url === 'string' && url.endsWith('.nzb'));
+
+    if (target === 'local' || (!target && !isNzb)) {
+      // Handle local downloads with electron-dl for Electron
+      const downloadItem = {
+        id,
+        url: typeof url === 'string' ? url : '',
+        filename: filename || '',
+        savePath: '',
+        status: 'downloading',
+        startTime: Date.now(),
+        providerName: 'Local',
+      };
+
+      const downloadSettings = store.get('downloadSettings');
+      const targetDirectory = downloadSettings?.downloadDirectory?.trim();
+
+      // Add to history
+      const history = store.get('history') || [];
+      store.set('history', [downloadItem, ...history]);
+
+      const downloadOptions = {
+        onStarted: (item: any) => {
+          downloadItem.filename = item.getFilename();
+          downloadItem.savePath = item.getSavePath();
+
+          const currentHistory = store.get('history') || [];
+          const updatedHistory = currentHistory.map((h: any) =>
+            h.id === id ? { ...h, filename: downloadItem.filename, savePath: downloadItem.savePath } : h
+          );
+          store.set('history', updatedHistory);
+        },
+        onProgress: (progress: any) => {
+          const progressData = {
+            id,
+            filename: downloadItem.filename || progress.filename,
+            percent: progress.percent,
+            transferredBytes: progress.transferredBytes,
+            totalBytes: progress.totalBytes,
+            status: 'downloading',
+            speed: 0,
+            providerName: 'Local',
+            path: downloadItem.savePath,
+          };
+          if (mainWindow && !mainWindow.isDestroyed()) {
+            mainWindow.webContents.send('download-progress', progressData);
+          }
+        },
+        onCompleted: (item: any) => {
+          const completedItem = {
+            id,
+            filename: item.filename,
+            savePath: item.savePath || downloadItem.savePath,
+            status: 'completed',
+            endTime: Date.now(),
+            totalBytes: item.fileSize,
+            startTime: downloadItem.startTime,
+            providerName: 'Local',
+          };
+
+          const currentHistory = store.get('history') || [];
+          const updatedHistory = currentHistory.map((h: any) =>
+            h.id === id ? completedItem : h
+          );
+          store.set('history', updatedHistory);
+
+          if (mainWindow && !mainWindow.isDestroyed()) {
+            mainWindow.webContents.send('download-completed', {
+              ...completedItem,
+              path: completedItem.savePath,
+              timestamp: completedItem.endTime,
+              size: completedItem.totalBytes,
+            });
+          }
+        },
+        onError: (error: Error) => {
+          console.error('Local download error:', error);
+          const currentHistory = store.get('history') || [];
+          const updatedHistory = currentHistory.map((h: any) =>
+            h.id === id ? { ...h, status: 'failed' } : h
+          );
+          store.set('history', updatedHistory);
+        }
+      };
+
+      if (targetDirectory) {
+        (downloadOptions as any).directory = targetDirectory;
+      }
+
+      // Start download with electron-dl
+      download(mainWindow, typeof url === 'string' ? url : '', downloadOptions).catch((error: Error) => {
+        console.error('Local download error:', error);
+        const currentHistory = store.get('history') || [];
+        const updatedHistory = currentHistory.map((h: any) =>
+          h.id === id ? { ...h, status: 'failed' } : h
+        );
+        store.set('history', updatedHistory);
+      });
+
+      return { success: true, id };
+    } else {
+      // Handle newsreader downloads with shared DownloadManager
+      const newId = await downloadManager.addDownload(downloadContent, filename || '', providerId, 'newsreader');
+      return { success: true, id: newId };
+    }
   } catch (error) {
     console.error('Download error:', error);
     return { success: false, error: (error as Error).message };

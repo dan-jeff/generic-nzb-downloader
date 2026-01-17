@@ -17,7 +17,11 @@ export class NzbSearchProvider extends BaseProvider {
           const response = await fetch(url);
           
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorBody = await response.text();
+            const errorMessage = `HTTP error! status: ${response.status}`;
+            const httpError = new Error(errorMessage) as Error & { body?: string };
+            httpError.body = errorBody;
+            throw httpError;
           }
 
           const data = await response.json();
@@ -54,7 +58,7 @@ export class NzbSearchProvider extends BaseProvider {
         return allIndexerResults.slice(0, MAX_RESULTS);
       } catch (error) {
         console.error(`Error searching indexer ${indexer.name}:`, error);
-        return [];
+        throw error;
       }
     });
 

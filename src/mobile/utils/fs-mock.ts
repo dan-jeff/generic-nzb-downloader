@@ -1,0 +1,95 @@
+import { fs } from 'memfs';
+
+export default fs;
+
+export const {
+  appendFile,
+  appendFileSync,
+  access,
+  accessSync,
+  chown,
+  chownSync,
+  chmod,
+  chmodSync,
+  close,
+  closeSync,
+  copyFile,
+  copyFileSync,
+  createReadStream,
+  createWriteStream,
+  exists,
+  existsSync,
+  fchown,
+  fchownSync,
+  fchmod,
+  fchmodSync,
+  fdatasync,
+  fdatasyncSync,
+  fstat,
+  fstatSync,
+  fsync,
+  fsyncSync,
+  ftruncate,
+  ftruncateSync,
+  futimes,
+  futimesSync,
+  lchown,
+  lchownSync,
+  lchmod,
+  lchmodSync,
+  link,
+  linkSync,
+  lstat,
+  lstatSync,
+  mkdir,
+  mkdirSync,
+  mkdtemp,
+  mkdtempSync,
+  open,
+  openSync,
+  opendir,
+  opendirSync,
+  readFile,
+  readFileSync,
+  readlink,
+  readlinkSync,
+  realpath,
+  realpathSync,
+  rename,
+  renameSync,
+  rmdir,
+  rmdirSync,
+  rm,
+  rmSync,
+  stat,
+  statSync,
+  symlink,
+  symlinkSync,
+  truncate,
+  truncateSync,
+  unlink,
+  unlinkSync,
+  unwatchFile,
+  utimes,
+  utimesSync,
+  watch,
+  watchFile,
+  write,
+  writeSync,
+  writeFile,
+  writeFileSync,
+  constants,
+  promises
+} = fs;
+
+export async function readdir(path: string): Promise<{ name: string; type: 'file' | 'directory' }[]> {
+  try {
+    const entries = await fs.promises.readdir(path, { withFileTypes: true });
+    return entries.map((entry: any) => ({
+      name: entry.name,
+      type: entry.isDirectory() ? 'directory' : 'file'
+    }));
+  } catch {
+    return [];
+  }
+}

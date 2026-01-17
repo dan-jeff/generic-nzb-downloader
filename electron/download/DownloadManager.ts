@@ -7,6 +7,8 @@ import axios from 'axios';
 import { BaseNewsreaderClient, SABnzbdClient, NZBGetClient, DirectUsenetClient } from './NewsreaderClient.js';
 import { DownloadStatus } from '../types/download.js';
 import { NewsreaderSettings, SearchProviderSettings } from '../types/search.js';
+import { NodeNetworkAdapter } from '../adapters/NodeNetworkAdapter.js';
+import { NetworkFactory } from '../../src/core/interfaces/INetwork.js';
 
 interface DownloadItem {
   id: string;
@@ -70,7 +72,8 @@ export class DownloadManager {
     } else if (settings.type === 'nzbget') {
       return new NZBGetClient(settings);
     } else if (settings.type === 'direct') {
-      return new DirectUsenetClient(settings);
+      const networkFactory: NetworkFactory = () => new NodeNetworkAdapter();
+      return new DirectUsenetClient(settings, networkFactory);
     }
     throw new Error(`Unsupported newsreader type: ${settings.type}`);
   }

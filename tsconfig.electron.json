@@ -10,8 +10,13 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@core/*": ["./src/core/*"]
+    }
   },
-  "include": ["electron/**/*"],
-  "exclude": ["node_modules", "src", "dist"]
+  "include": ["src/core/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

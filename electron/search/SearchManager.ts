@@ -24,10 +24,7 @@ export class SearchManager {
 
   async search(query: string): Promise<SearchResult[]> {
     const results = await Promise.all(
-      this.providers.map((p) => p.search(query).catch((err: Error) => {
-        console.error(`Search failed for provider:`, err);
-        return [] as SearchResult[];
-      }))
+      this.providers.map((p) => p.search(query))
     );
     return results.flat();
   }

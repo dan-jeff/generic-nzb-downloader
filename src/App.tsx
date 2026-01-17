@@ -8,6 +8,8 @@ import {
   useMediaQuery,
   useTheme,
   Chip,
+  BottomNavigation,
+  BottomNavigationAction,
 } from '@mui/material';
 import {
   Download as DownloadIcon,
@@ -19,6 +21,7 @@ import DownloadPanel from './components/DownloadPanel';
 import SearchPanel from './components/SearchPanel';
 import SettingsPanel from './components/SettingsPanel';
 import { useDownloads } from './hooks/useDownloads';
+import { serviceContainer } from '@/core/ServiceContainer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,6 +54,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 function App() {
+  console.log('GenericDownloader: App component rendering');
   const [activeTab, setActiveTab] = useState(0);
   const [appVersion, setAppVersion] = useState('');
   const theme = useTheme();
@@ -58,14 +62,32 @@ function App() {
   const { activeDownloads, history } = useDownloads();
 
   useEffect(() => {
+    const initializeServices = async () => {
+      try {
+        await serviceContainer.getNetworkAdapter();
+        await serviceContainer.getFileSystemAdapter();
+        await serviceContainer.getStorageAdapter();
+        await serviceContainer.getDownloadManager();
+        await serviceContainer.getSearchManager();
+      } catch (error) {
+        console.error('Failed to initialize services:', error);
+      }
+    };
+
     const fetchVersion = async () => {
       try {
-        const version = await window.electron.getAppVersion();
+        const electronBridge = typeof window !== 'undefined' ? (window as any).electron : undefined;
+        if (!electronBridge?.getAppVersion) {
+          return;
+        }
+        const version = await electronBridge.getAppVersion();
         setAppVersion(version);
       } catch (error) {
         console.error('Failed to fetch app version:', error);
       }
     };
+
+    initializeServices();
     fetchVersion();
   }, []);
 
@@ -78,7 +100,7 @@ function App() {
   return (
     <Container
       maxWidth={false}
-      sx={{ py: 2, px: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}
+      sx={{ pt: 0, pb: 2, px: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}
     >
       {/* Professional Compact Header */}
       <Box 
@@ -95,18 +117,18 @@ function App() {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <DownloadIcon sx={{ fontSize: 28, color: 'primary.main' }} />
+          <DownloadIcon sx={{ fontSize: isMobile ? 24 : 28, color: 'primary.main' }} />
           <Typography 
             variant="h4" 
             component="h1" 
             sx={{ 
               letterSpacing: '0.05em', 
               fontWeight: 900, 
-              fontSize: '1.25rem',
+              fontSize: isMobile ? '1rem' : '1.25rem',
               textTransform: 'uppercase'
             }}
           >
-            GENERIC NZB <Box component="span" sx={{ color: 'primary.main' }}>DOWNLOADER</Box>
+            {isMobile ? 'Generic NZB' : 'GENERIC NZB'} <Box component="span" sx={{ color: 'primary.main', display: isMobile ? 'none' : 'inline' }}>DOWNLOADER</Box>
           </Typography>
         </Box>
 
@@ -161,7 +183,7 @@ function App() {
         </Box>
       </Box>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', display: isMobile ? 'none' : 'block' }}>
         <Tabs 
           value={activeTab} 
           onChange={handleTabChange} 
@@ -191,7 +213,7 @@ function App() {
         </Tabs>
       </Box>
 
-      <Box sx={{ flex: 1, minHeight: 0 }}>
+      <Box sx={{ flex: 1, minHeight: 0, pb: isMobile ? 7 : 0 }}>
         <CustomTabPanel value={activeTab} index={0}>
           <DownloadPanel />
         </CustomTabPanel>
@@ -202,6 +224,36 @@ function App() {
           <SettingsPanel />
         </CustomTabPanel>
       </Box>
+
+      <BottomNavigation
+        value={activeTab}
+        onChange={handleTabChange}
+        showLabels
+        sx={{ 
+          position: 'fixed', 
+          bottom: 0, 
+          left: 0, 
+          right: 0,
+          display: isMobile ? 'flex' : 'none',
+          zIndex: 1000,
+          bgcolor: 'background.paper',
+          borderTop: '1px solid',
+          borderColor: 'divider'
+        }}
+      >
+        <BottomNavigationAction 
+          label="Downloads" 
+          icon={<DownloadIcon />} 
+        />
+        <BottomNavigationAction 
+          label="Search" 
+          icon={<SearchIcon />} 
+        />
+        <BottomNavigationAction 
+          label="Settings" 
+          icon={<SettingsIcon />} 
+        />
+      </BottomNavigation>
     </Container>
   );
 }
