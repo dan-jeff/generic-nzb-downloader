@@ -8,6 +8,8 @@ import { NewsreaderSettings } from '../types/search.js';
 import { IFileSystem } from '@core/interfaces/IFileSystem.js';
 import { NntpConnection } from './NntpConnection.js';
 import { NetworkFactory } from '@core/interfaces/INetwork.js';
+import { Capacitor } from '@capacitor/core';
+import NativeNzbDownloader, { NativeDownloadJob } from '../../mobile/plugins/NativeNzbDownloader.js';
 
 export interface YencMetadata {
   line: number;
@@ -368,8 +370,12 @@ export class StreamingYencDecoder extends Writable {
       if (canContinue) {
         callback();
       } else {
+        // console.log('[StreamingYencDecoder] Backpressure detected from output stream');
         if (this.outputStream) {
-          this.outputStream.once('drain', () => callback());
+          this.outputStream.once('drain', () => {
+            // console.log('[StreamingYencDecoder] Output stream drained, resuming');
+            callback();
+          });
         } else {
           callback();
         }
@@ -1069,16 +1075,16 @@ export class Par2Manager {
   private static REPAIR_TIMEOUT_MS = 600000;
 
   private par2Path: string | null = null;
-  private fileSystem?: IFileSystem;
 
-  constructor(fileSystem?: IFileSystem) {
-    this.fileSystem = fileSystem;
+  constructor(_fileSystem?: IFileSystem) {
+    // no-op
   }
 
   private async findPar2Executable(): Promise<string | null> {
     if (this.par2Path) {
       return this.par2Path;
     }
+
 
     for (const par2Path of Par2Manager.PAR2_PATHS) {
       try {
@@ -1253,7 +1259,7 @@ export class Par2Manager {
     };
   }
 
-  private async findPar2Files(downloadPath: string): Promise<string[]> {
+  private async findPar2Files(_downloadPath: string): Promise<string[]> {
     console.warn('[Par2Manager] findPar2Files not fully implemented with IFileSystem');
     return [];
   }
@@ -1549,6 +1555,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
   private fileSystem?: IFileSystem;
   private networkFactory: NetworkFactory;
   private activeDownloads: Map<string, DownloadStatus> = new Map();
+  private activeNativeJobs: Map<string, string[]> = new Map();
 
   constructor(settings: NewsreaderSettings, networkFactory: NetworkFactory, fileSystem?: IFileSystem) {
     console.error('[DirectUsenetClient] >>> CONSTRUCTOR CALLED <<<');
@@ -1663,7 +1670,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     return id;
   }
 
-  private async processDownload(id: string, content: Buffer, filename: string, downloadPath?: string) {
+  private async processDownload(id: string, content: Buffer, _filename: string, downloadPath?: string) {
     const status = this.activeDownloads.get(id);
     if (!status) return;
 
@@ -1683,10 +1690,176 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         throw new Error('IFileSystem not provided');
       }
 
+      const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+
+      if (isAndroid) {
+        console.log('[DirectUsenetClient] Using native Android downloader');
+        const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
+        const fileElements = Array.from(doc.getElementsByTagName('file'));
+
+        // Determine SSL - force true for direct if not specified, same as initializeConnection
+        let useSSL = this.settings.useSSL ?? false;
+        if (this.settings.type === 'direct' && !useSSL) {
+          useSSL = true;
+        }
+
+        const maxConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 10;
+        const server = {
+          host: this.settings.hostname!,
+          port: this.settings.port!,
+          ssl: useSSL,
+          user: this.settings.username,
+          pass: this.settings.password,
+          connections: maxConnections
+        };
+
+        let totalDownloadedBeforeCurrentFile = 0;
+        
+        // Speed calculation state
+        let lastSpeedUpdate = Date.now();
+        let totalDownloadedAtLastUpdate = 0;
+        let recentSpeeds: number[] = [];
+        const SPEED_WINDOW_SIZE = 5;
+
+        let activeJobId: string | null = null;
+        let jobResolve: (() => void) | null = null;
+        let jobReject: ((err: Error) => void) | null = null;
+
+        const progressListener = await NativeNzbDownloader.addListener('progress', (p) => {
+          if (p.jobId === activeJobId) {
+            // Java plugin sends 'bytes' for downloaded bytes
+            const currentFileDownloaded = p.bytes || 0;
+            const totalDownloaded = totalDownloadedBeforeCurrentFile + currentFileDownloaded;
+            
+            status.remainingSize = Math.max(0, status.size - totalDownloaded);
+            const calculatedProgress = status.size > 0 ? (totalDownloaded / status.size) * 100 : 0;
+            status.progress = Math.min(100, calculatedProgress);
+            
+            // Robust Speed calculation based on bytes
+            const now = Date.now();
+            const timeDiff = now - lastSpeedUpdate;
+            if (timeDiff >= 1000) {
+              const bytesDiff = totalDownloaded - totalDownloadedAtLastUpdate;
+              const currentSpeed = (bytesDiff / timeDiff) * 1000; // bytes per second
+              
+              recentSpeeds.push(currentSpeed);
+              if (recentSpeeds.length > SPEED_WINDOW_SIZE) recentSpeeds.shift();
+              
+              const avgSpeed = recentSpeeds.reduce((a, b) => a + b, 0) / recentSpeeds.length;
+              status.speed = avgSpeed;
+              status.eta = avgSpeed > 0 ? Math.ceil(status.remainingSize / avgSpeed) : 0;
+              
+              lastSpeedUpdate = now;
+              totalDownloadedAtLastUpdate = totalDownloaded;
+            }
+
+            // Check if job is completed based on segments (Java sends 'completed' and 'total' segments)
+            if (p.completed >= p.total && p.total > 0) {
+              if (jobResolve) jobResolve();
+            }
+          }
+        });
+
+        const errorListener = await NativeNzbDownloader.addListener('error', (e) => {
+          if (e.jobId === activeJobId) {
+            console.error(`[DirectUsenetClient] Native error for job ${e.jobId}: ${e.message}`);
+            if (jobReject) jobReject(new Error(e.message));
+          }
+        });
+
+        try {
+          for (const fileElement of fileElements) {
+            status.status = 'Downloading';
+            const subject = fileElement.getAttribute('subject') || '';
+            const filenameMatch = subject.match(/"([^"]+)"/);
+            const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
+
+            const segmentElements = Array.from(fileElement.getElementsByTagName('segment'));
+            const segments = segmentElements.map(seg => ({
+              number: parseInt(seg.getAttribute('number') || '0', 10),
+              bytes: parseInt(seg.getAttribute('bytes') || '0', 10),
+              messageId: seg.textContent?.trim() || ''
+            }));
+
+            if (segments.length === 0) continue;
+
+            const fileTotalBytes = segments.reduce((sum, seg) => sum + seg.bytes, 0);
+            // Sort segments by number to ensure correct offset calculation
+            const sortedSegments = segments.sort((a, b) => a.number - b.number);
+            
+            // Calculate offsets for parallel download
+            let currentOffset = 0;
+            const segmentsWithOffsets = sortedSegments.map(seg => {
+              const segWithOffset = {
+                ...seg,
+                begin: currentOffset
+              };
+              currentOffset += seg.bytes;
+              return segWithOffset;
+            });
+
+            const jobId = `${id}-${fileElements.indexOf(fileElement)}`;
+            const nativeJobs = this.activeNativeJobs.get(id) || [];
+            nativeJobs.push(jobId);
+            this.activeNativeJobs.set(id, nativeJobs);
+
+            const job: NativeDownloadJob = {
+              id: jobId,
+              filename: extractedFilename,
+              // Pass path as-is. Java side handles absolute vs relative detection.
+              downloadPath: downloadPath || 'nzb',
+              segments: segmentsWithOffsets,
+              server
+            };
+
+            activeJobId = jobId;
+            const fileCompletePromise = new Promise<void>((resolve, reject) => {
+              jobResolve = resolve;
+              jobReject = reject;
+            });
+
+            console.log(`[DirectUsenetClient] Starting native job ${jobId} for ${extractedFilename}`);
+            await NativeNzbDownloader.addJob(job);
+            
+            // Wait for this file to complete before starting next one
+            await fileCompletePromise;
+            
+            // Check if still active before continuing loop
+            if (!this.activeDownloads.has(id)) {
+                console.log(`[DirectUsenetClient] Download ${id} was cancelled, stopping loop`);
+                break;
+            }
+            
+            totalDownloadedBeforeCurrentFile += fileTotalBytes;
+            activeJobId = null;
+            jobResolve = null;
+            jobReject = null;
+            console.log(`[DirectUsenetClient] Native job ${jobId} finished`);
+          }
+        } catch (err) {
+          console.error(`[DirectUsenetClient] Native download failed:`, err);
+          throw err;
+        } finally {
+          progressListener.remove();
+          errorListener.remove();
+        }
+
+        status.status = 'Completed';
+        status.progress = 100;
+        status.remainingSize = 0;
+        status.speed = 0;
+        status.eta = 0;
+        console.log(`[DirectUsenetClient] Download ${id} completed via native downloader`);
+        return;
+      }
+
       const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
       const fileElements = Array.from(doc.getElementsByTagName('file'));
 
       for (const fileElement of fileElements) {
+        // Reset status to Downloading for each new file in the NZB
+        status.status = 'Downloading';
+        
         const subject = fileElement.getAttribute('subject') || '';
         const segments: NzbSegment[] = [];
         const segmentElements = Array.from(fileElement.getElementsByTagName('segment'));
@@ -1714,9 +1887,19 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         let downloadedBytesFile = 0;
 
         // Parallel segment download (matching desktop implementation)
-        const maxConcurrent = this.settings.segmentConcurrency || 10; // Default 10 like desktop
+        const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+        const maxConcurrent = isAndroid ? 1 : (this.settings.segmentConcurrency || 10);
+        if (isAndroid) {
+          console.log('[DirectUsenetClient] Android detected: forcing sequential download (concurrency 1)');
+        }
         let index = 0;
         const activeDownloads = new Map<string, Promise<void>>();
+
+        // Speed calculation state
+        let lastSpeedUpdate = Date.now();
+        let bytesAtLastUpdate = 0;
+        let recentSpeeds: number[] = [];
+        const SPEED_WINDOW_SIZE = 5;
 
         const processSegment = async (segment: NzbSegment): Promise<void> => {
           const segmentPath = `${segmentsDir}/${extractedFilename}.${segment.number}.tmp`;
@@ -1739,6 +1922,28 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
             downloadedBytesFile += segmentSize;
             status.remainingSize = Math.max(0, status.remainingSize - segmentSize);
             status.progress = status.size > 0 ? ((status.size - status.remainingSize) / status.size) * 100 : 0;
+            
+            // Calculate Speed & ETA
+            const now = Date.now();
+            const timeDiff = now - lastSpeedUpdate;
+            
+            if (timeDiff >= 1000) { // Update every second
+               const bytesDiff = downloadedBytesFile - bytesAtLastUpdate;
+               const currentSpeed = (bytesDiff / timeDiff) * 1000; // bytes per second
+               
+               recentSpeeds.push(currentSpeed);
+               if (recentSpeeds.length > SPEED_WINDOW_SIZE) recentSpeeds.shift();
+               
+               const avgSpeed = recentSpeeds.reduce((a, b) => a + b, 0) / recentSpeeds.length;
+               
+               status.speed = avgSpeed;
+               status.eta = avgSpeed > 0 ? Math.ceil(status.remainingSize / avgSpeed) : 0;
+               
+               lastSpeedUpdate = now;
+               bytesAtLastUpdate = downloadedBytesFile;
+               
+               console.log(`[DirectUsenetClient] Speed: ${(avgSpeed / 1024 / 1024).toFixed(2)} MB/s, ETA: ${status.eta}s`);
+            }
             
             console.log(`[DirectUsenetClient] Segment ${segment.number} completed (${downloadedSegments.size}/${segments.length})`);
           } catch (err) {
@@ -1829,6 +2034,21 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
 
   async delete(id: string, _removeFiles: boolean): Promise<boolean> {
     this.activeDownloads.delete(id);
+    
+    // Cancel native jobs if they exist
+    const nativeJobIds = this.activeNativeJobs.get(id);
+    if (nativeJobIds && nativeJobIds.length > 0) {
+        console.log(`[DirectUsenetClient] Cancelling ${nativeJobIds.length} native jobs for download ${id}`);
+        for (const jobId of nativeJobIds) {
+            try {
+                await NativeNzbDownloader.cancelJob({ jobId });
+            } catch (err) {
+                console.warn(`[DirectUsenetClient] Failed to cancel native job ${jobId}:`, err);
+            }
+        }
+        this.activeNativeJobs.delete(id);
+    }
+    
     return true;
   }
 }

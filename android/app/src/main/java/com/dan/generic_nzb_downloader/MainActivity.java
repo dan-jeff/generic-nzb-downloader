@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import com.getcapacitor.BridgeActivity;
 import com.dan.generic_nzb_downloader.plugins.TlsSocketPlugin;
+import com.dan.generic_nzb_downloader.plugins.NativeNzbDownloader;
 
 public class MainActivity extends BridgeActivity {
     private static final String TAG = "GenericDownloader";
@@ -15,6 +16,7 @@ public class MainActivity extends BridgeActivity {
         // Register plugin BEFORE calling super.onCreate()
         // This ensures the plugin is registered before the bridge initializes
         registerPlugin(TlsSocketPlugin.class);
+        registerPlugin(NativeNzbDownloader.class);
         Log.i(TAG, "TlsSocketPlugin registered BEFORE super.onCreate()");
         
         super.onCreate(savedInstanceState);
