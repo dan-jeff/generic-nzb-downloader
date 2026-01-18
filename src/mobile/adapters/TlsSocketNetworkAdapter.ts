@@ -29,8 +29,8 @@ export class TlsSocketNetworkAdapter extends EventEmitter implements INetwork {
       // Decode base64 to Buffer
       const buffer = Buffer.from(event.data, 'base64');
       console.log(`[TlsSocketNetworkAdapter] Decoded ${buffer.length} bytes`);
-      console.log(`[TlsSocketNetworkAdapter] First bytes (hex): ${buffer.slice(0, Math.min(20, buffer.length)).toString('hex')}`);
-      console.log(`[TlsSocketNetworkAdapter] As string: ${buffer.toString('utf8', 0, Math.min(50, buffer.length))}`);
+      // console.log(`[TlsSocketNetworkAdapter] First bytes (hex): ${buffer.slice(0, Math.min(20, buffer.length)).toString('hex')}`);
+      // console.log(`[TlsSocketNetworkAdapter] As string: ${buffer.toString('utf8', 0, Math.min(50, buffer.length))}`);
       
       if (!this.paused) {
         this.emit('data', buffer);
@@ -128,18 +128,28 @@ export class TlsSocketNetworkAdapter extends EventEmitter implements INetwork {
 
   pause(): void {
     console.log('[TlsSocketNetworkAdapter] pause() called');
+    if (this.paused) return;
     this.paused = true;
+    
+    TlsSocket.pause()
+      .then(() => console.log('[TlsSocketNetworkAdapter] Native socket paused'))
+      .catch(err => console.error('[TlsSocketNetworkAdapter] Failed to pause native socket:', err));
   }
 
   resume(): void {
     console.log('[TlsSocketNetworkAdapter] resume() called');
+    if (!this.paused) return;
     this.paused = false;
     
-    // Emit any buffered data
+    // Emit any buffered data first (legacy support)
     while (this.readBuffer.length > 0) {
       const buffer = this.readBuffer.shift()!;
       this.emit('data', buffer);
     }
+
+    TlsSocket.resume()
+      .then(() => console.log('[TlsSocketNetworkAdapter] Native socket resumed'))
+      .catch(err => console.error('[TlsSocketNetworkAdapter] Failed to resume native socket:', err));
   }
 
   isPaused(): boolean {

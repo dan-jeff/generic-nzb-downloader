@@ -54,7 +54,11 @@ type SortField = 'title' | 'size' | 'date' | 'source' | 'type';
 type SortOrder = 'asc' | 'desc';
 type SizeUnit = 'MB' | 'GB';
 
-const SearchPanel: React.FC = () => {
+interface SearchPanelProps {
+  expandSignal?: number;
+}
+
+const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { search, loading: searching, error: searchError, isRetrying } = useSearch();
@@ -107,6 +111,13 @@ const SearchPanel: React.FC = () => {
       return () => clearInterval(timer);
     }
   }, [retryCountdown]);
+
+  // Handle expand signal from parent (e.g. clicking Search tab while already on it)
+  useEffect(() => {
+    if (expandSignal && expandSignal > 0) {
+      setIsSearchCollapsed(false);
+    }
+  }, [expandSignal]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;

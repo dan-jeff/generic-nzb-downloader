@@ -15,12 +15,12 @@ export class NntpConnection {
   private maxReconnectAttempts: number = 3;
   private reconnectDelayMs: number = 1000;
   private articleTimeoutMs: number;
-  private connectTimeoutMs: number = 30000;
+  private connectTimeoutMs: number = 60000;
   private responseBuffer: string = '';
   private outputStream: Readable | null = null;
   private onStreamStart: (() => void) | null = null;
 
-  constructor(networkFactory: NetworkFactory, articleTimeoutMs: number = 15000) {
+  constructor(networkFactory: NetworkFactory, articleTimeoutMs: number = 60000) {
     this.networkFactory = networkFactory;
     this.hostname = '';
     this.port = 119;
@@ -63,8 +63,14 @@ export class NntpConnection {
         });
 
         this.network.on('data', (data: Buffer) => {
-          console.log(`[NntpConnection] Received ${data.length} bytes`);
+          // console.log(`[NntpConnection] Received ${data.length} bytes`);
           this.responseBuffer += data.toString('latin1');
+          
+          // Diagnostic: Check buffer size
+          if (this.responseBuffer.length > 1024 * 1024) {
+             console.warn(`[NntpConnection] WARNING: Response buffer growing large: ${Math.round(this.responseBuffer.length / 1024)}KB`);
+          }
+          
           this.processResponseBuffer();
         });
 

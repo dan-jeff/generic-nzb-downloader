@@ -81,7 +81,8 @@ export class DownloadManager extends EventEmitter {
 
   private startPolling() {
     if (this.pollInterval) clearInterval(this.pollInterval);
-    this.pollInterval = setInterval(() => this.poll(), 2000);
+    // Poll frequently (250ms) for smooth UI updates
+    this.pollInterval = setInterval(() => this.poll(), 250);
   }
 
   private isUuid(str: string): boolean {
@@ -151,7 +152,12 @@ export class DownloadManager extends EventEmitter {
         externalId: external ? external.externalId : undefined,
         path: filePath,
       };
-      console.log('[DownloadManager] Emitting download-progress from poll():', progress.id, progress.status);
+      
+      // Log progress occasionally to avoid spamming, or if status changes
+      if (Math.random() < 0.05 || status.status !== 'Downloading') {
+         console.log('[DownloadManager] Poll emitting:', progress.id, progress.status, (progress.percent * 100).toFixed(1) + '%');
+      }
+      
       this.emit('download-progress', progress);
     }
   }
@@ -258,7 +264,12 @@ export class DownloadManager extends EventEmitter {
     const selectedSettings = (nzbSettings as any)?.newsreaders?.find((reader: NewsreaderSettings) => reader.id === selectedProviderId);
     
     const downloadSettings = await this.store.get<DownloadSettings>('downloadSettings');
-    const downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
+    let downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
+
+    // Default to public Download folder on Android if not specified
+    if (!downloadPath && Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
+      downloadPath = '/storage/emulated/0/Download';
+    }
 
     if (selectedSettings?.type === 'direct' && !downloadPath) {
       const newsreaderName = selectedSettings.name || selectedProviderId;

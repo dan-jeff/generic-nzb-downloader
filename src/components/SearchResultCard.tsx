@@ -57,7 +57,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
       }}
     >
       {/* Header Row: Title + Primary Action/Expand */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1 }}>
         
         {/* Left: Title & Basic Info */}
         <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -97,18 +97,18 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
         </Box>
 
         {/* Right: Quick Action (Collapsed) or Expand Icon */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'flex-start', height: '100%', pt: 0 }}>
             {!isExpanded ? (
                 <IconButton 
                     size="small" 
-                    onClick={(e) => handleAction(e, 'local')}
+                    onClick={(e) => handleAction(e, 'newsreader')}
                     sx={{ 
-                        color: 'primary.main',
-                        background: 'rgba(0, 229, 255, 0.1)',
-                        '&:hover': { background: 'rgba(0, 229, 255, 0.2)' }
+                        color: 'secondary.main',
+                        background: 'rgba(156, 39, 176, 0.1)',
+                        '&:hover': { background: 'rgba(156, 39, 176, 0.2)' }
                     }}
                 >
-                    <DownloadIcon sx={{ fontSize: 20 }} />
+                    <CloudDownloadIcon sx={{ fontSize: 20 }} />
                 </IconButton>
             ) : (
                 <CollapseIcon sx={{ color: 'rgba(255,255,255,0.3)', fontSize: 20 }} />

@@ -4,6 +4,8 @@ export interface TlsSocketPlugin {
   connect(options: { host: string; port: number; useSSL: boolean }): Promise<{ success: boolean; error?: string }>;
   write(options: { data: string }): Promise<{ success: boolean; error?: string }>;
   disconnect(): Promise<{ success: boolean; error?: string }>;
+  pause(): Promise<{ success: boolean }>;
+  resume(): Promise<{ success: boolean }>;
   addListener(eventName: 'data', listenerFunc: (event: { data: string }) => void): Promise<any>;
   addListener(eventName: 'error', listenerFunc: (event: { error: string }) => void): Promise<any>;
   addListener(eventName: 'close', listenerFunc: () => void): Promise<any>;

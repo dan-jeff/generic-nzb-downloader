@@ -101,7 +101,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center', // Align center for collapsed look
-          mb: isCollapsed ? 1 : (isMobile ? 2 : 1), 
+          mb: isMobile ? 2 : 1, 
           flexDirection: (!isCollapsed && isMobile) ? 'column' : 'row', 
           gap: (!isCollapsed && isMobile) ? 2 : 0,
         }}
@@ -186,7 +186,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
             variant="determinate" 
             value={download.percent * 100} 
             sx={{ 
-              height: isCollapsed ? 4 : (isMobile ? 6 : 4),
+              height: isMobile ? 6 : 4,
               borderRadius: 2,
               backgroundColor: 'rgba(255,255,255,0.05)',
               '& .MuiLinearProgress-bar': {
