@@ -347,10 +347,14 @@ export class DownloadManager extends EventEmitter {
 
     const friendlyName = this.providerNames.get(selectedProviderId) || selectedProviderId;
     
+    // Calculate the actual download subfolder path (nzb/filename/)
+    const downloadName = filename.replace(/\.nzb$/i, ''); // Remove .nzb extension
+    const actualSavePath = `${downloadPath}/${downloadName}`;
+    
     const downloadItem: DownloadItem = {
       id,
-      filename,
-      savePath: downloadPath,
+      filename: downloadName,  // Store clean name without .nzb extension for better UI display
+      savePath: actualSavePath,
       status: 'queued',
       startTime: Date.now(),
       providerName: friendlyName,
@@ -362,7 +366,7 @@ export class DownloadManager extends EventEmitter {
     if (!Array.isArray(history)) history = [];
     await this.store.set('history', [downloadItem, ...history]);
     
-    this.externalDownloads.set(id, { providerId: selectedProviderId!, externalId, filename, savePath: downloadPath });
+    this.externalDownloads.set(id, { providerId: selectedProviderId!, externalId, filename: downloadName, savePath: actualSavePath });
     
     return id;
   }

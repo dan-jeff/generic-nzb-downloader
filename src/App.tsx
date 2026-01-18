@@ -19,9 +19,12 @@ import {
 } from '@mui/icons-material';
 import DownloadPanel from './components/DownloadPanel';
 import SearchPanel from './components/SearchPanel';
-import SettingsPanel from './components/SettingsPanel';
+import SettingsPanel, { SettingsPanelHandle } from './components/SettingsPanel';
 import { useDownloads } from './hooks/useDownloads';
 import { serviceContainer } from '@/core/ServiceContainer';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { App as CapacitorApp } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,10 +63,48 @@ function App() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { activeDownloads, history } = useDownloads();
+  const settingsRef = React.useRef<SettingsPanelHandle>(null);
+
+  useEffect(() => {
+    // Back Button Logic
+    const backButtonListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+      // 1. If Settings is active, let it handle the back action
+      if (activeTab === 2 && settingsRef.current?.handleBack()) {
+        return;
+      }
+
+      // 2. If browser history exists (unlikely in this single-page layout but safe to check)
+      /* 
+         Note: We typically don't use window.history.back() here because 
+         we are managing tabs manually. 
+      */
+
+      // 3. If not on the first tab, go to first tab
+      if (activeTab !== 0) {
+        setActiveTab(0);
+        return;
+      }
+
+      // 4. If on first tab, exit app
+      CapacitorApp.exitApp();
+    });
+
+    return () => {
+      backButtonListener.then(listener => listener.remove());
+    };
+  }, [activeTab]);
 
   useEffect(() => {
     const initializeServices = async () => {
       try {
+        if (Capacitor.isNativePlatform()) {
+          try {
+            await StatusBar.setStyle({ style: Style.Dark });
+          } catch (e) {
+            console.error('Failed to set status bar style', e);
+          }
+        }
+
         await serviceContainer.getNetworkAdapter();
         await serviceContainer.getFileSystemAdapter();
         await serviceContainer.getStorageAdapter();
@@ -100,7 +141,16 @@ function App() {
   return (
     <Container
       maxWidth={false}
-      sx={{ pt: 0, pb: 2, px: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}
+      sx={{ 
+        pt: { xs: 'calc(env(safe-area-inset-top) + 16px)', sm: 'calc(env(safe-area-inset-top) + 24px)' },
+        pb: 'env(safe-area-inset-bottom)',
+        pl: { xs: 'max(16px, env(safe-area-inset-left))', sm: 3 },
+        pr: { xs: 'max(16px, env(safe-area-inset-right))', sm: 3 },
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
     >
       {/* Professional Compact Header */}
       <Box 
@@ -128,7 +178,7 @@ function App() {
               textTransform: 'uppercase'
             }}
           >
-            {isMobile ? 'Generic NZB' : 'GENERIC NZB'} <Box component="span" sx={{ color: 'primary.main', display: isMobile ? 'none' : 'inline' }}>DOWNLOADER</Box>
+            GENERIC NZB <Box component="span" sx={{ color: 'primary.main' }}>DOWNLOADER</Box>
           </Typography>
         </Box>
 
@@ -213,7 +263,7 @@ function App() {
         </Tabs>
       </Box>
 
-      <Box sx={{ flex: 1, minHeight: 0, pb: isMobile ? 7 : 0 }}>
+      <Box sx={{ flex: 1, minHeight: 0, pb: isMobile ? 'calc(56px + env(safe-area-inset-bottom))' : 0 }}>
         <CustomTabPanel value={activeTab} index={0}>
           <DownloadPanel />
         </CustomTabPanel>
@@ -221,7 +271,7 @@ function App() {
           <SearchPanel />
         </CustomTabPanel>
         <CustomTabPanel value={activeTab} index={2}>
-          <SettingsPanel />
+          <SettingsPanel ref={settingsRef} />
         </CustomTabPanel>
       </Box>
 
@@ -238,7 +288,13 @@ function App() {
           zIndex: 1000,
           bgcolor: 'background.paper',
           borderTop: '1px solid',
-          borderColor: 'divider'
+          borderColor: 'divider',
+          pb: 'env(safe-area-inset-bottom)',
+          height: 'auto',
+          '& .MuiBottomNavigationAction-root': {
+            minWidth: 'auto',
+            padding: '6px 0'
+          }
         }}
       >
         <BottomNavigationAction 

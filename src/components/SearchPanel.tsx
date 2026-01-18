@@ -25,18 +25,30 @@ import {
   useTheme,
   Alert,
   Snackbar,
+  Collapse,
+  Menu,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from '@mui/material';
 import {
+  Sort as SortIcon,
+  ExpandLess as CollapseIcon,
+  ExpandMore as ExpandIcon,
+  Check as CheckIcon,
   Search as SearchIcon,
   Download as DownloadIcon,
   CloudDownload as CloudDownloadIcon,
   FilterList as FilterIcon,
   Storage as StorageIcon,
+  UnfoldMore as ExpandAllIcon,
+  UnfoldLess as CollapseAllIcon,
 } from '@mui/icons-material';
 import { SearchResult } from '../types/search';
 import { formatBytes } from '../utils/format';
 import { useSearch } from '../hooks/useSearch';
 import { useDownloads } from '../hooks/useDownloads';
+import SearchResultCard from './SearchResultCard';
 
 type SortField = 'title' | 'size' | 'date' | 'source' | 'type';
 type SortOrder = 'asc' | 'desc';
@@ -51,8 +63,16 @@ const SearchPanel: React.FC = () => {
   const [query, setQuery] = useState('');
   const [allResults, setAllResults] = useState<SearchResult[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  
+  // Search Card Collapse State
+  const [isSearchCollapsed, setIsSearchCollapsed] = useState(false);
+  const [resultsCollapseSignal, setResultsCollapseSignal] = useState<{ expanded: boolean; timestamp: number } | null>(null);
+
+  // Sorting
   const [sortField, setSortField] = useState<SortField>('date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [sortMenuAnchor, setSortMenuAnchor] = useState<null | HTMLElement>(null);
+
   const [retryCountdown, setRetryCountdown] = useState(0);
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
     open: false,
@@ -108,6 +128,24 @@ const SearchPanel: React.FC = () => {
     const isAsc = sortField === field && sortOrder === 'asc';
     setSortOrder(isAsc ? 'desc' : 'asc');
     setSortField(field);
+  };
+
+  const handleSortMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setSortMenuAnchor(event.currentTarget);
+  };
+
+  const handleSortMenuClose = () => {
+    setSortMenuAnchor(null);
+  };
+
+  const handleSortSelect = (field: SortField) => {
+    if (sortField === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortOrder('desc');
+    }
+    handleSortMenuClose();
   };
 
   const showSnackbar = (message: string, severity: 'success' | 'error') => {
@@ -194,152 +232,259 @@ const SearchPanel: React.FC = () => {
     });
   }, [allResults, includeFilter, excludeFilter, minSize, maxSize, minSizeUnit, maxSizeUnit, sortField, sortOrder]);
 
+  const handleToggleExpandAll = () => {
+    setResultsCollapseSignal(prev => {
+      const nextExpanded = prev ? !prev.expanded : true;
+      return { expanded: nextExpanded, timestamp: Date.now() };
+    });
+  };
+
   return (
     <>
       {console.log('[SearchPanel] Component render, searching:', searching, 'query:', query)}
       <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       <Box sx={{ mb: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-          <SearchIcon sx={{ color: 'primary.main', fontSize: 26 }} />
-          <Typography variant="h5" sx={{ color: '#fff' }}>SEARCH</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <SearchIcon sx={{ color: 'primary.main', fontSize: 26 }} />
+            <Typography variant="h5" sx={{ color: '#fff' }}>SEARCH</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            {allResults.length > 0 && (
+              <Tooltip title={resultsCollapseSignal?.expanded ? "Collapse Results" : "Expand Results"}>
+                <IconButton
+                  onClick={handleToggleExpandAll}
+                  size={isMobile ? "medium" : "small"}
+                  sx={{ 
+                    color: 'rgba(255,255,255,0.3)', 
+                    '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                  }}
+                >
+                  {resultsCollapseSignal?.expanded ? (
+                    <CollapseAllIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+                  ) : (
+                    <ExpandAllIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+            )}
+            <Tooltip title="Sort Results">
+              <IconButton 
+                onClick={handleSortMenuOpen}
+                size={isMobile ? "medium" : "small"}
+                sx={{ 
+                  color: 'rgba(255,255,255,0.3)', 
+                  '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                }}
+              >
+                <SortIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={isSearchCollapsed ? "Expand Search" : "Collapse Search"}>
+              <IconButton 
+                onClick={() => setIsSearchCollapsed(!isSearchCollapsed)}
+                size={isMobile ? "medium" : "small"}
+                sx={{ 
+                  color: 'rgba(255,255,255,0.3)', 
+                  '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                }}
+              >
+                {isSearchCollapsed ? 
+                  <ExpandIcon sx={{ fontSize: isMobile ? 26 : 22 }} /> : 
+                  <CollapseIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+                }
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
       </Box>
 
+      {/* Sort Menu */}
+      <Menu
+        anchorEl={sortMenuAnchor}
+        open={Boolean(sortMenuAnchor)}
+        onClose={handleSortMenuClose}
+        PaperProps={{
+          sx: {
+            background: '#1e293b',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.1)',
+            minWidth: 200,
+          }
+        }}
+      >
+        <MenuItem onClick={() => handleSortSelect('date')}>
+          <ListItemText>Date</ListItemText>
+          {sortField === 'date' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+        <MenuItem onClick={() => handleSortSelect('size')}>
+          <ListItemText>Size</ListItemText>
+          {sortField === 'size' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+        <MenuItem onClick={() => handleSortSelect('title')}>
+          <ListItemText>Title</ListItemText>
+          {sortField === 'title' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+        <MenuItem onClick={() => handleSortSelect('source')}>
+          <ListItemText>Provider</ListItemText>
+          {sortField === 'source' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+        
+        <Divider sx={{ my: 1, borderColor: 'rgba(255,255,255,0.1)' }} />
+        
+        <MenuItem onClick={() => { setSortOrder('asc'); handleSortMenuClose(); }}>
+          <ListItemText>Ascending</ListItemText>
+          {sortOrder === 'asc' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+        <MenuItem onClick={() => { setSortOrder('desc'); handleSortMenuClose(); }}>
+          <ListItemText>Descending</ListItemText>
+          {sortOrder === 'desc' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
+        </MenuItem>
+      </Menu>
+
       {/* Search Controls */}
-      <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(145deg, #141B2D 0%, #0F172A 100%)' }}>
-        <Box sx={{ display: 'flex', gap: 2.5 }}>
-          <TextField
-            fullWidth
-            size="small"
-            variant="outlined"
-            placeholder="Search for content..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === 'Go' || e.key === 'Done' || e.key === 'Search') {
-                e.preventDefault();
-                handleSearch();
-              }
-            }}
-            disabled={searching}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon sx={{ color: 'primary.main', fontSize: 20 }} />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            variant="contained"
-            size="large"
-            onClick={handleSearch}
-            disabled={!query.trim() || searching}
-            sx={{ 
-              px: 3, 
-              minWidth: isMobile ? '120px' : '100px',
-              minHeight: isMobile ? '48px' : 'auto'
-            }}
-          >
-            {searching ? <CircularProgress size={18} color="inherit" /> : 'Search'}
-          </Button>
-        </Box>
-
-        {allResults.length > 0 && (
-          <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-            <Grid container spacing={3}>
-              {/* Include Filter */}
-              <Grid size={{ xs: 12, md: 6 }}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  variant="outlined"
-                  label="Include Terms"
-                  placeholder="e.g. 1080p HDR"
-                  value={includeFilter}
-                  onChange={(e) => setIncludeFilter(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FilterIcon sx={{ color: 'rgba(255,255,255,0.3)', fontSize: 18 }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-              
-              {/* Exclude Filter */}
-              <Grid size={{ xs: 12, md: 6 }}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  variant="outlined"
-                  label="Exclude Terms"
-                  placeholder="e.g. CAM TS"
-                  value={excludeFilter}
-                  onChange={(e) => setExcludeFilter(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FilterIcon sx={{ color: 'error.main', fontSize: 18 }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-
-              {/* Size Filters */}
-              <Grid size={{ xs: 12, md: 6 }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="Min Size"
-                    type="number"
-                    value={minSize}
-                    onChange={(e) => setMinSize(e.target.value)}
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <FormControl size="small" sx={{ width: 80 }}>
-                    <Select
-                      value={minSizeUnit}
-                      onChange={(e) => setMinSizeUnit(e.target.value as SizeUnit)}
-                    >
-                      <MenuItem value="MB">MB</MenuItem>
-                      <MenuItem value="GB">GB</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Grid>
-
-              <Grid size={{ xs: 12, md: 6 }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="Max Size"
-                    type="number"
-                    value={maxSize}
-                    onChange={(e) => setMaxSize(e.target.value)}
-                    InputLabelProps={{ shrink: true }}
-                  />
-                  <FormControl size="small" sx={{ width: 80 }}>
-                    <Select
-                      value={maxSizeUnit}
-                      onChange={(e) => setMaxSizeUnit(e.target.value as SizeUnit)}
-                    >
-                      <MenuItem value="MB">MB</MenuItem>
-                      <MenuItem value="GB">GB</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Grid>
+      <Collapse in={!isSearchCollapsed}>
+        <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(145deg, #141B2D 0%, #0F172A 100%)' }}>
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, sm: 9, md: 10 }}>
+              <TextField
+                fullWidth
+                size="small"
+                variant="outlined"
+                placeholder="Search for content..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch();
+                  }
+                }}
+                disabled={searching}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+                    </InputAdornment>
+                  ),
+                  sx: { height: 40 }
+                }}
+              />
             </Grid>
-          </Box>
-        )}
-      </Paper>
+            <Grid size={{ xs: 12, sm: 3, md: 2 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleSearch}
+                disabled={!query.trim() || searching}
+                sx={{ 
+                  height: 40,
+                  whiteSpace: 'nowrap',
+                  background: 'primary.main',
+                  '&:hover': { background: 'primary.dark' }
+                }}
+              >
+                {searching ? <CircularProgress size={20} color="inherit" /> : 'Search'}
+              </Button>
+            </Grid>
+          </Grid>
+
+          {allResults.length > 0 && (
+            <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+              <Grid container spacing={3}>
+                {/* Include Filter */}
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    label="Include Terms"
+                    placeholder="e.g. 1080p HDR"
+                    value={includeFilter}
+                    onChange={(e) => setIncludeFilter(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <FilterIcon sx={{ color: 'rgba(255,255,255,0.3)', fontSize: 18 }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Grid>
+                
+                {/* Exclude Filter */}
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    label="Exclude Terms"
+                    placeholder="e.g. CAM TS"
+                    value={excludeFilter}
+                    onChange={(e) => setExcludeFilter(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <FilterIcon sx={{ color: 'error.main', fontSize: 18 }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Grid>
+
+                {/* Size Filters */}
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      label="Min Size"
+                      type="number"
+                      value={minSize}
+                      onChange={(e) => setMinSize(e.target.value)}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                    <FormControl size="small" sx={{ minWidth: 80 }}>
+                      <Select
+                        value={minSizeUnit}
+                        onChange={(e) => setMinSizeUnit(e.target.value as SizeUnit)}
+                      >
+                        <MenuItem value="MB">MB</MenuItem>
+                        <MenuItem value="GB">GB</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      label="Max Size"
+                      type="number"
+                      value={maxSize}
+                      onChange={(e) => setMaxSize(e.target.value)}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                    <FormControl size="small" sx={{ minWidth: 80 }}>
+                      <Select
+                        value={maxSizeUnit}
+                        onChange={(e) => setMaxSizeUnit(e.target.value as SizeUnit)}
+                      >
+                        <MenuItem value="MB">MB</MenuItem>
+                        <MenuItem value="GB">GB</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          )}
+        </Paper>
+      </Collapse>
 
       {isRetrying && retryCountdown > 0 && (
         <Alert
@@ -368,6 +513,7 @@ const SearchPanel: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <CircularProgress size={40} sx={{ mb: 2 }} />
@@ -410,90 +556,12 @@ const SearchPanel: React.FC = () => {
           isMobile ? (
             <Box sx={{ overflowY: 'auto', height: '100%', pb: 2 }}>
               {filteredResults.map((result) => (
-                <Paper
-                  key={result.id}
-                  sx={{
-                    background: 'rgba(30, 41, 59, 0.4)',
-                    border: '1px solid rgba(148, 163, 184, 0.12)',
-                    p: 2.5,
-                    mb: 2,
-                    '&:hover': {
-                      background: 'rgba(30, 41, 59, 0.6)',
-                      borderColor: 'rgba(139, 92, 246, 0.3)',
-                    },
-                  }}
-                >
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      fontWeight: 700,
-                      color: 'rgba(255,255,255,0.95)',
-                      mb: 2,
-                      fontSize: '0.95rem',
-                    }}
-                  >
-                    {result.title}
-                  </Typography>
-                  
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3, alignItems: 'center' }}>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace', fontWeight: 500 }}>
-                      {formatBytes(result.size)}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)' }}>|</Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-                      {result.date}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)' }}>|</Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
-                      {result.source}
-                    </Typography>
-                    <Chip
-                      label={result.type.toUpperCase()}
-                      size="small"
-                      variant="outlined"
-                      color="secondary"
-                      sx={{ fontSize: '0.675rem', height: 20, fontWeight: 700 }}
-                    />
-                  </Box>
-                  
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      startIcon={<DownloadIcon />}
-                      onClick={() => handleDownload(result.link, result.title, 'local')}
-                      sx={{
-                        py: 1.2,
-                        background: 'linear-gradient(135deg, #00E5FF 0%, #00B4D8 100%)',
-                        color: '#0F172A',
-                        fontWeight: 600,
-                        fontSize: '0.875rem',
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #00B4D8 0%, #00E5FF 100%)',
-                        },
-                      }}
-                    >
-                      Download NZB
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      startIcon={<CloudDownloadIcon />}
-                      onClick={() => handleDownload(result.link, result.title, 'newsreader')}
-                      sx={{
-                        py: 1.2,
-                        background: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)',
-                        fontWeight: 600,
-                        fontSize: '0.875rem',
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #7B1FA2 0%, #9C27B0 100%)',
-                        },
-                      }}
-                    >
-                      Send to Newsreader
-                    </Button>
-                  </Box>
-                </Paper>
+                <SearchResultCard 
+                  key={result.id} 
+                  result={result} 
+                  onDownload={handleDownload} 
+                  collapseSignal={resultsCollapseSignal}
+                />
               ))}
             </Box>
           ) : (
@@ -680,6 +748,7 @@ const SearchPanel: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
+              alignItems: 'center',
               color: 'rgba(255,255,255,0.2)',
             }}
           >

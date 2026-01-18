@@ -990,7 +990,9 @@ export class FileAssembler {
       throw new Error('IFileSystem not provided to FileAssembler');
     }
 
-    const filePath = job.name ? `${job.savePath}/${file.filename}` : file.filename;
+    // Save directly to the download subfolder, not nested further
+    const filePath = `${job.savePath}/${file.filename}`;
+    console.log(`[FileAssembler] Assembling file to: ${filePath}`);
     const fileHandle = await fileSystem.open(filePath, 'w');
 
     try {
@@ -1624,21 +1626,27 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     let totalSize = segmentElements.reduce((sum, seg) => sum + parseInt(seg.getAttribute('bytes') || '0', 10), 0);
     if (isNaN(totalSize)) totalSize = 0;
 
+    // Create download-specific subfolder: nzb/filename/
+    const downloadName = filename.replace(/\.nzb$/i, ''); // Remove .nzb extension
+    const downloadSubfolder = `${downloadPath}/${downloadName}`;
+    
+    console.log(`[DirectUsenetClient] Creating download subfolder: ${downloadSubfolder}`);
+
     this.activeDownloads.set(id, {
       id,
-      name: filename,
+      name: downloadName,  // Use NZB filename without .nzb extension
       size: totalSize,
       remainingSize: totalSize,
       progress: 0,
       status: 'Queued',
       speed: 0,
       eta: 0,
-      outputPath: downloadPath,
+      outputPath: downloadSubfolder,
       category: category
     });
 
     // Start background download
-    this.processDownload(id, content, filename, downloadPath).catch(err => {
+    this.processDownload(id, content, filename, downloadSubfolder).catch(err => {
       const errorMsg = err instanceof Error ? err.message : String(err);
       const errorStack = err instanceof Error ? err.stack : undefined;
       console.error(`[DirectUsenetClient] Download ${id} failed:`, errorMsg);
@@ -1663,6 +1671,18 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     console.log(`[DirectUsenetClient] Starting download process for ${id}`);
 
     try {
+      if (!downloadPath) {
+        throw new Error('Download path not configured');
+      }
+
+      // Create the download subfolder first
+      if (this.fileSystem) {
+        await this.fileSystem.mkdir(downloadPath);
+        console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
+      } else {
+        throw new Error('IFileSystem not provided');
+      }
+
       const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
       const fileElements = Array.from(doc.getElementsByTagName('file'));
 
@@ -1682,45 +1702,76 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
 
         const totalBytes = segments.reduce((sum, seg) => sum + seg.bytes, 0);
         
+        // Extract filename from subject for segment files, but keep display name as NZB name
         const filenameMatch = subject.match(/"([^"]+)"/);
-        const extractedFilename = filenameMatch ? filenameMatch[1] : filename;
-        status.name = extractedFilename; // Update name if we found a better one
+        const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
 
         const segmentsDir = `${downloadPath}/.segments`;
-        if (this.fileSystem) {
-           await this.fileSystem.mkdir(segmentsDir);
-        } else {
-           throw new Error('IFileSystem not provided');
-        }
+        await this.fileSystem.mkdir(segmentsDir);
+        console.log(`[DirectUsenetClient] Created segments directory: ${segmentsDir}`);
 
         const downloadedSegments = new Map<number, StoredSegment>();
         let downloadedBytesFile = 0;
 
-        for (const segment of segments) {
-           const segmentPath = `${segmentsDir}/${extractedFilename}.${segment.number}.tmp`;
-           
-           if (!this.segmentDownloader) throw new Error('Segment downloader missing');
-           
-           console.log(`[DirectUsenetClient] About to download segment ${segment.number}, messageId: ${segment.messageId}`);
-           console.log(`[DirectUsenetClient] SegmentDownloader exists: ${!!this.segmentDownloader}`);
-           console.log(`[DirectUsenetClient] ConnectionPool exists: ${!!this.connectionPool}`);
-           
-           const result = await this.segmentDownloader.downloadSegment(segment.messageId, segmentPath);
-           
-           console.log(`[DirectUsenetClient] Segment ${segment.number} downloaded successfully`);
-           
-           const segmentSize = result.data ? result.data.length : segment.bytes; // Approx if streamed
-           
-           downloadedSegments.set(segment.number, {
-             path: segmentPath,
-             metadata: result.metadata,
-             size: segmentSize
-           });
+        // Parallel segment download (matching desktop implementation)
+        const maxConcurrent = this.settings.segmentConcurrency || 10; // Default 10 like desktop
+        let index = 0;
+        const activeDownloads = new Map<string, Promise<void>>();
 
-           downloadedBytesFile += segmentSize;
-           status.remainingSize = Math.max(0, status.remainingSize - segmentSize);
-           status.progress = status.size > 0 ? ((status.size - status.remainingSize) / status.size) * 100 : 0;
+        const processSegment = async (segment: NzbSegment): Promise<void> => {
+          const segmentPath = `${segmentsDir}/${extractedFilename}.${segment.number}.tmp`;
+          
+          if (!this.segmentDownloader) throw new Error('Segment downloader missing');
+          
+          console.log(`[DirectUsenetClient] Downloading segment ${segment.number}/${segments.length}, messageId: ${segment.messageId}`);
+          
+          try {
+            const result = await this.segmentDownloader.downloadSegment(segment.messageId, segmentPath);
+            
+            const segmentSize = result.data ? result.data.length : segment.bytes;
+            
+            downloadedSegments.set(segment.number, {
+              path: segmentPath,
+              metadata: result.metadata,
+              size: segmentSize
+            });
+
+            downloadedBytesFile += segmentSize;
+            status.remainingSize = Math.max(0, status.remainingSize - segmentSize);
+            status.progress = status.size > 0 ? ((status.size - status.remainingSize) / status.size) * 100 : 0;
+            
+            console.log(`[DirectUsenetClient] Segment ${segment.number} completed (${downloadedSegments.size}/${segments.length})`);
+          } catch (err) {
+            console.error(`[DirectUsenetClient] Failed to download segment ${segment.number}:`, err);
+            throw err;
+          }
+        };
+
+        // Download segments in parallel with controlled concurrency
+        while (index < segments.length) {
+          // Fill up to maxConcurrent active downloads
+          while (activeDownloads.size < maxConcurrent && index < segments.length) {
+            const segment = segments[index];
+            const promise = processSegment(segment)
+              .finally(() => {
+                activeDownloads.delete(segment.messageId);
+              });
+            activeDownloads.set(segment.messageId, promise);
+            index++;
+          }
+
+          // Wait for at least one to complete before continuing
+          if (activeDownloads.size > 0) {
+            await Promise.race(Array.from(activeDownloads.values()));
+          }
         }
+
+        // Wait for all remaining downloads to complete
+        if (activeDownloads.size > 0) {
+          await Promise.all(Array.from(activeDownloads.values()));
+        }
+
+        console.log(`[DirectUsenetClient] All ${segments.length} segments downloaded successfully`);
         
         // Assemble
         status.status = 'Assembling'; // Or keep Downloading

@@ -15,7 +15,18 @@ export const useDownloads = () => {
         setHistory(data);
       } else {
         const storage = serviceContainer.getStorageAdapter();
-        const data = (await storage.get<DownloadHistoryItem[]>('history')) || [];
+        const rawData = (await storage.get<any[]>('history')) || [];
+        const data: DownloadHistoryItem[] = rawData.map(item => ({
+          id: item.id,
+          url: item.url,
+          filename: item.filename,
+          path: item.savePath,
+          timestamp: item.endTime || item.startTime,
+          size: item.totalBytes || 0,
+          providerName: item.providerName,
+          externalId: item.externalId,
+          status: item.status
+        }));
         setHistory(data);
       }
     } catch (error) {

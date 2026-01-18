@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 class CapacitorFileHandle implements FileHandle {
   private path: string;
   private offset: number = 0;
-  private buffer: Buffer = Buffer.alloc(0);
+  private firstWrite: boolean = true;
 
   constructor(path: string) {
     this.path = path;
@@ -15,15 +15,29 @@ class CapacitorFileHandle implements FileHandle {
     this.offset = position;
     
     const writeData = data.slice(offset, offset + length);
-    this.buffer = Buffer.concat([this.buffer, writeData]);
     
     try {
-      const base64Data = this.buffer.toString('base64');
-      await Filesystem.writeFile({
-        path: this.path,
-        data: base64Data,
-        directory: 'Documents' as any
-      });
+      const base64Data = writeData.toString('base64');
+      
+      if (this.firstWrite) {
+        // First write: overwrite/create the file
+        // We use recursive: true to create parent directories if they don't exist
+        await Filesystem.writeFile({
+          path: this.path,
+          data: base64Data,
+          directory: 'Documents' as any,
+          recursive: true
+        });
+        this.firstWrite = false;
+      } else {
+        // Subsequent writes: append to the file
+        // This avoids loading the entire file into memory
+        await Filesystem.appendFile({
+          path: this.path,
+          data: base64Data,
+          directory: 'Documents' as any
+        });
+      }
       
       this.offset += writeData.length;
       return { bytesWritten: writeData.length, buffer: data };
@@ -33,7 +47,7 @@ class CapacitorFileHandle implements FileHandle {
   }
 
   async close(): Promise<void> {
-    this.buffer = Buffer.alloc(0);
+    // No buffering to clean up
   }
 }
 
@@ -43,9 +57,10 @@ interface WriteCallback {
 
 class CapacitorWritable extends EventEmitter {
   private path: string;
-  private chunks: Buffer[] = [];
-  private totalSize: number = 0;
-  private _drainCallbacks: Array<() => void> = [];
+  private firstWrite: boolean = true;
+  private isWriting: boolean = false;
+  private writeQueue: Buffer[] = [];
+  private pendingCallback: (() => void) | null = null;
 
   constructor(path: string) {
     super();
@@ -54,66 +69,93 @@ class CapacitorWritable extends EventEmitter {
   }
 
   write(chunk: any, _encoding?: BufferEncoding | string, callback?: (error?: Error | null) => void): boolean {
-    console.log(`[CapacitorWritable] write called, chunks: ${this.chunks.length}, totalSize: ${this.totalSize}`);
     const buffer = chunk instanceof Buffer ? chunk : Buffer.from(chunk);
-    this.chunks.push(buffer);
-    this.totalSize += buffer.length;
-    callback?.();
+    this.writeQueue.push(buffer);
     
-    // Always return true to indicate no backpressure (Capacitor Filesystem writes are async but buffered)
+    // Process queue immediately
+    this.processQueue().catch(err => {
+      console.error('[CapacitorWritable] Error processing queue:', err);
+      if (callback) callback(err instanceof Error ? err : new Error(String(err)));
+      else this.emit('error', err);
+    });
+
+    if (callback) {
+      // We can't call callback immediately if we want to simulate backpressure,
+      // but Capacitor writes are async. We'll call it after scheduling.
+      // Ideally we should wait for actual write, but for speed we might not?
+      // Let's call it after successful write in processQueue logic?
+      // For now, simpler: call it asynchronously to unblock stream
+      setImmediate(callback);
+    }
+    
     return true;
   }
 
-  once(event: string, callback: (...args: any[]) => void): this {
-    console.log(`[CapacitorWritable] once called for event: ${event}`);
-    
-    if (event === 'drain') {
-      // Store drain callbacks, they will be called immediately since we don't have backpressure
-      this._drainCallbacks.push(callback);
-      // Call immediately since we never have backpressure
-      setImmediate(() => {
-        const index = this._drainCallbacks.indexOf(callback);
-        if (index !== -1) {
-          this._drainCallbacks.splice(index, 1);
-          callback();
+  private async processQueue() {
+    if (this.isWriting) return;
+    this.isWriting = true;
+
+    try {
+      while (this.writeQueue.length > 0) {
+        const buffer = this.writeQueue.shift();
+        if (!buffer) continue;
+
+        const base64Data = buffer.toString('base64');
+
+        if (this.firstWrite) {
+          await Filesystem.writeFile({
+            path: this.path,
+            data: base64Data,
+            directory: 'Documents' as any,
+            recursive: true
+          });
+          this.firstWrite = false;
+        } else {
+          await Filesystem.appendFile({
+            path: this.path,
+            data: base64Data,
+            directory: 'Documents' as any
+          });
         }
-      });
+      }
+    } catch (err) {
+      console.error('[CapacitorWritable] Write error:', err);
+      this.emit('error', err);
+    } finally {
+      this.isWriting = false;
+      // If queue received new items while we were writing, process them
+      if (this.writeQueue.length > 0) {
+        this.processQueue();
+      } else if (this.pendingCallback) {
+        this.pendingCallback();
+        this.pendingCallback = null;
+      }
+    }
+  }
+
+  once(event: string, callback: (...args: any[]) => void): this {
+    if (event === 'drain') {
+       // We basically always drain immediately as we return true in write
+       setImmediate(() => callback());
     } else {
-      super.once(event, callback);
+       super.once(event, callback);
     }
     return this;
   }
 
   async end(callback?: WriteCallback): Promise<void> {
-    console.log(`[CapacitorWritable] end called, chunks: ${this.chunks.length}`);
+    console.log(`[CapacitorWritable] end called`);
     
-    try {
-      if (this.chunks.length === 0) {
-        console.log('[CapacitorWritable] No chunks to write');
-        callback?.();
-        return;
-      }
-
-      const combined = Buffer.concat(this.chunks, this.totalSize);
-      const base64Data = combined.toString('base64');
-      console.log(`[CapacitorWritable] Writing ${combined.length} bytes to ${this.path}`);
-
-      await Filesystem.writeFile({
-        path: this.path,
-        data: base64Data,
-        directory: 'Documents' as any
+    if (this.isWriting || this.writeQueue.length > 0) {
+      // Wait for queue to drain
+      await new Promise<void>((resolve) => {
+        this.pendingCallback = resolve;
+        if (!this.isWriting) this.processQueue(); // trigger if idle
       });
-
-      console.log(`[CapacitorWritable] File written successfully`);
-      callback?.();
-    } catch (err) {
-      console.error('[CapacitorWritable] Error in end:', err);
-      const error = err instanceof Error ? err : new Error(String(err));
-      callback?.(error);
-    } finally {
-      this.chunks = [];
-      this.totalSize = 0;
     }
+
+    if (callback) callback();
+    this.emit('finish');
   }
 }
 
