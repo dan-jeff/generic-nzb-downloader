@@ -80,7 +80,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          mb: isCollapsed ? 1 : (isMobile ? 2 : 1), 
+          mb: isMobile ? 2 : 1, 
           flexDirection: (!isCollapsed && isMobile) ? 'column' : 'row', 
           gap: (!isCollapsed && isMobile) ? 2 : 0,
         }}
@@ -146,7 +146,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
             variant="determinate" 
             value={100} 
             sx={{ 
-              height: isCollapsed ? 4 : (isMobile ? 6 : 4),
+              height: isMobile ? 6 : 4,
               borderRadius: 2,
               backgroundColor: 'rgba(255,255,255,0.05)',
               '& .MuiLinearProgress-bar': {

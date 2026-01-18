@@ -19,12 +19,36 @@ import javax.net.ssl.SSLSocketFactory;
 @CapacitorPlugin(name = "TlsSocketPlugin")
 public class TlsSocketPlugin extends Plugin {
     private SSLSocket socket = null;
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    // Use CachedThreadPool to allow concurrent operations (connect, write, disconnect)
+    private ExecutorService executor = Executors.newCachedThreadPool();
+    private volatile boolean isPaused = false;
+    private final Object pauseLock = new Object();
 
     @Override
     public void load() {
         super.load();
         android.util.Log.i("TlsSocketPlugin", "Native TlsSocketPlugin loaded and initialized");
+    }
+
+    @PluginMethod
+    public void pause(PluginCall call) {
+        android.util.Log.i("TlsSocketPlugin", "pause() called");
+        isPaused = true;
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.resolve(ret);
+    }
+
+    @PluginMethod
+    public void resume(PluginCall call) {
+        android.util.Log.i("TlsSocketPlugin", "resume() called");
+        synchronized (pauseLock) {
+            isPaused = false;
+            pauseLock.notifyAll();
+        }
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        call.resolve(ret);
     }
 
     @PluginMethod
@@ -63,10 +87,24 @@ public class TlsSocketPlugin extends Plugin {
                 new Thread(() -> {
                     try {
                         InputStream inputStream = socket.getInputStream();
-                        byte[] buffer = new byte[4096];
+                        byte[] buffer = new byte[8192]; // Increased buffer to 8KB
                         int bytesRead;
                         while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            android.util.Log.d("TlsSocketPlugin", "Read " + bytesRead + " bytes");
+                            
+                            // Flow Control Logic
+                            synchronized (pauseLock) {
+                                while (isPaused) {
+                                    try {
+                                        pauseLock.wait();
+                                    } catch (InterruptedException e) {
+                                        android.util.Log.w("TlsSocketPlugin", "Read thread interrupted during pause");
+                                        Thread.currentThread().interrupt();
+                                        return;
+                                    }
+                                }
+                            }
+
+                            // android.util.Log.d("TlsSocketPlugin", "Read " + bytesRead + " bytes");
                             String encodedData = Base64.encodeToString(buffer, 0, bytesRead, Base64.NO_WRAP);
                             JSObject dataRet = new JSObject();
                             dataRet.put("data", encodedData);

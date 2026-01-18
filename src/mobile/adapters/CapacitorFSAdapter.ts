@@ -59,8 +59,14 @@ class CapacitorWritable extends EventEmitter {
   private path: string;
   private firstWrite: boolean = true;
   private isWriting: boolean = false;
-  private writeQueue: Buffer[] = [];
   private pendingCallback: (() => void) | null = null;
+
+  private writeBuffer: Buffer = Buffer.alloc(0);
+  private flushTimer: NodeJS.Timeout | null = null;
+
+  private static readonly FLUSH_THRESHOLD = 512 * 1024;  // 512KB - Increased for efficiency now that flow control works
+  private static readonly FLUSH_TIMEOUT = 200;         // 200ms
+  private static readonly HIGH_WATER_MARK = 1024 * 1024; // 1MB
 
   constructor(path: string) {
     super();
@@ -70,88 +76,117 @@ class CapacitorWritable extends EventEmitter {
 
   write(chunk: any, _encoding?: BufferEncoding | string, callback?: (error?: Error | null) => void): boolean {
     const buffer = chunk instanceof Buffer ? chunk : Buffer.from(chunk);
-    this.writeQueue.push(buffer);
-    
-    // Process queue immediately
-    this.processQueue().catch(err => {
-      console.error('[CapacitorWritable] Error processing queue:', err);
-      if (callback) callback(err instanceof Error ? err : new Error(String(err)));
-      else this.emit('error', err);
-    });
 
-    if (callback) {
-      // We can't call callback immediately if we want to simulate backpressure,
-      // but Capacitor writes are async. We'll call it after scheduling.
-      // Ideally we should wait for actual write, but for speed we might not?
-      // Let's call it after successful write in processQueue logic?
-      // For now, simpler: call it asynchronously to unblock stream
+    this.writeBuffer = Buffer.concat([this.writeBuffer, buffer]);
+
+    const bufferSize = this.writeBuffer.length;
+    const canAcceptMore = bufferSize < CapacitorWritable.HIGH_WATER_MARK;
+
+    if (!canAcceptMore) {
+      if (callback) {
+        const wrappedCallback = callback;
+        callback = () => {};
+        this.pendingCallback = () => wrappedCallback();
+      }
+    }
+
+    if (bufferSize >= CapacitorWritable.FLUSH_THRESHOLD && !this.isWriting) {
+      this.flush().catch(err => {
+        if (callback) callback(err instanceof Error ? err : new Error(String(err)));
+      });
+    } else {
+      this.scheduleFlush();
+    }
+
+    if (callback && canAcceptMore) {
       setImmediate(callback);
     }
-    
-    return true;
+
+    return canAcceptMore;
   }
 
-  private async processQueue() {
-    if (this.isWriting) return;
+  private async flush(): Promise<void> {
+    if (this.writeBuffer.length === 0) return;
+
     this.isWriting = true;
+    const wasFull = this.writeBuffer.length >= CapacitorWritable.HIGH_WATER_MARK;
 
     try {
-      while (this.writeQueue.length > 0) {
-        const buffer = this.writeQueue.shift();
-        if (!buffer) continue;
+      const base64Data = this.writeBuffer.toString('base64');
 
-        const base64Data = buffer.toString('base64');
+      if (this.firstWrite) {
+        await Filesystem.writeFile({
+          path: this.path,
+          data: base64Data,
+          directory: 'Documents' as any,
+          recursive: true
+        });
+        this.firstWrite = false;
+      } else {
+        await Filesystem.appendFile({
+          path: this.path,
+          data: base64Data,
+          directory: 'Documents' as any
+        });
+      }
 
-        if (this.firstWrite) {
-          await Filesystem.writeFile({
-            path: this.path,
-            data: base64Data,
-            directory: 'Documents' as any,
-            recursive: true
-          });
-          this.firstWrite = false;
-        } else {
-          await Filesystem.appendFile({
-            path: this.path,
-            data: base64Data,
-            directory: 'Documents' as any
-          });
-        }
+      this.writeBuffer = Buffer.alloc(0);
+
+      if (wasFull) {
+        this.emit('drain');
       }
     } catch (err) {
-      console.error('[CapacitorWritable] Write error:', err);
       this.emit('error', err);
+      throw err;
     } finally {
       this.isWriting = false;
-      // If queue received new items while we were writing, process them
-      if (this.writeQueue.length > 0) {
-        this.processQueue();
-      } else if (this.pendingCallback) {
+
+      if (this.pendingCallback) {
         this.pendingCallback();
         this.pendingCallback = null;
       }
     }
   }
 
+  private scheduleFlush(): void {
+    if (this.flushTimer) {
+      clearTimeout(this.flushTimer);
+    }
+
+    this.flushTimer = setTimeout(async () => {
+      try {
+        await this.flush();
+      } catch (err) {
+        console.error('[CapacitorWritable] Scheduled flush error:', err);
+      }
+    }, CapacitorWritable.FLUSH_TIMEOUT);
+  }
+
   once(event: string, callback: (...args: any[]) => void): this {
     if (event === 'drain') {
-       // We basically always drain immediately as we return true in write
-       setImmediate(() => callback());
+     super.once(event, callback);
     } else {
-       super.once(event, callback);
+     super.once(event, callback);
     }
     return this;
   }
 
   async end(callback?: WriteCallback): Promise<void> {
     console.log(`[CapacitorWritable] end called`);
-    
-    if (this.isWriting || this.writeQueue.length > 0) {
-      // Wait for queue to drain
-      await new Promise<void>((resolve) => {
-        this.pendingCallback = resolve;
-        if (!this.isWriting) this.processQueue(); // trigger if idle
-      });
+
+    if (this.flushTimer) {
+      clearTimeout(this.flushTimer);
+      this.flushTimer = null;
+    }
+
+    if (this.writeBuffer.length > 0) {
+      if (this.isWriting) {
+        await new Promise<void>((resolve) => {
+          this.pendingCallback = resolve;
+        });
+      } else {
+        await this.flush();
+      }
     }
 
     if (callback) callback();

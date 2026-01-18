@@ -60,6 +60,7 @@ function App() {
   console.log('GenericDownloader: App component rendering');
   const [activeTab, setActiveTab] = useState(0);
   const [appVersion, setAppVersion] = useState('');
+  const [searchExpandTimestamp, setSearchExpandTimestamp] = useState(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { activeDownloads, history } = useDownloads();
@@ -253,6 +254,11 @@ function App() {
             iconPosition="start" 
             label="Search" 
             sx={{ minHeight: 32 }}
+            onClick={() => {
+              if (activeTab === 1) {
+                setSearchExpandTimestamp(Date.now());
+              }
+            }}
           />
           <Tab 
             icon={<SettingsIcon sx={{ fontSize: 18 }} />} 
@@ -268,7 +274,7 @@ function App() {
           <DownloadPanel />
         </CustomTabPanel>
         <CustomTabPanel value={activeTab} index={1}>
-          <SearchPanel />
+          <SearchPanel expandSignal={searchExpandTimestamp} />
         </CustomTabPanel>
         <CustomTabPanel value={activeTab} index={2}>
           <SettingsPanel ref={settingsRef} />
@@ -304,6 +310,11 @@ function App() {
         <BottomNavigationAction 
           label="Search" 
           icon={<SearchIcon />} 
+          onClick={() => {
+            if (activeTab === 1) {
+              setSearchExpandTimestamp(Date.now());
+            }
+          }}
         />
         <BottomNavigationAction 
           label="Settings" 
