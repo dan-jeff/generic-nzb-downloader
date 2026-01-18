@@ -212,11 +212,36 @@ export class NntpConnection {
       this.responseBuffer = this.responseBuffer.substring(newlineIndex + 2);
 
       if (!this.pendingMultiLine) {
+        if (line.trim().length === 0) {
+           continue; 
+        }
+
         const code = parseInt(line.substring(0, 3), 10);
         if (isNaN(code)) {
-          console.error(`[NntpConnection] Invalid response code received: ${line}`);
+          // Recovery: If we are expecting a multiline response, but get data that isn't a code,
+          // assume we missed the header (e.g. 222) and treat this as the start of the body.
+          if (this.expectMultiLine) {
+             console.warn(`[NntpConnection] Missing status code (expected multiline), treating line as body data. Hex: ${Buffer.from(line.substring(0, Math.min(10, line.length))).toString('hex')}`);
+             this.expectMultiLine = false;
+             this.pendingMultiLine = true;
+             this.multiLineBuffer = []; // Start buffer
+             
+             if (this.onStreamStart) {
+               this.onStreamStart();
+               this.onStreamStart = null;
+             }
+             
+             // Process this line as body data immediately
+             this.processBodyLine(line);
+             continue;
+          }
+
+          console.error(`[NntpConnection] Invalid response code received. Line length: ${line.length}`);
+          console.error(`[NntpConnection] Line content (first 100 chars): ${line.substring(0, 100)}`);
+          console.error(`[NntpConnection] Line hex: ${Buffer.from(line.substring(0, Math.min(20, line.length))).toString('hex')}`);
+          
           if (this.commandCallback) {
-            this.commandCallback('', new Error(`Invalid response: ${line}`));
+            this.commandCallback('', new Error(`Invalid response: ${line.substring(0, 100)}`));
             this.commandCallback = null;
           }
           return;
@@ -258,19 +283,23 @@ export class NntpConnection {
             this.multiLineBuffer = [];
           }
         } else {
-          let dataLine = line;
-          if (dataLine.startsWith('..')) {
-            dataLine = dataLine.substring(1);
-          }
-          if (this.outputStream) {
-            if (!this.outputStream.push(dataLine)) {
-              this.network?.pause();
-            }
-          } else {
-            this.multiLineBuffer.push(dataLine);
-          }
+          this.processBodyLine(line);
         }
       }
+    }
+  }
+
+  private processBodyLine(line: string): void {
+    let dataLine = line;
+    if (dataLine.startsWith('..')) {
+      dataLine = dataLine.substring(1);
+    }
+    if (this.outputStream) {
+      if (!this.outputStream.push(dataLine)) {
+        this.network?.pause();
+      }
+    } else {
+      this.multiLineBuffer.push(dataLine);
     }
   }
 
