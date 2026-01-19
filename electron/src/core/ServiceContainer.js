@@ -5,7 +5,7 @@ import { NodeStorageAdapter } from '../../electron/adapters/NodeStorageAdapter.j
 import { ElectronRendererStorageAdapter } from './adapters/ElectronRendererStorageAdapter.js';
 import { CapacitorStorageAdapter } from '../../src/mobile/adapters/CapacitorStorageAdapter.js';
 import { NodeNetworkAdapter } from '../../electron/adapters/NodeNetworkAdapter.js';
-import { CapacitorNetworkAdapter } from '../../src/mobile/adapters/CapacitorNetworkAdapter.js';
+import { TlsSocketNetworkAdapter } from '../../src/mobile/adapters/TlsSocketNetworkAdapter.js';
 import { DownloadManager } from './download/DownloadManager.js';
 import { SearchManager } from './search/SearchManager.js';
 export var Platform;
@@ -22,6 +22,7 @@ export class ServiceContainer {
     _fileSystemAdapter = null;
     _storageAdapter = null;
     _downloadManager = null;
+    _downloadManagerPromise = null;
     _searchManager = null;
     constructor(config = {}) {
         this.config = config;
@@ -69,9 +70,11 @@ export class ServiceContainer {
     }
     createNetworkAdapter() {
         if (this.isMobile) {
-            return new CapacitorNetworkAdapter();
+            console.log('[ServiceContainer] Creating TlsSocketNetworkAdapter for mobile platform');
+            return new TlsSocketNetworkAdapter();
         }
         else {
+            console.log('[ServiceContainer] Creating NodeNetworkAdapter for desktop platform');
             return new NodeNetworkAdapter();
         }
     }
@@ -107,15 +110,27 @@ export class ServiceContainer {
         }
     }
     async getDownloadManager() {
-        if (!this._downloadManager) {
-            this._downloadManager = await this.createDownloadManager();
+        console.log('[ServiceContainer] getDownloadManager called, cached:', !!this._downloadManager, 'instance:', this._downloadManager ? this._downloadManager.instanceId : 'none');
+        if (this._downloadManager) {
+            console.log('[ServiceContainer] Returning cached DownloadManager instance:', this._downloadManager.instanceId);
+            return this._downloadManager;
         }
+        if (this._downloadManagerPromise) {
+            console.log('[ServiceContainer] Waiting for in-flight DownloadManager creation');
+            return this._downloadManagerPromise;
+        }
+        console.log('[ServiceContainer] Creating new DownloadManager');
+        this._downloadManagerPromise = this.createDownloadManager();
+        this._downloadManager = await this._downloadManagerPromise;
+        this._downloadManagerPromise = null;
+        console.log('[ServiceContainer] Created DownloadManager instance:', this._downloadManager.instanceId);
         return this._downloadManager;
     }
     async createDownloadManager() {
         const storage = this.getStorageAdapter();
         const fileSystem = this.getFileSystemAdapter();
-        const networkFactory = () => this.getNetworkAdapter();
+        // Create a factory that returns NEW instances each time (important for connection pooling)
+        const networkFactory = () => this.createNetworkAdapter();
         const manager = new DownloadManager(storage, fileSystem, networkFactory);
         await manager.initialize();
         return manager;
@@ -139,6 +154,7 @@ export class ServiceContainer {
         this._fileSystemAdapter = null;
         this._storageAdapter = null;
         this._downloadManager = null;
+        this._downloadManagerPromise = null;
         this._searchManager = null;
     }
 }

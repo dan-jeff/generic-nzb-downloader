@@ -1,14 +1,17 @@
 import { IFileSystem, FileHandle } from '../../core/interfaces/IFileSystem.js';
-import { Filesystem } from '@capacitor/filesystem';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+
 import { EventEmitter } from 'events';
 
 class CapacitorFileHandle implements FileHandle {
   private path: string;
+  private directory: Directory;
   private offset: number = 0;
   private firstWrite: boolean = true;
 
-  constructor(path: string) {
+  constructor(path: string, directory: Directory) {
     this.path = path;
+    this.directory = directory;
   }
 
   async write(data: Buffer, offset: number, length: number, position: number): Promise<{ bytesWritten: number; buffer: Buffer }> {
@@ -25,7 +28,7 @@ class CapacitorFileHandle implements FileHandle {
         await Filesystem.writeFile({
           path: this.path,
           data: base64Data,
-          directory: 'Documents' as any,
+          directory: this.directory,
           recursive: true
         });
         this.firstWrite = false;
@@ -35,7 +38,7 @@ class CapacitorFileHandle implements FileHandle {
         await Filesystem.appendFile({
           path: this.path,
           data: base64Data,
-          directory: 'Documents' as any
+          directory: this.directory
         });
       }
       
@@ -57,6 +60,7 @@ interface WriteCallback {
 
 class CapacitorWritable extends EventEmitter {
   private path: string;
+  private directory: Directory;
   private firstWrite: boolean = true;
   private isWriting: boolean = false;
   private pendingCallback: (() => void) | null = null;
@@ -68,9 +72,10 @@ class CapacitorWritable extends EventEmitter {
   private static readonly FLUSH_TIMEOUT = 200;         // 200ms
   private static readonly HIGH_WATER_MARK = 1024 * 1024; // 1MB
 
-  constructor(path: string) {
+  constructor(path: string, directory: Directory) {
     super();
     this.path = path;
+    this.directory = directory;
     console.log(`[CapacitorWritable] Created for path: ${path}`);
   }
 
@@ -118,7 +123,7 @@ class CapacitorWritable extends EventEmitter {
         await Filesystem.writeFile({
           path: this.path,
           data: base64Data,
-          directory: 'Documents' as any,
+          directory: this.directory,
           recursive: true
         });
         this.firstWrite = false;
@@ -126,7 +131,7 @@ class CapacitorWritable extends EventEmitter {
         await Filesystem.appendFile({
           path: this.path,
           data: base64Data,
-          directory: 'Documents' as any
+          directory: this.directory
         });
       }
 
@@ -195,13 +200,13 @@ class CapacitorWritable extends EventEmitter {
 }
 
 export class CapacitorFSAdapter implements IFileSystem {
-  private baseDirectory = 'Documents';  // Use string literal directly
+  private baseDirectory = Directory.ExternalStorage;
 
   writeStream(path: string): any {
     const cleanPath = this.sanitizePath(path);
     console.log(`[CapacitorFSAdapter] writeStream called for path: ${path}`);
     console.log(`[CapacitorFSAdapter] Sanitized path: ${cleanPath}`);
-    const writable = new CapacitorWritable(cleanPath);
+    const writable = new CapacitorWritable(cleanPath, this.baseDirectory);
     console.log(`[CapacitorFSAdapter] Created CapacitorWritable instance`);
     return writable;
   }
@@ -250,14 +255,16 @@ export class CapacitorFSAdapter implements IFileSystem {
     console.log(`[CapacitorFSAdapter] mkdir called with path: ${path}`);
     console.log(`[CapacitorFSAdapter] Sanitized path: ${cleanPath}`);
     console.log(`[CapacitorFSAdapter] Base directory: ${this.baseDirectory}`);
-    
+
+    if (!cleanPath) return;
+
     try {
       const exists = await this.exists(path);
       if (exists) {
         console.log(`[CapacitorFSAdapter] Directory already exists: ${cleanPath}`);
         return;
       }
-      
+
       console.log(`[CapacitorFSAdapter] Attempting to create directory with Capacitor: ${cleanPath}`);
       await Filesystem.mkdir({
         path: cleanPath,
@@ -266,14 +273,32 @@ export class CapacitorFSAdapter implements IFileSystem {
       });
       console.log(`[CapacitorFSAdapter] Directory created successfully: ${cleanPath}`);
     } catch (err) {
-      console.error('[CapacitorFSAdapter] mkdir error:', err);
-      console.error('[CapacitorFSAdapter] Error details:', {
-        message: err instanceof Error ? err.message : String(err),
-        stack: err instanceof Error ? err.stack : 'N/A'
-      });
-      
-      if (!(err instanceof Error && err.message.includes('exists'))) {
-        throw new Error(`Failed to create directory: ${cleanPath} - ${err instanceof Error ? err.message : String(err)}`);
+      const message = err instanceof Error ? err.message : String(err);
+      if (!message.includes('Missing parent directory')) {
+        console.error('[CapacitorFSAdapter] mkdir error:', err);
+        throw new Error(`Failed to create directory: ${cleanPath} - ${message}`);
+      }
+
+      console.warn('[CapacitorFSAdapter] Recursive mkdir failed, retrying stepwise.');
+      const parts = cleanPath.split('/').filter(Boolean);
+      let current = '';
+      for (const part of parts) {
+        current = current ? `${current}/${part}` : part;
+        try {
+          const currentExists = await this.exists(current);
+          if (!currentExists) {
+            await Filesystem.mkdir({
+              path: current,
+              directory: this.baseDirectory as any,
+              recursive: false
+            });
+          }
+        } catch (innerErr) {
+          const innerMessage = innerErr instanceof Error ? innerErr.message : String(innerErr);
+          if (!innerMessage.includes('exists')) {
+            throw new Error(`Failed to create directory: ${current} - ${innerMessage}`);
+          }
+        }
       }
     }
   }
@@ -302,7 +327,7 @@ export class CapacitorFSAdapter implements IFileSystem {
       await Filesystem.writeFile({
         path: cleanPath,
         data: base64Data,
-        directory: this.baseDirectory as any,
+        directory: this.baseDirectory,
         recursive: true
       });
     } catch (err) {
@@ -312,7 +337,7 @@ export class CapacitorFSAdapter implements IFileSystem {
 
   async open(_path: string, _flags: string): Promise<FileHandle> {
     const cleanPath = this.sanitizePath(_path);
-    return new CapacitorFileHandle(cleanPath);
+    return new CapacitorFileHandle(cleanPath, this.baseDirectory);
   }
 
   async readdir(path: string): Promise<{ name: string; type: 'file' | 'directory' }[]> {

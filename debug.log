@@ -1,0 +1,565 @@
+[2026-01-19 09:26:36] [INFO] GenericDownloader: main.tsx executing
+[2026-01-19 09:26:36] [INFO] GenericDownloader: Mounting React app
+[2026-01-19 09:26:36] [INFO] GenericDownloader: React mount command issued
+[2026-01-19 09:26:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:26:36] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:26:36] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Creating new DownloadManager
+[2026-01-19 09:26:36] [INFO] [DownloadManager] Created new instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Waiting for in-flight DownloadManager creation
+[2026-01-19 09:26:36] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Waiting for in-flight DownloadManager creation
+[2026-01-19 09:26:36] [ERROR] [DirectUsenetClient] >>> CONSTRUCTOR CALLED <<<
+[2026-01-19 09:26:36] [ERROR] [DirectUsenetClient] Constructor params: {
+  "name": "UseNet Server",
+  "type": "direct",
+  "hostname": "news.usenetserver.com",
+  "hasFileSystem": true
+}
+[2026-01-19 09:26:36] [ERROR] [DirectUsenetClient] >>> INITIALIZE CONNECTION CALLED <<<
+[2026-01-19 09:26:36] [ERROR] [DirectUsenetClient] Settings check: {
+  "hostname": "news.usenetserver.com",
+  "port": 563,
+  "useSSL": true,
+  "hasUsername": true,
+  "hasPassword": true
+}
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Created DownloadManager instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useDownloads] DownloadManager ready, instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count before attach: 0 0
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count after attach: 1 1
+[2026-01-19 09:26:36] [INFO] [useDownloads] DownloadManager ready, instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count before attach: 1 1
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count after attach: 2 2
+[2026-01-19 09:26:36] [INFO] [useDownloads] DownloadManager ready, instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count before attach: 2 2
+[2026-01-19 09:26:36] [INFO] [useDownloads] EventEmitter listener count after attach: 3 3
+[2026-01-19 09:26:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:26:36] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Creating TlsSocketNetworkAdapter for mobile platform
+[2026-01-19 09:26:36] [INFO] [TlsSocketNetworkAdapter] Created
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [ServiceContainer] Returning cached DownloadManager instance: 8r00th
+[2026-01-19 09:26:36] [INFO] [useSettings] Normalizing newsreader "UseNet Server": port=563, useSSL=true
+[2026-01-19 09:26:36] [INFO] [useSettings] Normalized settings: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [useSettings] Normalizing newsreader "UseNet Server": port=563, useSSL=true
+[2026-01-19 09:26:36] [INFO] [useSettings] Normalized settings: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 09:26:36] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 09:26:36] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 09:26:36] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 09:26:36] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:36] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 09:26:36] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 09:26:57] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:26:57] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:26:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:26:59] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:24] [INFO] [useDownloads] startDownload called: {
+  "url": {},
+  "target": "newsreader",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT.nzb"
+}
+[2026-01-19 09:27:24] [INFO] [useDownloads] Platform: android
+[2026-01-19 09:27:24] [INFO] [useDownloads] Using DownloadManager
+[2026-01-19 09:27:24] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: 8r00th
+[2026-01-19 09:27:24] [INFO] [ServiceContainer] Returning cached DownloadManager instance: 8r00th
+[2026-01-19 09:27:24] [INFO] [useDownloads] Buffer created, type: object
+[2026-01-19 09:27:24] [INFO] [DownloadManager] addDownload called: {
+  "id": "rt64cd",
+  "urlType": "object",
+  "isNzb": true,
+  "target": "newsreader"
+}
+[2026-01-19 09:27:24] [INFO] [DownloadManager] Routing to addNewsreaderDownload
+[2026-01-19 09:27:24] [INFO] [DownloadManager] addNewsreaderDownload called: {
+  "id": "rt64cd",
+  "contentType": "object",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT.nzb"
+}
+[2026-01-19 09:27:24] [INFO] [DownloadManager] About to call client.addNzb(): {
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT.nzb",
+  "downloadPath": "nzb",
+  "clientType": "direct"
+}
+[2026-01-19 09:27:24] [INFO] [DownloadManager] Buffer size: 308641 First 100 chars: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://ww
+[2026-01-19 09:27:24] [INFO] [DirectUsenetClient] addNzb called, generated id: qae7gf
+[2026-01-19 09:27:24] [INFO] [DirectUsenetClient] Creating download subfolder: nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT
+[2026-01-19 09:27:24] [INFO] [DirectUsenetClient] Starting download process for qae7gf
+[2026-01-19 09:27:24] [INFO] [CapacitorFSAdapter] mkdir called with path: nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT
+[2026-01-19 09:27:24] [INFO] [CapacitorFSAdapter] Sanitized path: nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT
+[2026-01-19 09:27:24] [INFO] [CapacitorFSAdapter] Base directory: EXTERNAL_STORAGE
+[2026-01-19 09:27:24] [INFO] [DownloadManager] client.addNzb() returned: qae7gf
+[2026-01-19 09:27:24] [ERROR] {
+  "message": "'stat' failed because file at '/storage/emulated/0/nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT' does not exist.",
+  "code": "OS-PLUG-FILE-0008"
+}
+[2026-01-19 09:27:24] [INFO] [CapacitorFSAdapter] Attempting to create directory with Capacitor: nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT
+[2026-01-19 09:27:24] [ERROR] {
+  "message": "Missing parent directory – possibly recursive=false was passed or parent directory creation failed.",
+  "code": "OS-PLUG-FILE-0011"
+}
+[2026-01-19 09:27:24] [WARN] [CapacitorFSAdapter] Recursive mkdir failed, retrying stepwise.
+[2026-01-19 09:27:24] [ERROR] {
+  "message": "'stat' failed because file at '/storage/emulated/0/nzb/' does not exist.",
+  "code": "OS-PLUG-FILE-0008"
+}
+[2026-01-19 09:27:24] [ERROR] {
+  "message": "'mkdir' failed with: An unknown error occurred.",
+  "code": "OS-PLUG-FILE-0013"
+}
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Error processing download qae7gf: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Stack trace: Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-B_f9fGp2.js:206:53073)
+    at async DirectUsenetClient.processDownload (https://localhost/assets/index-B_f9fGp2.js:314:22264)
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Full error object: {"stack":"Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.\n    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-B_f9fGp2.js:206:53073)\n    at async DirectUsenetClient.processDownload (https://localhost/assets/index-B_f9fGp2.js:314:22264)","message":"Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred."}
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Download qae7gf failed: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Stack trace: Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-B_f9fGp2.js:206:53073)
+    at async DirectUsenetClient.processDownload (https://localhost/assets/index-B_f9fGp2.js:314:22264)
+[2026-01-19 09:27:24] [ERROR] [DirectUsenetClient] Full error object: {"stack":"Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.\n    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-B_f9fGp2.js:206:53073)\n    at async DirectUsenetClient.processDownload (https://localhost/assets/index-B_f9fGp2.js:314:22264)","message":"Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred."}
+[2026-01-19 09:27:24] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:24] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:24] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:24] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:24] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:24] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:25] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:25] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:25] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:25] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:25] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:25] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:25] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:25] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:25] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:26] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:26] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:26] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:26] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:26] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:26] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:26] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:26] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:26] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:27] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: 8r00th
+[2026-01-19 09:27:27] [INFO] [ServiceContainer] Returning cached DownloadManager instance: 8r00th
+[2026-01-19 09:27:27] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:27] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:27] [INFO] [DownloadManager] Poll emitting: rt64cd failed 0.0%
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] [useDownloads] handleProgress called: {
+  "id": "rt64cd",
+  "filename": "Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 2322274381,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "qae7gf",
+  "path": "nzb/Oh.What.Fun.2025-1080p-WEBRip-5.1-YTS.LT"
+}
+[2026-01-19 09:27:27] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:27] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 09:27:27] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: 8r00th
+[2026-01-19 09:27:27] [INFO] [ServiceContainer] Returning cached DownloadManager instance: 8r00th
+[2026-01-19 09:27:28] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: 8r00th
+[2026-01-19 09:27:28] [INFO] [ServiceContainer] Returning cached DownloadManager instance: 8r00th
+[2026-01-19 09:27:29] [INFO] GenericDownloader: App component rendering
+[2026-01-19 09:27:29] [INFO] [SearchPanel] Component render, searching: false query: 

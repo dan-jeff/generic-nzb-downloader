@@ -1,0 +1,1608 @@
+[2026-01-19 10:14:35] [INFO] GenericDownloader: main.tsx executing
+[2026-01-19 10:14:35] [INFO] GenericDownloader: Mounting React app
+[2026-01-19 10:14:35] [INFO] GenericDownloader: React mount command issued
+[2026-01-19 10:14:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:14:35] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 10:14:35] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Creating new DownloadManager
+[2026-01-19 10:14:35] [INFO] [DownloadManager] Created new instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Waiting for in-flight DownloadManager creation
+[2026-01-19 10:14:35] [INFO] [useDownloads] Setting up DownloadManager event listeners
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] getDownloadManager called, cached: false instance: none
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Waiting for in-flight DownloadManager creation
+[2026-01-19 10:14:35] [ERROR] [DirectUsenetClient] >>> CONSTRUCTOR CALLED <<<
+[2026-01-19 10:14:35] [ERROR] [DirectUsenetClient] Constructor params: {
+  "name": "UseNet Server",
+  "type": "direct",
+  "hostname": "news.usenetserver.com",
+  "hasFileSystem": true
+}
+[2026-01-19 10:14:35] [ERROR] [DirectUsenetClient] >>> INITIALIZE CONNECTION CALLED <<<
+[2026-01-19 10:14:35] [ERROR] [DirectUsenetClient] Settings check: {
+  "hostname": "news.usenetserver.com",
+  "port": 563,
+  "useSSL": true,
+  "hasUsername": true,
+  "hasPassword": true
+}
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Created DownloadManager instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useDownloads] DownloadManager ready, instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count before attach: 0 0
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count after attach: 1 1
+[2026-01-19 10:14:35] [INFO] [useDownloads] DownloadManager ready, instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count before attach: 1 1
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count after attach: 2 2
+[2026-01-19 10:14:35] [INFO] [useDownloads] DownloadManager ready, instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count before attach: 2 2
+[2026-01-19 10:14:35] [INFO] [useDownloads] EventEmitter listener count after attach: 3 3
+[2026-01-19 10:14:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:14:35] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Creating TlsSocketNetworkAdapter for mobile platform
+[2026-01-19 10:14:35] [INFO] [TlsSocketNetworkAdapter] Created
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: tefmu
+[2026-01-19 10:14:35] [INFO] [ServiceContainer] Returning cached DownloadManager instance: tefmu
+[2026-01-19 10:14:35] [INFO] [useSettings] Normalizing newsreader "UseNet Server": port=563, useSSL=true
+[2026-01-19 10:14:35] [INFO] [useSettings] Normalized settings: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [useSettings] Normalizing newsreader "UseNet Server": port=563, useSSL=true
+[2026-01-19 10:14:35] [INFO] [useSettings] Normalized settings: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 10:14:35] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 10:14:35] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 10:14:35] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 10:14:35] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:14:35] [INFO] [SearchManager] updateProviders called with 1 settings
+[2026-01-19 10:14:35] [INFO] [SearchManager] Settings content: [{"type":"nzb","enabled":true,"indexers":[{"id":"3abf6bc2-8be9-4e4e-8fd6-19ca699003e0","name":"Usenet Cralwer","url":"https://www.usenet-crawler.com","apiKey":"5ea1448e6e515a93a885660a77981426","enabled":true}],"newsreaders":[{"id":"e166d369-19fa-404f-8f6c-a87b3ab96f7f","enabled":true,"name":"UseNet Server","type":"direct","url":"","apiKey":"","priority":50,"downloadPath":"nzb","hostname":"news.usenetserver.com","username":"f2o0y759","password":"1IwDLhmZAqwUjMAPcTK5TdleGQ3","port":563,"useSSL":true,"segmentConcurrency":15}]}]
+[2026-01-19 10:18:14] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: tefmu
+[2026-01-19 10:18:14] [INFO] [ServiceContainer] Returning cached DownloadManager instance: tefmu
+[2026-01-19 10:18:14] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: tefmu
+[2026-01-19 10:18:14] [INFO] [ServiceContainer] Returning cached DownloadManager instance: tefmu
+[2026-01-19 10:18:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:15] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 10:18:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs
+[2026-01-19 10:18:18] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:19] [INFO] [SearchPanel] handleSearch called with query: Bobs burgers
+[2026-01-19 10:18:19] [INFO] [SearchPanel] Component render, searching: true query: Bobs burgers
+[2026-01-19 10:18:19] [INFO] [SearchManager] search called. Providers count: 1
+[2026-01-19 10:18:19] [INFO] [SearchManager] Provider 0: NzbSearchProvider
+[2026-01-19 10:18:19] [INFO] [NzbSearchProvider] search called. Enabled indexers: 1
+[2026-01-19 10:18:19] [INFO] [NzbSearchProvider] Searching indexer: Usenet Cralwer https://www.usenet-crawler.com
+[2026-01-19 10:18:19] [INFO] [NzbSearchProvider] Requesting: https://www.usenet-crawler.com/api?t=search&q=Bobs%20burgers&apikey=5ea1448e6e515a93a885660a77981426&o=json&offset=0
+[2026-01-19 10:18:20] [INFO] [SearchPanel] Component render, searching: true query: Bobs burgers
+[2026-01-19 10:18:25] [INFO] [NzbSearchProvider] Response status: 200
+[2026-01-19 10:18:27] [INFO] [NzbSearchProvider] Requesting: https://www.usenet-crawler.com/api?t=search&q=Bobs%20burgers&apikey=5ea1448e6e515a93a885660a77981426&o=json&offset=100
+[2026-01-19 10:18:27] [INFO] [NzbSearchProvider] Response status: 200
+[2026-01-19 10:18:28] [INFO] [NzbSearchProvider] Requesting: https://www.usenet-crawler.com/api?t=search&q=Bobs%20burgers&apikey=5ea1448e6e515a93a885660a77981426&o=json&offset=200
+[2026-01-19 10:18:28] [INFO] [NzbSearchProvider] Response status: 200
+[2026-01-19 10:18:29] [INFO] [NzbSearchProvider] Requesting: https://www.usenet-crawler.com/api?t=search&q=Bobs%20burgers&apikey=5ea1448e6e515a93a885660a77981426&o=json&offset=300
+[2026-01-19 10:18:29] [ERROR] {
+  "message": "Unable to resolve host \"www.usenet-crawler.com\": No address associated with hostname",
+  "code": "UnknownHostException"
+}
+[2026-01-19 10:18:29] [ERROR] Error searching indexer Usenet Cralwer: {
+  "code": "UnknownHostException"
+}
+[2026-01-19 10:18:29] [WARN] [NzbSearchProvider] Returning partial results (300 items) for indexer Usenet Cralwer due to error: {
+  "code": "UnknownHostException"
+}
+[2026-01-19 10:18:29] [INFO] [SearchPanel] Search returned results: 300
+[2026-01-19 10:18:29] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:31] [INFO] [useDownloads] startDownload called: {
+  "url": "https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426",
+  "target": "local",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:31] [INFO] [useDownloads] Platform: android
+[2026-01-19 10:18:31] [INFO] [useDownloads] Using DownloadManager
+[2026-01-19 10:18:31] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: tefmu
+[2026-01-19 10:18:31] [INFO] [ServiceContainer] Returning cached DownloadManager instance: tefmu
+[2026-01-19 10:18:31] [INFO] [useDownloads] Buffer created, type: string
+[2026-01-19 10:18:31] [INFO] [DownloadManager] addDownload called: {
+  "id": "er394",
+  "urlType": "string",
+  "isNzb": false,
+  "target": "local"
+}
+[2026-01-19 10:18:31] [INFO] [DownloadManager] Routing to addLocalDownload
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Downloading to path: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb, base directory: Download/nzb
+[2026-01-19 10:18:32] [ERROR] {
+  "message": "'stat' failed because file at '/storage/emulated/0/Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/' does not exist.",
+  "code": "OS-PLUG-FILE-0008"
+}
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] mkdir called with path: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Sanitized path: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Base directory: EXTERNAL_STORAGE
+[2026-01-19 10:18:32] [ERROR] {
+  "message": "'stat' failed because file at '/storage/emulated/0/Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/' does not exist.",
+  "code": "OS-PLUG-FILE-0008"
+}
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Attempting to create directory with Capacitor: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Directory created successfully: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Writing file: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb, base directory: EXTERNAL_STORAGE
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Instance: tefmu About to emit download-progress event for local download: er394
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Instance: tefmu Listener count: 3
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "er394",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "percent": 1,
+  "transferredBytes": 54269,
+  "totalBytes": 54269,
+  "status": "completed",
+  "speed": 0,
+  "providerName": "Local",
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb"
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "er394",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "percent": 1,
+  "transferredBytes": 54269,
+  "totalBytes": 54269,
+  "status": "completed",
+  "speed": 0,
+  "providerName": "Local",
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb"
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "er394",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "percent": 1,
+  "transferredBytes": 54269,
+  "totalBytes": 54269,
+  "status": "completed",
+  "speed": 0,
+  "providerName": "Local",
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb"
+}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Instance: tefmu Emitted download-progress event
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Instance: tefmu About to call handleDownloadComplete
+[2026-01-19 10:18:32] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:32] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:32] [INFO] [useDownloads] startDownload called: {
+  "url": "https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426",
+  "target": "newsreader",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] Platform: android
+[2026-01-19 10:18:32] [INFO] [useDownloads] Using DownloadManager
+[2026-01-19 10:18:32] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: tefmu
+[2026-01-19 10:18:32] [INFO] [ServiceContainer] Returning cached DownloadManager instance: tefmu
+[2026-01-19 10:18:32] [INFO] [useDownloads] Buffer created, type: string
+[2026-01-19 10:18:32] [INFO] [DownloadManager] addDownload called: {
+  "id": "der1e",
+  "urlType": "string",
+  "isNzb": false,
+  "target": "newsreader"
+}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Routing to addNewsreaderDownload
+[2026-01-19 10:18:32] [INFO] [DownloadManager] addNewsreaderDownload called: {
+  "id": "der1e",
+  "contentType": "string",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] About to emit download-completed event: er394
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleCompleted called: {
+  "id": "er394",
+  "url": "https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "savePath": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "status": "completed",
+  "startTime": 1768817911822,
+  "providerName": "Local",
+  "endTime": 1768817912370,
+  "totalBytes": 54269,
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "timestamp": 1768817912370,
+  "size": 54269
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleCompleted called: {
+  "id": "er394",
+  "url": "https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "savePath": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "status": "completed",
+  "startTime": 1768817911822,
+  "providerName": "Local",
+  "endTime": 1768817912370,
+  "totalBytes": 54269,
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "timestamp": 1768817912370,
+  "size": 54269
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleCompleted called: {
+  "id": "er394",
+  "url": "https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "savePath": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "status": "completed",
+  "startTime": 1768817911822,
+  "providerName": "Local",
+  "endTime": 1768817912370,
+  "totalBytes": 54269,
+  "path": "Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN/Files/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "timestamp": 1768817912370,
+  "size": 54269
+}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Emitted download-completed event
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Instance: tefmu handleDownloadComplete returned
+[2026-01-19 10:18:32] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:32] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Fetching NZB via CapacitorHttp: https://www.usenet-crawler.com/getnzb/9143a7b2c7bdc6d53861dc826c94e52e.nzb&i=467400&r=5ea1448e6e515a93a885660a77981426
+[2026-01-19 10:18:32] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Received base64 string, length: 73313
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Decoded as base64, buffer size: 54269
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Buffer appears to be valid NZB XML
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Final buffer size: 54269
+[2026-01-19 10:18:32] [INFO] [DownloadManager] About to call client.addNzb(): {
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "downloadPath": "nzb",
+  "clientType": "direct"
+}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Buffer size: 54269 First 100 chars: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://ww
+[2026-01-19 10:18:32] [INFO] [DirectUsenetClient] addNzb called, generated id: dutl1i
+[2026-01-19 10:18:32] [INFO] [DirectUsenetClient] Output path for display: nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN
+[2026-01-19 10:18:32] [INFO] [DirectUsenetClient] Starting download process for dutl1i
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] mkdir called with path: nzb
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Sanitized path: nzb
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Base directory: EXTERNAL_STORAGE
+[2026-01-19 10:18:32] [INFO] [DownloadManager] client.addNzb() returned: dutl1i
+[2026-01-19 10:18:32] [ERROR] {
+  "message": "'stat' failed because file at '/storage/emulated/0/nzb/' does not exist.",
+  "code": "OS-PLUG-FILE-0008"
+}
+[2026-01-19 10:18:32] [INFO] [CapacitorFSAdapter] Attempting to create directory with Capacitor: nzb
+[2026-01-19 10:18:32] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:32] [ERROR] {
+  "message": "'mkdir' failed with: An unknown error occurred.",
+  "code": "OS-PLUG-FILE-0013"
+}
+[2026-01-19 10:18:32] [ERROR] [CapacitorFSAdapter] mkdir error: {
+  "code": "OS-PLUG-FILE-0013"
+}
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Error processing download dutl1i: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Stack trace: Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-BS7Zcwbx.js:206:52670)
+    at async DirectUsenetClient.processDownload (https://localhost/assets/index-BS7Zcwbx.js:314:22260)
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Full error object: {"stack":"Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.\n    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-BS7Zcwbx.js:206:52670)\n    at async DirectUsenetClient.processDownload (https://localhost/assets/index-BS7Zcwbx.js:314:22260)","message":"Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred."}
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Download dutl1i failed: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Stack trace: Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.
+    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-BS7Zcwbx.js:206:52670)
+    at async DirectUsenetClient.processDownload (https://localhost/assets/index-BS7Zcwbx.js:314:22260)
+[2026-01-19 10:18:32] [ERROR] [DirectUsenetClient] Full error object: {"stack":"Error: Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred.\n    at CapacitorFSAdapter.mkdir (https://localhost/assets/index-BS7Zcwbx.js:206:52670)\n    at async DirectUsenetClient.processDownload (https://localhost/assets/index-BS7Zcwbx.js:314:22260)","message":"Failed to create directory: nzb - 'mkdir' failed with: An unknown error occurred."}
+[2026-01-19 10:18:32] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:32] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:32] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:32] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:33] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:33] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:33] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:33] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:33] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:33] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:33] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:33] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:33] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:33] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:34] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:34] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:34] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:34] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:34] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:34] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:34] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:34] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:34] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:35] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:35] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:35] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:35] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:35] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:35] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:35] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:35] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:35] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:36] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:36] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:36] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:36] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:36] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:36] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:36] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:36] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:37] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:37] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:37] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:37] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:37] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:37] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:37] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:37] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:37] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:37] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:37] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:38] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:38] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:38] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:38] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:38] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:38] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:38] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:38] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:38] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:39] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:39] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:39] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:39] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:39] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:39] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:39] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:39] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:39] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:40] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:40] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:40] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:40] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:40] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:40] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:40] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:40] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:40] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers
+[2026-01-19 10:18:41] [INFO] [DownloadManager] Poll emitting: der1e failed 0.0%
+[2026-01-19 10:18:41] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:41] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:41] [INFO] [useDownloads] handleProgress called: {
+  "id": "der1e",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "dutl1i",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 10:18:41] [INFO] GenericDownloader: App component rendering
+[2026-01-19 10:18:41] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers

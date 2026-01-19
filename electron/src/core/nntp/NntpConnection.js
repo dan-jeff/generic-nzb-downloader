@@ -13,11 +13,11 @@ export class NntpConnection {
     maxReconnectAttempts = 3;
     reconnectDelayMs = 1000;
     articleTimeoutMs;
-    connectTimeoutMs = 30000;
+    connectTimeoutMs = 60000;
     responseBuffer = '';
     outputStream = null;
     onStreamStart = null;
-    constructor(networkFactory, articleTimeoutMs = 15000) {
+    constructor(networkFactory, articleTimeoutMs = 60000) {
         this.networkFactory = networkFactory;
         this.hostname = '';
         this.port = 119;
@@ -32,8 +32,10 @@ export class NntpConnection {
         this.username = username;
         this.password = password;
         this.responseBuffer = '';
-        console.log(`[NntpConnection] connect called: ${hostname}:${port}, SSL: ${useSSL}, hasAuth: ${!!username}`);
+        console.log(`[NntpConnection] connect called: ${hostname}:${port}, SSL: ${useSSL}, username: ${!!username}`);
         console.log(`[NntpConnection] Connection timeout: ${this.connectTimeoutMs}ms`);
+        console.log('[NntpConnection] About to create network instance via networkFactory');
+        console.log('[NntpConnection] About to call network.connect() with:', { host: hostname, port, useSSL });
         return new Promise((resolve, reject) => {
             const connectTimeout = setTimeout(() => {
                 console.error(`[NntpConnection] Connection timeout after ${this.connectTimeoutMs}ms`);
@@ -42,16 +44,20 @@ export class NntpConnection {
                 reject(new Error(`Connection timeout after ${this.connectTimeoutMs}ms`));
             }, this.connectTimeoutMs);
             try {
-                console.log('[NntpConnection] Creating network instance...');
+                console.log('[NntpConnection] About to create network instance via networkFactory');
                 this.network = this.networkFactory();
-                console.log('[NntpConnection] Network instance created:', this.network?.constructor.name);
+                console.log('[NntpConnection] Network instance created, type:', this.network.constructor.name);
                 this.network.on('connect', () => {
                     console.log('[NntpConnection] Network connect event received');
                     clearTimeout(connectTimeout);
                 });
                 this.network.on('data', (data) => {
-                    console.log(`[NntpConnection] Received ${data.length} bytes`);
+                    // console.log(`[NntpConnection] Received ${data.length} bytes`);
                     this.responseBuffer += data.toString('latin1');
+                    // Diagnostic: Check buffer size
+                    if (this.responseBuffer.length > 1024 * 1024) {
+                        console.warn(`[NntpConnection] WARNING: Response buffer growing large: ${Math.round(this.responseBuffer.length / 1024)}KB`);
+                    }
                     this.processResponseBuffer();
                 });
                 this.network.on('error', (err) => {
@@ -108,9 +114,12 @@ export class NntpConnection {
         });
     }
     async readGreeting() {
+        console.log('[NntpConnection] Waiting for server greeting...');
         const response = await this.readResponse();
+        console.log('[NntpConnection] Greeting received:', response.trim());
         const code = parseInt(response.substring(0, 3), 10);
         if (code !== 200 && code !== 201) {
+            console.error(`[NntpConnection] Unexpected greeting code ${code}:`, response.trim());
             throw new Error(`Unexpected greeting: ${response}`);
         }
     }
@@ -118,16 +127,23 @@ export class NntpConnection {
         if (!this.username || !this.password) {
             return;
         }
+        console.log(`[NntpConnection] Sending AUTHINFO USER with username: ${this.username}`);
         const userResponse = await this.sendCommand(`AUTHINFO USER ${this.username}`);
+        console.log(`[NntpConnection] AUTHINFO USER response:`, userResponse.trim());
         const userCode = parseInt(userResponse.substring(0, 3), 10);
         if (userCode === 381) {
+            console.log('[NntpConnection] Sending AUTHINFO PASS');
             const passResponse = await this.sendCommand(`AUTHINFO PASS ${this.password}`);
+            console.log(`[NntpConnection] AUTHINFO PASS response:`, passResponse.trim());
             const passCode = parseInt(passResponse.substring(0, 3), 10);
+            console.log(`[NntpConnection] AUTHINFO PASS response code: ${passCode}`);
             if (passCode !== 281) {
+                console.error(`[NntpConnection] AUTHINFO PASS failed with code ${passCode}:`, passResponse.trim());
                 throw new Error(`Authentication failed: ${passResponse}`);
             }
         }
         else if (userCode !== 281) {
+            console.error(`[NntpConnection] AUTHINFO USER failed with code ${userCode}:`, userResponse.trim());
             throw new Error(`Authentication failed: ${userResponse}`);
         }
     }
@@ -147,6 +163,7 @@ export class NntpConnection {
                 resolve(response);
             };
             try {
+                console.log(`[NntpConnection] Sending command: ${command.substring(0, 100)}`);
                 this.network?.resume();
                 this.network?.write(`${command}\r\n`, 'utf-8', (err) => {
                     if (err) {
@@ -176,10 +193,31 @@ export class NntpConnection {
             const line = this.responseBuffer.substring(0, newlineIndex);
             this.responseBuffer = this.responseBuffer.substring(newlineIndex + 2);
             if (!this.pendingMultiLine) {
+                if (line.trim().length === 0) {
+                    continue;
+                }
                 const code = parseInt(line.substring(0, 3), 10);
                 if (isNaN(code)) {
+                    // Recovery: If we are expecting a multiline response, but get data that isn't a code,
+                    // assume we missed the header (e.g. 222) and treat this as the start of the body.
+                    if (this.expectMultiLine) {
+                        console.warn(`[NntpConnection] Missing status code (expected multiline), treating line as body data. Hex: ${Buffer.from(line.substring(0, Math.min(10, line.length))).toString('hex')}`);
+                        this.expectMultiLine = false;
+                        this.pendingMultiLine = true;
+                        this.multiLineBuffer = []; // Start buffer
+                        if (this.onStreamStart) {
+                            this.onStreamStart();
+                            this.onStreamStart = null;
+                        }
+                        // Process this line as body data immediately
+                        this.processBodyLine(line);
+                        continue;
+                    }
+                    console.error(`[NntpConnection] Invalid response code received. Line length: ${line.length}`);
+                    console.error(`[NntpConnection] Line content (first 100 chars): ${line.substring(0, 100)}`);
+                    console.error(`[NntpConnection] Line hex: ${Buffer.from(line.substring(0, Math.min(20, line.length))).toString('hex')}`);
                     if (this.commandCallback) {
-                        this.commandCallback('', new Error(`Invalid response: ${line}`));
+                        this.commandCallback('', new Error(`Invalid response: ${line.substring(0, 100)}`));
                         this.commandCallback = null;
                     }
                     return;
@@ -187,6 +225,7 @@ export class NntpConnection {
                 if (this.expectMultiLine) {
                     this.expectMultiLine = false;
                     if (code === 220 || code === 222) {
+                        console.log(`[NntpConnection] Starting multiline response for code ${code}`);
                         this.pendingMultiLine = true;
                         this.multiLineBuffer = [line];
                         if (this.onStreamStart) {
@@ -197,12 +236,14 @@ export class NntpConnection {
                     }
                 }
                 if (this.commandCallback) {
+                    console.log(`[NntpConnection] Command response received: ${line.substring(0, 200)}`);
                     this.commandCallback(line, null);
                     this.commandCallback = null;
                 }
             }
             else {
                 if (line === '.') {
+                    console.log('[NntpConnection] Multiline response terminator (.) received');
                     this.pendingMultiLine = false;
                     if (this.outputStream) {
                         this.outputStream.push(null);
@@ -219,20 +260,23 @@ export class NntpConnection {
                     }
                 }
                 else {
-                    let dataLine = line;
-                    if (dataLine.startsWith('..')) {
-                        dataLine = dataLine.substring(1);
-                    }
-                    if (this.outputStream) {
-                        if (!this.outputStream.push(dataLine)) {
-                            this.network?.pause();
-                        }
-                    }
-                    else {
-                        this.multiLineBuffer.push(dataLine);
-                    }
+                    this.processBodyLine(line);
                 }
             }
+        }
+    }
+    processBodyLine(line) {
+        let dataLine = line;
+        if (dataLine.startsWith('..')) {
+            dataLine = dataLine.substring(1);
+        }
+        if (this.outputStream) {
+            if (!this.outputStream.push(dataLine)) {
+                this.network?.pause();
+            }
+        }
+        else {
+            this.multiLineBuffer.push(dataLine);
         }
     }
     async readResponse() {
@@ -253,17 +297,22 @@ export class NntpConnection {
     }
     async ensureConnected() {
         if (!this.connected && this.reconnectAttempts < this.maxReconnectAttempts) {
+            console.log(`[NntpConnection] Reconnecting (attempt ${this.reconnectAttempts + 1}/${this.maxReconnectAttempts})`);
             this.reconnectAttempts++;
             await new Promise(resolve => setTimeout(resolve, this.reconnectDelayMs));
             await this.connect(this.hostname, this.port, this.useSSL, this.username, this.password);
         }
         if (!this.connected) {
+            console.error('[NntpConnection] ensureConnected failed - not connected after attempts');
             throw new Error('NNTP connection failed');
         }
     }
     async getBody(messageId) {
         await this.ensureConnected();
+        console.log(`[NntpConnection] Requesting BODY for message ID: ${messageId}`);
+        console.log('[NntpConnection] About to call network.write() for BODY command');
         const response = await this.sendCommand(`BODY <${messageId}>`, { multiline: true });
+        console.log('[NntpConnection] BODY response received, length:', response.length);
         const code = parseInt(response.substring(0, 3), 10);
         if (code !== 220 && code !== 222) {
             this.connected = false;
@@ -275,6 +324,8 @@ export class NntpConnection {
     async getArticleStream(messageId) {
         await this.ensureConnected();
         const command = `BODY <${messageId}>`;
+        console.log(`[NntpConnection] Requesting BODY stream for message ID: ${messageId}`);
+        console.log('[NntpConnection] About to call network.write() for BODY stream command');
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
                 this.disconnect();
@@ -294,6 +345,7 @@ export class NntpConnection {
             };
             this.onStreamStart = () => {
                 clearTimeout(timeout);
+                console.log('[NntpConnection] BODY stream started receiving data');
                 const stream = new Readable({
                     objectMode: true,
                     read: () => {
@@ -326,7 +378,9 @@ export class NntpConnection {
     }
     async getArticle(messageId) {
         await this.ensureConnected();
+        console.log(`[NntpConnection] Requesting ARTICLE for message ID: ${messageId}`);
         const response = await this.sendCommand(`ARTICLE <${messageId}>`, { multiline: true });
+        console.log('[NntpConnection] ARTICLE response received, length:', response.length);
         const code = parseInt(response.substring(0, 3), 10);
         if (code !== 220) {
             this.connected = false;
@@ -352,7 +406,9 @@ export class NntpConnection {
     }
     async setGroup(group) {
         await this.ensureConnected();
+        console.log(`[NntpConnection] Sending GROUP command for: ${group}`);
         const response = await this.sendCommand(`GROUP ${group}`);
+        console.log('[NntpConnection] GROUP response:', response.trim());
         const code = parseInt(response.substring(0, 3), 10);
         if (code !== 211) {
             this.connected = false;
@@ -361,6 +417,7 @@ export class NntpConnection {
         this.currentGroup = group;
     }
     disconnect() {
+        console.log('[NntpConnection] disconnect called');
         this.connected = false;
         this.currentGroup = undefined;
         this.responseBuffer = '';
