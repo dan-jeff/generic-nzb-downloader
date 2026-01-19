@@ -7,6 +7,7 @@ import { IFileSystem } from '@/core/interfaces/IFileSystem.js';
 import { IStorage } from '@/core/interfaces/IStorage.js';
 import { INetwork } from '@/core/interfaces/INetwork.js';
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 type NetworkFactory = () => INetwork;
 
@@ -399,6 +400,7 @@ export class DownloadManager extends EventEmitter {
 
     const downloadSettings = await this.store.get<DownloadSettings>('downloadSettings');
     const targetDirectory = downloadSettings?.downloadDirectory?.trim();
+    const downloadName = filename.replace(/\.nzb$/i, '');
 
     if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
       try {
@@ -414,16 +416,29 @@ export class DownloadManager extends EventEmitter {
           throw new Error(`Failed to download NZB: HTTP ${response.status}`);
         }
 
-        const downloadPath = targetDirectory || 'Downloads';
-        const normalizedPath = downloadPath.replace(/\/+$/, '');
+        let downloadPath = targetDirectory || '';
+        if (!downloadPath) {
+          downloadPath = '/storage/emulated/0/Download';
+        }
+
+        let normalizedPath = downloadPath.replace(/\/+$/, '');
+        const externalRoot = '/storage/emulated/0/';
+        if (normalizedPath.startsWith(externalRoot)) {
+          normalizedPath = normalizedPath.slice(externalRoot.length);
+        }
+        if (normalizedPath && !normalizedPath.startsWith('Download') && !normalizedPath.startsWith('Downloads')) {
+          normalizedPath = `Download/${normalizedPath}`;
+        }
+
         const sanitizedFilename = filename.endsWith('.nzb') ? filename : `${filename}.nzb`;
-        const savePath = normalizedPath ? `${normalizedPath}/${sanitizedFilename}` : sanitizedFilename;
+        const filesDir = `${normalizedPath}/${downloadName}/Files`;
+        const savePath = `${filesDir}/${sanitizedFilename}`;
 
         console.log(`[DownloadManager] Downloading to path: ${savePath}, base directory: ${normalizedPath}`);
 
-        const dirExists = await this.fileSystem.exists(normalizedPath);
+        const dirExists = await this.fileSystem.exists(filesDir);
         if (!dirExists) {
-          await this.fileSystem.mkdir(normalizedPath);
+          await this.fileSystem.mkdir(filesDir);
         }
 
         const buffer = Buffer.from(response.data);
@@ -555,15 +570,31 @@ export class DownloadManager extends EventEmitter {
       const item = history.find((h: DownloadItem) => h.id === id);
       if (item && item.savePath) {
         try {
-          const exists = await this.fileSystem.exists(item.savePath);
-          if (exists) {
-            await this.fileSystem.unlink(item.savePath);
+          if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
+            let deletePath = item.savePath;
+            const externalRoot = '/storage/emulated/0/';
+            if (deletePath.startsWith(externalRoot)) {
+              deletePath = deletePath.slice(externalRoot.length);
+            }
+            if (deletePath && !deletePath.startsWith('Download') && !deletePath.startsWith('Downloads')) {
+              deletePath = `Download/${deletePath}`;
+            }
+            await Filesystem.deleteFile({
+              path: deletePath,
+              directory: Directory.ExternalStorage
+            });
+          } else {
+            const exists = await this.fileSystem.exists(item.savePath);
+            if (exists) {
+              await this.fileSystem.unlink(item.savePath);
+            }
           }
         } catch (error) {
           console.error(`Failed to delete files at ${item.savePath}:`, error);
         }
       }
     }
+
 
     const newHistory = history.filter((h: DownloadItem) => h.id !== id);
     await this.store.set('history', newHistory);

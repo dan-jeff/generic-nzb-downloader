@@ -65,10 +65,11 @@ function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { activeDownloads, history } = useDownloads();
   const settingsRef = React.useRef<SettingsPanelHandle>(null);
+  const touchStartRef = React.useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     // Back Button Logic
-    const backButtonListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+    const backButtonListener = CapacitorApp.addListener('backButton', () => {
       // 1. If Settings is active, let it handle the back action
       if (activeTab === 2 && settingsRef.current?.handleBack()) {
         return;
@@ -139,9 +140,48 @@ function App() {
 
   const activeCount = activeDownloads.length;
 
+  const handleSwipe = React.useCallback((direction: 'left' | 'right') => {
+    setActiveTab((prev) => {
+      const next = direction === 'left' ? prev + 1 : prev - 1;
+      if (next < 0 || next > 2) return prev;
+      return next;
+    });
+  }, []);
+
+  const handleTouchStart = React.useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
+
+  const handleTouchEnd = React.useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+    const start = touchStartRef.current;
+    if (!start) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+
+    touchStartRef.current = null;
+
+    const horizontalThreshold = 60;
+    const verticalThreshold = 40;
+
+    if (Math.abs(deltaX) < horizontalThreshold || Math.abs(deltaY) > verticalThreshold) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      handleSwipe('left');
+    } else {
+      handleSwipe('right');
+    }
+  }, [handleSwipe]);
+
   return (
     <Container
       maxWidth={false}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       sx={{ 
         pt: { xs: 'calc(env(safe-area-inset-top) + 16px)', sm: 'calc(env(safe-area-inset-top) + 24px)' },
         pb: 'env(safe-area-inset-bottom)',

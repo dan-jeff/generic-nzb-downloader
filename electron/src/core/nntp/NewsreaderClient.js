@@ -4,6 +4,8 @@ import { DOMParser } from '@xmldom/xmldom';
 import { Writable } from 'stream';
 import { spawn } from 'child_process';
 import { NntpConnection } from './NntpConnection.js';
+import { Capacitor } from '@capacitor/core';
+import NativeNzbDownloader from '../../mobile/plugins/NativeNzbDownloader.js';
 export class FallbackManager {
     primaryProviderId;
     fallbackProviderIds;
@@ -300,8 +302,12 @@ export class StreamingYencDecoder extends Writable {
                 callback();
             }
             else {
+                // console.log('[StreamingYencDecoder] Backpressure detected from output stream');
                 if (this.outputStream) {
-                    this.outputStream.once('drain', () => callback());
+                    this.outputStream.once('drain', () => {
+                        // console.log('[StreamingYencDecoder] Output stream drained, resuming');
+                        callback();
+                    });
                 }
                 else {
                     callback();
@@ -406,6 +412,9 @@ export class SegmentDownloader {
         this.fallbackManager = new FallbackManager(config.currentProviderId, config.fallbackProviderIds, config.retryAttempts || 3);
     }
     async downloadSegment(messageId, destinationPath) {
+        console.log(`[SegmentDownloader] >>> downloadSegment called for messageId: ${messageId}`);
+        console.log(`[SegmentDownloader] destinationPath: ${destinationPath}`);
+        console.log(`[SegmentDownloader] connectionPool exists: ${!!this.connectionPool}`);
         const segmentId = messageId;
         const retryAttempts = this.config.retryAttempts || 3;
         const retryBackoffMs = this.config.retryBackoffMs || 1000;
@@ -417,8 +426,12 @@ export class SegmentDownloader {
         else {
             currentProviderId = this.perSegmentProviders.get(segmentId);
         }
+        console.log(`[SegmentDownloader] Starting download loop with provider: ${currentProviderId}`);
         while (currentProviderId) {
-            if (!this.fallbackManager.shouldRetry(segmentId, currentProviderId)) {
+            const canRetry = this.fallbackManager.shouldRetry(segmentId, currentProviderId);
+            const retryCount = this.fallbackManager.getRetryCount(segmentId, currentProviderId);
+            console.log(`[SegmentDownloader] shouldRetry: ${canRetry}, retryCount: ${retryCount}/${retryAttempts}`);
+            if (!canRetry) {
                 const nextProvider = this.fallbackManager.getNextProvider(currentProviderId, segmentId);
                 if (nextProvider) {
                     console.log(`Segment ${messageId}: Retries exhausted on provider ${currentProviderId}, switching to ${nextProvider}`);
@@ -432,13 +445,18 @@ export class SegmentDownloader {
                 }
             }
             try {
+                console.log(`[SegmentDownloader] Attempting to download segment ${messageId} on provider ${currentProviderId}`);
                 if (destinationPath) {
+                    console.log(`[SegmentDownloader] Using stream download to: ${destinationPath}`);
                     const result = await this.downloadSegmentStream(messageId, destinationPath);
                     this.fallbackManager.recordSuccess(segmentId, currentProviderId);
                     this.perSegmentProviders.delete(segmentId);
+                    console.log(`[SegmentDownloader] Stream download successful for ${messageId}`);
                     return result;
                 }
+                console.log(`[SegmentDownloader] Using fetchArticleBody for ${messageId}`);
                 const body = await this.fetchArticleBody(messageId);
+                console.log(`[SegmentDownloader] fetchArticleBody returned, body length: ${body.length}`);
                 const decoded = YencDecoder.decode(body);
                 if (decoded.crcValid === false) {
                     console.warn(`CRC mismatch for segment ${messageId}, proceeding anyway`);
@@ -451,6 +469,14 @@ export class SegmentDownloader {
                 return decoded;
             }
             catch (err) {
+                console.error(`[SegmentDownloader] >>> DOWNLOAD SEGMENT FAILED <<<`);
+                console.error(`[SegmentDownloader] Error type: ${err instanceof Error ? err.constructor.name : typeof err}`);
+                console.error(`[SegmentDownloader] Error message: ${err instanceof Error ? err.message : String(err)}`);
+                console.error(`[SegmentDownloader] Error stack:`, err instanceof Error ? err.stack : 'N/A');
+                const nntpResponse = err?.response;
+                const nntpCode = err?.code;
+                console.error(`[SegmentDownloader] NNTP response code:`, nntpCode || 'N/A');
+                console.error(`[SegmentDownloader] NNTP response message:`, nntpResponse || 'N/A');
                 const error = err instanceof Error ? err : new Error(String(err));
                 const newRetryCount = this.fallbackManager.getRetryCount(segmentId, currentProviderId) + 1;
                 this.fallbackManager.recordFailure(segmentId, currentProviderId);
@@ -479,16 +505,36 @@ export class SegmentDownloader {
         throw new Error(`Segment ${messageId} failed on all providers`);
     }
     async downloadSegmentStream(messageId, destinationPath) {
+        console.log(`[SegmentDownloader] >>> downloadSegmentStream called`);
+        console.log(`[SegmentDownloader] messageId: ${messageId}, dest: ${destinationPath}`);
         if (!this.fileSystem) {
             throw new Error('IFileSystem not provided for streaming download');
         }
+        console.log(`[SegmentDownloader] Creating output stream...`);
         const outputStream = this.fileSystem.writeStream(destinationPath);
+        console.log(`[SegmentDownloader] Creating decoder...`);
         const decoder = new StreamingYencDecoder(outputStream, 30000);
+        console.log(`[SegmentDownloader] Requesting NNTP stream from connectionPool...`);
         const nntpStream = await this.connectionPool.requestStream(messageId);
+        console.log(`[SegmentDownloader] NNTP stream received, piping to decoder...`);
         nntpStream.pipe(decoder);
-        await decoder.metadataPromise;
+        console.log(`[SegmentDownloader] Waiting for decoder metadata...`);
+        const metadata = await decoder.metadataPromise;
+        console.log(`[SegmentDownloader] Metadata received`);
+        // Wait for the stream to finish writing before returning
+        console.log(`[SegmentDownloader] Waiting for stream to finish writing...`);
+        await new Promise((resolve, reject) => {
+            decoder.on('finish', () => {
+                console.log(`[SegmentDownloader] Stream finished`);
+                resolve();
+            });
+            decoder.on('error', (err) => {
+                console.error(`[SegmentDownloader] Stream error:`, err);
+                reject(err);
+            });
+        });
         return {
-            metadata: await decoder.metadataPromise,
+            metadata,
             data: undefined,
             crcValid: true
         };
@@ -500,16 +546,21 @@ export class SegmentDownloader {
         }
     }
     fetchArticleBody(messageId) {
+        console.log(`[SegmentDownloader] >>> fetchArticleBody called for: ${messageId}`);
         return new Promise((resolve, reject) => {
+            console.log(`[SegmentDownloader] Calling connectionPool.request()...`);
             this.connectionPool.request(messageId, (err, body) => {
                 if (err) {
+                    console.error(`[SegmentDownloader] connectionPool.request() failed:`, err);
                     reject(err);
                     return;
                 }
                 if (!body || body.trim().length === 0) {
+                    console.error(`[SegmentDownloader] Empty body for article ${messageId}`);
                     reject(new Error(`Empty body for article ${messageId}`));
                     return;
                 }
+                console.log(`[SegmentDownloader] fetchArticleBody successful, body length: ${body.length}`);
                 resolve(body);
             });
         });
@@ -547,53 +598,74 @@ export class NntpConnectionPool {
         this.articleTimeoutMs = config.articleTimeoutMs || 15000;
     }
     async request(messageId, callback) {
+        console.log(`[NntpConnectionPool] >>> request() called for messageId: ${messageId}`);
         const connection = this.getAvailableConnection();
         if (connection) {
+            console.log(`[NntpConnectionPool] Using available connection`);
             this.fetchArticle(connection, messageId, callback);
         }
         else {
+            console.log(`[NntpConnectionPool] No available connection, queuing request`);
             this.requestQueue.push({ type: 'callback', messageId, callback });
         }
     }
     async requestStream(messageId) {
+        console.log(`[NntpConnectionPool] >>> requestStream() called for messageId: ${messageId}`);
         const connection = this.getAvailableConnection();
         if (connection) {
+            console.log(`[NntpConnectionPool] Using available connection for stream`);
             return new Promise((resolve, reject) => {
                 this.fetchArticleStream(connection, messageId, resolve, reject);
             });
         }
         else {
+            console.log(`[NntpConnectionPool] No available connection, queuing stream request`);
             return new Promise((resolve, reject) => {
                 this.requestQueue.push({ type: 'stream', messageId, resolve, reject });
             });
         }
     }
     getAvailableConnection() {
+        console.log(`[NntpConnectionPool] getAvailableConnection() called`);
+        console.log(`[NntpConnectionPool] Available connections: ${this.availableConnections.length}, Total connections: ${this.connections.length}, Max: ${this.maxConnections}`);
         if (this.availableConnections.length > 0) {
             const connection = this.availableConnections.shift();
+            console.log(`[NntpConnectionPool] Returning existing available connection`);
             return connection;
         }
         if (this.connections.length < this.maxConnections) {
+            console.log(`[NntpConnectionPool] Creating new connection (${this.connections.length + 1}/${this.maxConnections})`);
             const connection = new NntpConnection(this.networkFactory, this.articleTimeoutMs);
             this.connections.push(connection);
             return connection;
         }
+        console.log(`[NntpConnectionPool] All connections busy, returning null`);
         return null;
     }
     async fetchArticle(connection, messageId, callback) {
+        console.log(`[NntpConnectionPool] >>> fetchArticle() called for messageId: ${messageId}`);
+        console.log(`[NntpConnectionPool] Connection isConnected: ${connection.isConnected()}`);
         try {
             if (!connection.isConnected()) {
+                console.log(`[NntpConnectionPool] Connection not connected, calling connect()...`);
+                console.log(`[NntpConnectionPool] Connect params: ${this.hostname}:${this.port}, SSL: ${this.useSSL}, username: ${!!this.username}`);
                 await connection.connect(this.hostname, this.port, this.useSSL, this.username, this.password);
+                console.log(`[NntpConnectionPool] Connection established successfully`);
             }
+            console.log(`[NntpConnectionPool] Calling connection.getBody()...`);
             const body = await connection.getBody(messageId);
+            console.log(`[NntpConnectionPool] getBody() returned, body length: ${body.length}`);
             callback(null, body);
             this.returnConnectionToPool(connection);
             this.processNextRequest();
         }
         catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
+            console.error(`[NntpConnectionPool] fetchArticle() failed:`, error.message);
+            console.error(`[NntpConnectionPool] Error stack:`, error.stack);
             callback(error);
             if (!connection.isConnected()) {
+                console.log(`[NntpConnectionPool] Connection lost, removing and creating replacement`);
                 this.removeConnection(connection);
                 this.createReplacementConnection();
             }
@@ -722,7 +794,9 @@ export class FileAssembler {
         if (!fileSystem) {
             throw new Error('IFileSystem not provided to FileAssembler');
         }
-        const filePath = job.name ? `${job.savePath}/${file.filename}` : file.filename;
+        // Save directly to the download subfolder, not nested further
+        const filePath = `${job.savePath}/${file.filename}`;
+        console.log(`[FileAssembler] Assembling file to: ${filePath}`);
         const fileHandle = await fileSystem.open(filePath, 'w');
         try {
             let currentOffset = 0;
@@ -781,9 +855,8 @@ export class Par2Manager {
     static VERIFY_TIMEOUT_MS = 300000;
     static REPAIR_TIMEOUT_MS = 600000;
     par2Path = null;
-    fileSystem;
-    constructor(fileSystem) {
-        this.fileSystem = fileSystem;
+    constructor(_fileSystem) {
+        // no-op
     }
     async findPar2Executable() {
         if (this.par2Path) {
@@ -936,7 +1009,7 @@ export class Par2Manager {
             message: 'Verification complete, no issues found'
         };
     }
-    async findPar2Files(downloadPath) {
+    async findPar2Files(_downloadPath) {
         console.warn('[Par2Manager] findPar2Files not fully implemented with IFileSystem');
         return [];
     }
@@ -1197,12 +1270,8 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     segmentDownloader;
     fileSystem;
     networkFactory;
-    isAndroidOrCapacitor() {
-        return typeof window !== 'undefined' &&
-            window.Capacitor?.isNativePlatform?.() === true ||
-            window.Capacitor?.getPlatform?.() === 'android' ||
-            window.Capacitor?.getPlatform?.() === 'ios';
-    }
+    activeDownloads = new Map();
+    activeNativeJobs = new Map();
     constructor(settings, networkFactory, fileSystem) {
         console.error('[DirectUsenetClient] >>> CONSTRUCTOR CALLED <<<');
         console.error('[DirectUsenetClient] Constructor params:', { name: settings.name, type: settings.type, hostname: settings.hostname, hasFileSystem: !!fileSystem });
@@ -1222,159 +1291,346 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         });
         if (!this.settings.hostname || !this.settings.port) {
             console.error('[DirectUsenetClient] >>> MISSING HOSTNAME OR PORT <<<');
-            console.error('[DirectUsenetClient] hostname:', !!this.settings.hostname);
-            console.error('[DirectUsenetClient] port:', this.settings.port);
             return;
         }
-        console.error('[DirectUsenetClient] About to create NntpConnectionPool with:');
-        console.error('[DirectUsenetClient]   hostname:', this.settings.hostname);
-        console.error('[DirectUsenetClient]   port:', this.settings.port);
-        console.error('[DirectUsenetClient]   useSSL:', this.settings.useSSL);
-        const useSSL = this.settings.useSSL || false;
-        console.error('[DirectUsenetClient] Original SSL setting:', useSSL);
-        console.error('[DirectUsenetClient] Is Android/Capacitor:', this.isAndroidOrCapacitor());
-        let actualUseSSL = useSSL;
-        if (this.isAndroidOrCapacitor() && useSSL) {
-            console.error('[DirectUsenetClient] >>> DISABLING SSL ON ANDROID <<<');
-            console.error('[DirectUsenetClient] CapacitorNetworkAdapter does not support SSL/TLS');
-            console.error('[DirectUsenetClient] Will connect without SSL (port may need to be 119)');
-            actualUseSSL = false;
+        let actualUseSSL = this.settings.useSSL ?? false;
+        if (this.settings.type === 'direct' && !actualUseSSL) {
+            console.error('[DirectUsenetClient] >>> FORCING SSL TRUE FOR DIRECT CONNECTION <<<');
+            actualUseSSL = true;
         }
-        console.error('[DirectUsenetClient] Final SSL setting:', actualUseSSL);
-        console.error('[DirectUsenetClient] Connection params:', {
-            hostname: this.settings.hostname,
-            port: this.settings.port,
-            useSSL: actualUseSSL,
-            username: this.settings.username ? 'set' : 'not set'
-        });
-        this.connectionPool = new NntpConnectionPool(this.settings.hostname, this.settings.port, actualUseSSL, this.settings.username, this.settings.password, this.networkFactory, {
-            maxConnections: this.settings.maxConnections,
-            articleTimeoutMs: this.settings.articleTimeoutMs
-        });
-        this.segmentDownloader = new SegmentDownloader(this.connectionPool, {
-            retryAttempts: this.settings.retryAttempts,
-            retryBackoffMs: this.settings.retryBackoffMs,
-            currentProviderId: this.settings.id,
-            fallbackProviderIds: this.settings.fallbackProviderIds || [],
-            providerSettings: new Map(),
-            switchProviderCallback: undefined,
-            fileSystem: this.fileSystem
-        });
-        console.error('[DirectUsenetClient] Constructor: segmentDownloader created:', typeof this.segmentDownloader);
-        console.error('[DirectUsenetClient] Constructor: connectionPool type:', typeof this.connectionPool);
+        try {
+            this.connectionPool = new NntpConnectionPool(this.settings.hostname, this.settings.port, actualUseSSL, this.settings.username, this.settings.password, this.networkFactory, {
+                maxConnections: this.settings.maxConnections,
+                articleTimeoutMs: this.settings.articleTimeoutMs
+            });
+            this.segmentDownloader = new SegmentDownloader(this.connectionPool, {
+                retryAttempts: this.settings.retryAttempts,
+                retryBackoffMs: this.settings.retryBackoffMs,
+                currentProviderId: this.settings.id,
+                fallbackProviderIds: this.settings.fallbackProviderIds || [],
+                providerSettings: new Map(),
+                switchProviderCallback: undefined,
+                fileSystem: this.fileSystem
+            });
+        }
+        catch (error) {
+            console.error('[DirectUsenetClient] >>> NETWORK INITIALIZATION FAILED <<<', error);
+            throw new Error('Failed to initialize NNTP connection: ' + (error instanceof Error ? error.message : String(error)));
+        }
     }
     async addNzb(content, filename, category, downloadPath) {
-        console.error('[DirectUsenetClient] >>> ADDNZB METHOD CALLED <<<');
-        console.error('[DirectUsenetClient] Method params:', { filename, category, downloadPath, bufferSize: content?.length });
-        console.log('[DirectUsenetClient] addNzb called:', { filename, category, downloadPath, bufferSize: content?.length });
+        const id = Math.random().toString(36).substring(7);
+        console.log('[DirectUsenetClient] addNzb called, generated id:', id);
         if (!downloadPath) {
-            console.error('[DirectUsenetClient] >>> NO DOWNLOAD PATH <<<');
-            const newsreaderName = this.settings.name || this.settings.id || 'newsreader';
-            console.error('[DirectUsenetClient] No download path provided for:', newsreaderName);
-            throw new Error(`Download path not configured. Please configure a download path in Settings > Newsreaders > ${newsreaderName} before downloading with Direct Usenet.`);
+            throw new Error('Download path not configured');
         }
         if (!this.segmentDownloader || !this.connectionPool) {
-            console.error('[DirectUsenetClient] >>> MISSING CONNECTION/SEGMENT_DOWNLOADER <<<');
-            console.error('[DirectUsenetClient] segmentDownloader:', !!this.segmentDownloader);
-            console.error('[DirectUsenetClient] connectionPool:', !!this.connectionPool);
             this.initializeConnection();
         }
-        if (!this.segmentDownloader) {
-            console.error('[DirectUsenetClient] >>> SEGMENT DOWNLOADER STILL NULL <<<');
-            throw new Error('Segment downloader not available');
-        }
-        const id = Math.random().toString(36).substring(7);
-        console.log('[DirectUsenetClient] Starting download of', filename, 'to', downloadPath);
+        const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
+        const segmentElements = Array.from(doc.getElementsByTagName('segment'));
+        let totalSize = segmentElements.reduce((sum, seg) => sum + parseInt(seg.getAttribute('bytes') || '0', 10), 0);
+        if (isNaN(totalSize))
+            totalSize = 0;
+        // Create download subfolder path without filename - filename handling happens in Java
+        const downloadName = filename.replace(/\.nzb$/i, '');
+        const downloadSubfolder = `${downloadPath}/${downloadName}`;
+        console.log(`[DirectUsenetClient] Output path for display: ${downloadSubfolder}`);
+        this.activeDownloads.set(id, {
+            id,
+            name: downloadName, // Use NZB filename without .nzb extension
+            size: totalSize,
+            remainingSize: totalSize,
+            progress: 0,
+            status: 'Queued',
+            speed: 0,
+            eta: 0,
+            outputPath: downloadSubfolder,
+            category: category
+        });
+        // Start background download - pass only downloadPath, filename handling is in Java
+        this.processDownload(id, content, filename, downloadPath).catch(err => {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            const errorStack = err instanceof Error ? err.stack : undefined;
+            console.error(`[DirectUsenetClient] Download ${id} failed:`, errorMsg);
+            if (errorStack) {
+                console.error(`[DirectUsenetClient] Stack trace:`, errorStack);
+            }
+            console.error(`[DirectUsenetClient] Full error object:`, JSON.stringify(err, Object.getOwnPropertyNames(err)));
+            const status = this.activeDownloads.get(id);
+            if (status) {
+                status.status = 'Failed';
+            }
+        });
+        return id;
+    }
+    async processDownload(id, content, _filename, downloadPath) {
+        const status = this.activeDownloads.get(id);
+        if (!status)
+            return;
+        status.status = 'Downloading';
+        console.log(`[DirectUsenetClient] Starting download process for ${id}`);
         try {
-            const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
-            console.log('[DirectUsenetClient] Parsed XML, document element:', doc?.documentElement?.tagName);
-            const fileElements = doc.getElementsByTagName('file');
-            console.log('[DirectUsenetClient] Found file elements:', fileElements?.length);
-            const fileElementArray = Array.from(fileElements);
-            console.log('[DirectUsenetClient] File element array length:', fileElementArray.length);
-            console.log('[DirectUsenetClient] Starting loop over file elements');
-            console.error('[DirectUsenetClient] About to start download loop');
-            for (const fileElement of fileElementArray) {
-                console.log('[DirectUsenetClient] Processing file element:', {
-                    tagName: fileElement.tagName,
-                    subject: fileElement.getAttribute('subject')
+            if (!downloadPath) {
+                throw new Error('Download path not configured');
+            }
+            // Create the download subfolder first
+            if (this.fileSystem) {
+                await this.fileSystem.mkdir(downloadPath);
+                console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
+            }
+            else {
+                throw new Error('IFileSystem not provided');
+            }
+            const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+            if (isAndroid) {
+                console.log('[DirectUsenetClient] Using native Android downloader');
+                const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
+                const fileElements = Array.from(doc.getElementsByTagName('file'));
+                // Determine SSL - force true for direct if not specified, same as initializeConnection
+                let useSSL = this.settings.useSSL ?? false;
+                if (this.settings.type === 'direct' && !useSSL) {
+                    useSSL = true;
+                }
+                const maxConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 10;
+                const server = {
+                    host: this.settings.hostname,
+                    port: this.settings.port,
+                    ssl: useSSL,
+                    user: this.settings.username,
+                    pass: this.settings.password,
+                    connections: maxConnections
+                };
+                let totalDownloadedBeforeCurrentFile = 0;
+                // Speed calculation state
+                let lastSpeedUpdate = Date.now();
+                let totalDownloadedAtLastUpdate = 0;
+                let recentSpeeds = [];
+                const SPEED_WINDOW_SIZE = 5;
+                let activeJobId = null;
+                let jobResolve = null;
+                let jobReject = null;
+                const progressListener = await NativeNzbDownloader.addListener('progress', (p) => {
+                    if (p.jobId === activeJobId) {
+                        // Java plugin sends 'bytes' for downloaded bytes
+                        const currentFileDownloaded = p.bytes || 0;
+                        const totalDownloaded = totalDownloadedBeforeCurrentFile + currentFileDownloaded;
+                        status.remainingSize = Math.max(0, status.size - totalDownloaded);
+                        const calculatedProgress = status.size > 0 ? (totalDownloaded / status.size) * 100 : 0;
+                        status.progress = Math.min(100, calculatedProgress);
+                        // Robust Speed calculation based on bytes
+                        const now = Date.now();
+                        const timeDiff = now - lastSpeedUpdate;
+                        if (timeDiff >= 1000) {
+                            const bytesDiff = totalDownloaded - totalDownloadedAtLastUpdate;
+                            const currentSpeed = (bytesDiff / timeDiff) * 1000; // bytes per second
+                            recentSpeeds.push(currentSpeed);
+                            if (recentSpeeds.length > SPEED_WINDOW_SIZE)
+                                recentSpeeds.shift();
+                            const avgSpeed = recentSpeeds.reduce((a, b) => a + b, 0) / recentSpeeds.length;
+                            status.speed = avgSpeed;
+                            status.eta = avgSpeed > 0 ? Math.ceil(status.remainingSize / avgSpeed) : 0;
+                            lastSpeedUpdate = now;
+                            totalDownloadedAtLastUpdate = totalDownloaded;
+                        }
+                        // Check if job is completed based on segments (Java sends 'completed' and 'total' segments)
+                        if (p.completed >= p.total && p.total > 0) {
+                            if (jobResolve)
+                                jobResolve();
+                        }
+                    }
                 });
+                const errorListener = await NativeNzbDownloader.addListener('error', (e) => {
+                    if (e.jobId === activeJobId) {
+                        console.error(`[DirectUsenetClient] Native error for job ${e.jobId}: ${e.message}`);
+                        if (jobReject)
+                            jobReject(new Error(e.message));
+                    }
+                });
+                try {
+                    for (const fileElement of fileElements) {
+                        status.status = 'Downloading';
+                        const subject = fileElement.getAttribute('subject') || '';
+                        const filenameMatch = subject.match(/"([^"]+)"/);
+                        const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
+                        const segmentElements = Array.from(fileElement.getElementsByTagName('segment'));
+                        const segments = segmentElements.map(seg => ({
+                            number: parseInt(seg.getAttribute('number') || '0', 10),
+                            bytes: parseInt(seg.getAttribute('bytes') || '0', 10),
+                            messageId: seg.textContent?.trim() || ''
+                        }));
+                        if (segments.length === 0)
+                            continue;
+                        const fileTotalBytes = segments.reduce((sum, seg) => sum + seg.bytes, 0);
+                        // Sort segments by number to ensure correct offset calculation
+                        const sortedSegments = segments.sort((a, b) => a.number - b.number);
+                        // Calculate offsets for parallel download
+                        let currentOffset = 0;
+                        const segmentsWithOffsets = sortedSegments.map(seg => {
+                            const segWithOffset = {
+                                ...seg,
+                                begin: currentOffset
+                            };
+                            currentOffset += seg.bytes;
+                            return segWithOffset;
+                        });
+                        const jobId = `${id}-${fileElements.indexOf(fileElement)}`;
+                        const nativeJobs = this.activeNativeJobs.get(id) || [];
+                        nativeJobs.push(jobId);
+                        this.activeNativeJobs.set(id, nativeJobs);
+                        const job = {
+                            id: jobId,
+                            filename: extractedFilename,
+                            // Pass path as-is. Java side handles absolute vs relative detection.
+                            downloadPath: downloadPath || 'nzb',
+                            segments: segmentsWithOffsets,
+                            server
+                        };
+                        activeJobId = jobId;
+                        const fileCompletePromise = new Promise((resolve, reject) => {
+                            jobResolve = resolve;
+                            jobReject = reject;
+                        });
+                        console.log(`[DirectUsenetClient] Starting native job ${jobId} for ${extractedFilename}`);
+                        await NativeNzbDownloader.addJob(job);
+                        // Wait for this file to complete before starting next one
+                        await fileCompletePromise;
+                        // Check if still active before continuing loop
+                        if (!this.activeDownloads.has(id)) {
+                            console.log(`[DirectUsenetClient] Download ${id} was cancelled, stopping loop`);
+                            break;
+                        }
+                        totalDownloadedBeforeCurrentFile += fileTotalBytes;
+                        activeJobId = null;
+                        jobResolve = null;
+                        jobReject = null;
+                        console.log(`[DirectUsenetClient] Native job ${jobId} finished`);
+                    }
+                }
+                catch (err) {
+                    console.error(`[DirectUsenetClient] Native download failed:`, err);
+                    throw err;
+                }
+                finally {
+                    progressListener.remove();
+                    errorListener.remove();
+                }
+                status.status = 'Completed';
+                status.progress = 100;
+                status.remainingSize = 0;
+                status.speed = 0;
+                status.eta = 0;
+                console.log(`[DirectUsenetClient] Download ${id} completed via native downloader`);
+                return;
+            }
+            const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
+            const fileElements = Array.from(doc.getElementsByTagName('file'));
+            for (const fileElement of fileElements) {
+                // Reset status to Downloading for each new file in the NZB
+                status.status = 'Downloading';
                 const subject = fileElement.getAttribute('subject') || '';
-                console.log('[DirectUsenetClient] File subject:', subject);
                 const segments = [];
-                const segmentElements = fileElement.getElementsByTagName('segment');
-                const segmentElementArray = Array.from(segmentElements);
-                console.log('[DirectUsenetClient] Segment elements count:', segmentElementArray.length);
-                for (const segmentElement of segmentElementArray) {
+                const segmentElements = Array.from(fileElement.getElementsByTagName('segment'));
+                for (const segmentElement of segmentElements) {
                     const number = parseInt(segmentElement.getAttribute('number') || '0', 10);
                     const bytes = parseInt(segmentElement.getAttribute('bytes') || '0', 10);
                     const messageId = segmentElement.textContent?.trim() || '';
                     segments.push({ number, bytes, messageId });
                 }
+                if (segments.length === 0)
+                    continue;
+                const totalBytes = segments.reduce((sum, seg) => sum + seg.bytes, 0);
+                // Extract filename from subject for segment files, but keep display name as NZB name
                 const filenameMatch = subject.match(/"([^"]+)"/);
-                const extractedFilename = filenameMatch ? filenameMatch[1] : filename;
-                const nzbFile = {
+                const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
+                const segmentsDir = `${downloadPath}/.segments`;
+                await this.fileSystem.mkdir(segmentsDir);
+                console.log(`[DirectUsenetClient] Created segments directory: ${segmentsDir}`);
+                const downloadedSegments = new Map();
+                let downloadedBytesFile = 0;
+                // Parallel segment download (matching desktop implementation)
+                const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+                const maxConcurrent = isAndroid ? 1 : (this.settings.segmentConcurrency || 10);
+                if (isAndroid) {
+                    console.log('[DirectUsenetClient] Android detected: forcing sequential download (concurrency 1)');
+                }
+                let index = 0;
+                const activeDownloads = new Map();
+                // Speed calculation state
+                let lastSpeedUpdate = Date.now();
+                let bytesAtLastUpdate = 0;
+                let recentSpeeds = [];
+                const SPEED_WINDOW_SIZE = 5;
+                const processSegment = async (segment) => {
+                    const segmentPath = `${segmentsDir}/${extractedFilename}.${segment.number}.tmp`;
+                    if (!this.segmentDownloader)
+                        throw new Error('Segment downloader missing');
+                    console.log(`[DirectUsenetClient] Downloading segment ${segment.number}/${segments.length}, messageId: ${segment.messageId}`);
+                    try {
+                        const result = await this.segmentDownloader.downloadSegment(segment.messageId, segmentPath);
+                        const segmentSize = result.data ? result.data.length : segment.bytes;
+                        downloadedSegments.set(segment.number, {
+                            path: segmentPath,
+                            metadata: result.metadata,
+                            size: segmentSize
+                        });
+                        downloadedBytesFile += segmentSize;
+                        status.remainingSize = Math.max(0, status.remainingSize - segmentSize);
+                        status.progress = status.size > 0 ? ((status.size - status.remainingSize) / status.size) * 100 : 0;
+                        // Calculate Speed & ETA
+                        const now = Date.now();
+                        const timeDiff = now - lastSpeedUpdate;
+                        if (timeDiff >= 1000) { // Update every second
+                            const bytesDiff = downloadedBytesFile - bytesAtLastUpdate;
+                            const currentSpeed = (bytesDiff / timeDiff) * 1000; // bytes per second
+                            recentSpeeds.push(currentSpeed);
+                            if (recentSpeeds.length > SPEED_WINDOW_SIZE)
+                                recentSpeeds.shift();
+                            const avgSpeed = recentSpeeds.reduce((a, b) => a + b, 0) / recentSpeeds.length;
+                            status.speed = avgSpeed;
+                            status.eta = avgSpeed > 0 ? Math.ceil(status.remainingSize / avgSpeed) : 0;
+                            lastSpeedUpdate = now;
+                            bytesAtLastUpdate = downloadedBytesFile;
+                            console.log(`[DirectUsenetClient] Speed: ${(avgSpeed / 1024 / 1024).toFixed(2)} MB/s, ETA: ${status.eta}s`);
+                        }
+                        console.log(`[DirectUsenetClient] Segment ${segment.number} completed (${downloadedSegments.size}/${segments.length})`);
+                    }
+                    catch (err) {
+                        console.error(`[DirectUsenetClient] Failed to download segment ${segment.number}:`, err);
+                        throw err;
+                    }
+                };
+                // Download segments in parallel with controlled concurrency
+                while (index < segments.length) {
+                    // Fill up to maxConcurrent active downloads
+                    while (activeDownloads.size < maxConcurrent && index < segments.length) {
+                        const segment = segments[index];
+                        const promise = processSegment(segment)
+                            .finally(() => {
+                            activeDownloads.delete(segment.messageId);
+                        });
+                        activeDownloads.set(segment.messageId, promise);
+                        index++;
+                    }
+                    // Wait for at least one to complete before continuing
+                    if (activeDownloads.size > 0) {
+                        await Promise.race(Array.from(activeDownloads.values()));
+                    }
+                }
+                // Wait for all remaining downloads to complete
+                if (activeDownloads.size > 0) {
+                    await Promise.all(Array.from(activeDownloads.values()));
+                }
+                console.log(`[DirectUsenetClient] All ${segments.length} segments downloaded successfully`);
+                // Assemble
+                status.status = 'Assembling'; // Or keep Downloading
+                const fileWithSegments = {
                     subject,
                     filename: extractedFilename,
                     groups: [],
-                    segments
-                };
-                if (segments.length === 0) {
-                    console.log('[DirectUsenetClient] Warning: No segments found in file, skipping download');
-                    continue;
-                }
-                console.log(`[DirectUsenetClient] Downloading file: ${extractedFilename} with ${segments.length} segments`);
-                const segmentsDir = `${downloadPath}/.segments`;
-                if (this.fileSystem) {
-                    console.log(`[DirectUsenetClient] Creating segments directory: ${segmentsDir}`);
-                    try {
-                        await this.fileSystem.mkdir(segmentsDir);
-                        console.log(`[DirectUsenetClient] Segments directory created successfully`);
-                    }
-                    catch (dirError) {
-                        console.error('[DirectUsenetClient] Failed to create segments directory:', dirError);
-                        console.error('[DirectUsenetClient] Directory error stack:', dirError instanceof Error ? dirError.stack : 'N/A');
-                        throw new Error(`Failed to create segments directory: ${dirError instanceof Error ? dirError.message : String(dirError)}`);
-                    }
-                }
-                else {
-                    throw new Error('IFileSystem not provided');
-                }
-                const downloadedSegments = new Map();
-                for (const segment of segments) {
-                    console.log(`[DirectUsenetClient] About to call downloadSegment for ${extractedFilename}, segment ${segments.indexOf(segment)}/${segments.length}`);
-                    if (!this.segmentDownloader) {
-                        console.error('[DirectUsenetClient] ERROR: segmentDownloader became undefined during loop');
-                        throw new Error('Segment downloader not available');
-                    }
-                    const segmentPath = `${segmentsDir}/${extractedFilename}.${segment.number}.tmp`;
-                    console.log('[DirectUsenetClient] About to download segment:', {
-                        segmentId: segment.messageId,
-                        path: segmentPath,
-                        segmentDownloaderExists: !!this.segmentDownloader,
-                        segmentDownloaderType: typeof this.segmentDownloader
-                    });
-                    if (!this.segmentDownloader) {
-                        console.error('[DirectUsenetClient] ERROR: segmentDownloader is undefined, skipping segment download');
-                        continue;
-                    }
-                    const result = await this.segmentDownloader.downloadSegment(segment.messageId, segmentPath);
-                    console.log(`[DirectUsenetClient] downloadSegment returned for segment ${segment.messageId}`);
-                    console.log(`[DirectUsenetClient] Segment result:`, {
-                        hasData: !!result.data,
-                        hasMetadata: !!result.metadata,
-                        dataLength: result.data ? result.data.length : 0
-                    });
-                    downloadedSegments.set(segment.number, {
-                        path: segmentPath,
-                        metadata: result.metadata,
-                        size: result.data ? result.data.length : 0
-                    });
-                }
-                const fileWithSegments = {
-                    ...nzbFile,
+                    segments,
                     downloadedArticles: downloadedSegments.size,
-                    size: segments.reduce((sum, seg) => sum + seg.bytes, 0),
+                    size: totalBytes,
                     articles: segments.length,
                     downloadedSegments
                 };
@@ -1383,47 +1639,54 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
                     name: extractedFilename,
                     savePath: downloadPath,
                     files: [fileWithSegments],
-                    totalSize: segments.reduce((sum, seg) => sum + seg.bytes, 0),
+                    totalSize: totalBytes,
                     status: 'Completed',
-                    downloadedBytes: 0,
+                    downloadedBytes: downloadedBytesFile,
                     startTime: Date.now()
                 };
-                console.log(`[DirectUsenetClient] About to assemble file: ${extractedFilename}`);
-                console.log(`[DirectUsenetClient] File job details:`, {
-                    savePath: job.savePath,
-                    filesCount: job.files.length,
-                    downloadedSegmentsCount: fileWithSegments.downloadedSegments.size,
-                    fileSystemProvided: !!this.fileSystem
-                });
-                try {
-                    await FileAssembler.assembleFile(job, fileWithSegments, this.fileSystem);
-                    console.log(`[DirectUsenetClient] File assembled successfully: ${extractedFilename}`);
-                }
-                catch (assembleError) {
-                    console.error('[DirectUsenetClient] Failed to assemble file:', assembleError);
-                    console.error('[DirectUsenetClient] Assemble error stack:', assembleError instanceof Error ? assembleError.stack : 'N/A');
-                    throw new Error(`Failed to assemble file: ${assembleError instanceof Error ? assembleError.message : String(assembleError)}`);
-                }
-                console.log(`[DirectUsenetClient] Successfully assembled file: ${extractedFilename}`);
+                await FileAssembler.assembleFile(job, fileWithSegments, this.fileSystem);
             }
-            console.log('[DirectUsenetClient] Finished loop over file elements');
-            console.log(`[DirectUsenetClient] Completed download of ${filename}`);
-            return id;
+            status.status = 'Completed';
+            status.progress = 100;
+            status.remainingSize = 0;
+            console.log(`[DirectUsenetClient] Download ${id} completed`);
         }
-        catch (parseError) {
-            console.error('[DirectUsenetClient] Error parsing NZB XML:', parseError);
-            console.error('[DirectUsenetClient] Parse error stack:', parseError instanceof Error ? parseError.stack : 'N/A');
-            throw new Error(`Failed to parse NZB file: ${parseError instanceof Error ? parseError.message : String(parseError)}`);
+        catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            const errorStack = err instanceof Error ? err.stack : undefined;
+            console.error(`[DirectUsenetClient] Error processing download ${id}:`, errorMsg);
+            if (errorStack) {
+                console.error(`[DirectUsenetClient] Stack trace:`, errorStack);
+            }
+            console.error(`[DirectUsenetClient] Full error object:`, JSON.stringify(err, Object.getOwnPropertyNames(err)));
+            status.status = 'Failed';
+            throw err;
         }
     }
-    async getStatus(_ids) {
-        return [];
+    async getStatus(ids) {
+        if (ids.length === 0)
+            return Array.from(this.activeDownloads.values());
+        return ids.map(id => this.activeDownloads.get(id)).filter(s => s !== undefined);
     }
-    async pause(id) {
-        console.warn('[DirectUsenetClient] Pause not implemented for direct downloads');
+    async pause(_id) {
         return false;
     }
-    async delete(_id, _removeFiles) {
+    async delete(id, _removeFiles) {
+        this.activeDownloads.delete(id);
+        // Cancel native jobs if they exist
+        const nativeJobIds = this.activeNativeJobs.get(id);
+        if (nativeJobIds && nativeJobIds.length > 0) {
+            console.log(`[DirectUsenetClient] Cancelling ${nativeJobIds.length} native jobs for download ${id}`);
+            for (const jobId of nativeJobIds) {
+                try {
+                    await NativeNzbDownloader.cancelJob({ jobId });
+                }
+                catch (err) {
+                    console.warn(`[DirectUsenetClient] Failed to cancel native job ${jobId}:`, err);
+                }
+            }
+            this.activeNativeJobs.delete(id);
+        }
         return true;
     }
 }

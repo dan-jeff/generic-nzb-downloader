@@ -1633,11 +1633,28 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     let totalSize = segmentElements.reduce((sum, seg) => sum + parseInt(seg.getAttribute('bytes') || '0', 10), 0);
     if (isNaN(totalSize)) totalSize = 0;
 
-    // Create download-specific subfolder: nzb/filename/
-    const downloadName = filename.replace(/\.nzb$/i, ''); // Remove .nzb extension
+    // Create download subfolder path without filename - filename handling happens in Java
+    const downloadName = filename.replace(/\.nzb$/i, '');
+
     const downloadSubfolder = `${downloadPath}/${downloadName}`;
-    
-    console.log(`[DirectUsenetClient] Creating download subfolder: ${downloadSubfolder}`);
+    console.log(`[DirectUsenetClient] Output path for display: ${downloadSubfolder}`);
+
+    // Save the NZB file itself to the root directory
+    if (this.fileSystem && downloadPath) {
+        try {
+            let nzbFilePath = `${downloadPath}/${filename}`;
+            const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+            if (isAndroid) {
+                // On Android, JS adapter uses ExternalStorage root. We need to point to Download/ folder explicitly
+                // to match what the Java plugin does (which defaults to Downloads/ relative path)
+                nzbFilePath = `Download/${nzbFilePath}`;
+            }
+            await this.fileSystem.writeFile(nzbFilePath, content);
+            console.log(`[DirectUsenetClient] Saved NZB file to: ${nzbFilePath}`);
+        } catch (err) {
+            console.warn(`[DirectUsenetClient] Failed to save NZB file: ${err}`);
+        }
+    }
 
     this.activeDownloads.set(id, {
       id,
@@ -1652,7 +1669,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       category: category
     });
 
-    // Start background download
+    // Start background download - pass the subfolder as the target path
     this.processDownload(id, content, filename, downloadSubfolder).catch(err => {
       const errorMsg = err instanceof Error ? err.message : String(err);
       const errorStack = err instanceof Error ? err.stack : undefined;
@@ -1682,15 +1699,19 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         throw new Error('Download path not configured');
       }
 
-      // Create the download subfolder first
-      if (this.fileSystem) {
-        await this.fileSystem.mkdir(downloadPath);
-        console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
-      } else {
-        throw new Error('IFileSystem not provided');
-      }
-
       const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+
+      // Create the download subfolder first
+      // SKIP on Android: The native plugin handles directory creation within Scoped Storage (Downloads/ folder).
+      // Attempting to mkdir here using the JS adapter (which maps to root /storage/emulated/0/) causes permission errors.
+      if (!isAndroid) {
+        if (this.fileSystem) {
+          await this.fileSystem.mkdir(downloadPath);
+          console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
+        } else {
+          throw new Error('IFileSystem not provided');
+        }
+      }
 
       if (isAndroid) {
         console.log('[DirectUsenetClient] Using native Android downloader');
@@ -1704,13 +1725,16 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         }
 
         const maxConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 10;
+        // Cap connections on Android to avoid SocketException/Connection Abort
+        const actualConnections = Math.min(maxConnections, 4);
+
         const server = {
           host: this.settings.hostname!,
           port: this.settings.port!,
           ssl: useSSL,
           user: this.settings.username,
           pass: this.settings.password,
-          connections: maxConnections
+          connections: actualConnections
         };
 
         let totalDownloadedBeforeCurrentFile = 0;
@@ -1880,14 +1904,16 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
 
         const segmentsDir = `${downloadPath}/.segments`;
-        await this.fileSystem.mkdir(segmentsDir);
+        if (this.fileSystem) {
+          await this.fileSystem.mkdir(segmentsDir);
+        }
         console.log(`[DirectUsenetClient] Created segments directory: ${segmentsDir}`);
 
         const downloadedSegments = new Map<number, StoredSegment>();
         let downloadedBytesFile = 0;
 
         // Parallel segment download (matching desktop implementation)
-        const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+        // isAndroid is already defined at the top of the function
         const maxConcurrent = isAndroid ? 1 : (this.settings.segmentConcurrency || 10);
         if (isAndroid) {
           console.log('[DirectUsenetClient] Android detected: forcing sequential download (concurrency 1)');

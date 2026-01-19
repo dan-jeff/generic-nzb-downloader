@@ -41,11 +41,14 @@ import {
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
   Add as AddIcon,
+  FileDownload as FileDownloadIcon,
 } from '@mui/icons-material';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { SearchProviderSettings, IndexerConfig, NewsreaderSettings } from '../types/search';
 import { useSettings } from '../hooks/useSettings';
 import DirectoryPicker from './DirectoryPicker';
 import debugLogger from '../utils/debugLogger';
+import { serviceContainer, Platform } from '../core/ServiceContainer';
 
 // Type Definitions
 type SettingsView = 'root' | 'downloads' | 'updates' | 'indexers' | 'newsreaders' | 'logs';
@@ -299,6 +302,51 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
     ));
   };
 
+  const handleSaveLogs = async () => {
+    try {
+      const logs = debugLogger.getFormattedLogs();
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const filename = `app-logs-${timestamp}.txt`;
+
+      if (serviceContainer.platform === Platform.Android) {
+        try {
+          await Filesystem.writeFile({
+            path: filename,
+            data: logs,
+            directory: Directory.Documents,
+            encoding: Encoding.UTF8,
+          });
+          showSnackbar(`Logs saved to Documents/${filename}`, 'success');
+        } catch (e) {
+          console.warn('Error saving logs to Documents, trying ExternalStorage', e);
+          // Fallback to ExternalStorage if Documents fails
+          await Filesystem.writeFile({
+            path: filename,
+            data: logs,
+            directory: Directory.ExternalStorage,
+            encoding: Encoding.UTF8,
+          });
+          showSnackbar(`Logs saved to ExternalStorage/${filename}`, 'success');
+        }
+      } else {
+        // Fallback for Web/Electron: Download as file
+        const blob = new Blob([logs], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showSnackbar('Logs saved to file', 'success');
+      }
+    } catch (error) {
+      console.error('Failed to save logs:', error);
+      showSnackbar('Failed to save logs: ' + (error instanceof Error ? error.message : String(error)), 'error');
+    }
+  };
+
   // Render Methods
   const renderHeader = () => (
     <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -328,14 +376,26 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
           </Tooltip>
         )}
         {(currentView === 'indexers') && (
-          <Button startIcon={<AddIcon />} variant="contained" size="small" onClick={addIndexer} sx={{ py: 0.5 }}>
-            Add
-          </Button>
+          <Tooltip title="Add Indexer">
+            <IconButton
+              onClick={addIndexer}
+              size={isMobile ? "medium" : "small"}
+              sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}
+            >
+              <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+            </IconButton>
+          </Tooltip>
         )}
         {(currentView === 'newsreaders') && (
-          <Button startIcon={<AddIcon />} variant="contained" size="small" onClick={addNewsreader} sx={{ py: 0.5 }}>
-            Add
-          </Button>
+          <Tooltip title="Add Newsreader">
+            <IconButton
+              onClick={addNewsreader}
+              size={isMobile ? "medium" : "small"}
+              sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}
+            >
+              <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
+            </IconButton>
+          </Tooltip>
         )}
         <Tooltip title="Save all changes">
           <IconButton 
@@ -628,6 +688,9 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
            navigator.clipboard.writeText(debugLogs.join('\n'));
            showSnackbar('Logs copied', 'success');
         }} disabled={!debugLogs.length}>Copy</Button>
+        <Button variant="outlined" size="small" startIcon={<FileDownloadIcon />} onClick={handleSaveLogs} disabled={!debugLogs.length}>
+          Save to File
+        </Button>
         <Button variant="outlined" size="small" startIcon={<DeleteIcon />} onClick={() => {
           debugLogger.clearLogs();
           setDebugLogs([]);

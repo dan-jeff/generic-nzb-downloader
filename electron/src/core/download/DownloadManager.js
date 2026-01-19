@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import axios from 'axios';
 import { SABnzbdClient, NZBGetClient, DirectUsenetClient } from '../nntp/NewsreaderClient.js';
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 export class DownloadManager extends EventEmitter {
     store;
     fileSystem;
@@ -11,8 +12,11 @@ export class DownloadManager extends EventEmitter {
     localDownloads = new Map();
     externalDownloads = new Map();
     pollInterval = null;
+    instanceId;
     constructor(store, fileSystem, networkFactory) {
         super();
+        this.instanceId = Math.random().toString(36).substring(7);
+        console.log('[DownloadManager] Created new instance:', this.instanceId);
         this.store = store;
         this.fileSystem = fileSystem;
         this.networkFactory = networkFactory;
@@ -49,7 +53,8 @@ export class DownloadManager extends EventEmitter {
     startPolling() {
         if (this.pollInterval)
             clearInterval(this.pollInterval);
-        this.pollInterval = setInterval(() => this.poll(), 2000);
+        // Poll frequently (250ms) for smooth UI updates
+        this.pollInterval = setInterval(() => this.poll(), 250);
     }
     isUuid(str) {
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -57,9 +62,9 @@ export class DownloadManager extends EventEmitter {
         return uuidRegex.test(str) || sabUuidRegex.test(str);
     }
     async poll() {
-        const allStatuses = [];
+        const statusMap = new Map();
         for (const status of this.localDownloads.values()) {
-            allStatuses.push(status);
+            statusMap.set(status.id, status);
         }
         const providerGroups = new Map();
         for (const { providerId, externalId } of this.externalDownloads.values()) {
@@ -68,19 +73,18 @@ export class DownloadManager extends EventEmitter {
             }
             providerGroups.get(providerId).push(externalId);
         }
-        for (const [providerId, externalIds] of providerGroups.entries()) {
+        for (const providerId of providerGroups.keys()) {
             const client = this.newsreaders.get(providerId);
             if (client) {
                 try {
-                    const statuses = await client.getStatus(externalIds);
+                    const statuses = await client.getStatus([]);
                     for (const status of statuses) {
-                        const entry = Array.from(this.externalDownloads.entries())
-                            .find(([_, val]) => val.providerId === providerId && val.externalId === status.id);
-                        if (entry) {
-                            const [localId] = entry;
+                        const entries = Array.from(this.externalDownloads.entries())
+                            .filter(([_, val]) => val.providerId === providerId && val.externalId === status.id);
+                        for (const [localId] of entries) {
                             const mergedStatus = { ...status, id: localId };
-                            allStatuses.push(mergedStatus);
-                            if (status.status === 'Completed') {
+                            statusMap.set(localId, mergedStatus);
+                            if (status.status.toLowerCase() === 'completed') {
                                 this.handleDownloadComplete(localId, mergedStatus);
                             }
                         }
@@ -91,6 +95,7 @@ export class DownloadManager extends EventEmitter {
                 }
             }
         }
+        const allStatuses = Array.from(statusMap.values());
         let history = (await this.store.get('history')) || [];
         if (!Array.isArray(history))
             history = [];
@@ -112,6 +117,10 @@ export class DownloadManager extends EventEmitter {
                 externalId: external ? external.externalId : undefined,
                 path: filePath,
             };
+            // Log progress occasionally to avoid spamming, or if status changes
+            if (Math.random() < 0.05 || status.status !== 'Downloading') {
+                console.log('[DownloadManager] Poll emitting:', progress.id, progress.status, (progress.percent * 100).toFixed(1) + '%');
+            }
             this.emit('download-progress', progress);
         }
     }
@@ -151,6 +160,7 @@ export class DownloadManager extends EventEmitter {
                 providerName: 'Unknown',
             };
         }
+        console.log('[DownloadManager] About to emit download-completed event:', id);
         this.emit('download-completed', {
             ...updatedItem,
             path: updatedItem.savePath,
@@ -158,6 +168,7 @@ export class DownloadManager extends EventEmitter {
             size: updatedItem.totalBytes,
             status: 'completed'
         });
+        console.log('[DownloadManager] Emitted download-completed event');
     }
     async addDownload(urlOrBuffer, filename, providerId, target) {
         const id = Math.random().toString(36).substring(7);
@@ -205,7 +216,11 @@ export class DownloadManager extends EventEmitter {
         const nzbSettings = Array.isArray(searchSettings) ? searchSettings.find((s) => s.type === 'nzb') : undefined;
         const selectedSettings = nzbSettings?.newsreaders?.find((reader) => reader.id === selectedProviderId);
         const downloadSettings = await this.store.get('downloadSettings');
-        const downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
+        let downloadPath = selectedSettings?.downloadPath || downloadSettings?.downloadDirectory || '';
+        // Default to public Download folder on Android if not specified
+        if (!downloadPath && Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
+            downloadPath = '/storage/emulated/0/Download';
+        }
         if (selectedSettings?.type === 'direct' && !downloadPath) {
             const newsreaderName = selectedSettings.name || selectedProviderId;
             throw new Error(`Download path not configured. Please configure a download path in Settings > Newsreaders > ${newsreaderName} before downloading with Direct Usenet.`);
@@ -288,10 +303,13 @@ export class DownloadManager extends EventEmitter {
         const externalId = await client.addNzb(buffer, filename, 'default', downloadPath);
         console.log('[DownloadManager] client.addNzb() returned:', externalId);
         const friendlyName = this.providerNames.get(selectedProviderId) || selectedProviderId;
+        // Calculate the actual download subfolder path (nzb/filename/)
+        const downloadName = filename.replace(/\.nzb$/i, ''); // Remove .nzb extension
+        const actualSavePath = `${downloadPath}/${downloadName}`;
         const downloadItem = {
             id,
-            filename,
-            savePath: downloadPath,
+            filename: downloadName, // Store clean name without .nzb extension for better UI display
+            savePath: actualSavePath,
             status: 'queued',
             startTime: Date.now(),
             providerName: friendlyName,
@@ -302,7 +320,7 @@ export class DownloadManager extends EventEmitter {
         if (!Array.isArray(history))
             history = [];
         await this.store.set('history', [downloadItem, ...history]);
-        this.externalDownloads.set(id, { providerId: selectedProviderId, externalId, filename, savePath: downloadPath });
+        this.externalDownloads.set(id, { providerId: selectedProviderId, externalId, filename: downloadName, savePath: actualSavePath });
         return id;
     }
     async addLocalDownload(id, url, filename) {
@@ -321,6 +339,7 @@ export class DownloadManager extends EventEmitter {
         await this.store.set('history', [downloadItem, ...history]);
         const downloadSettings = await this.store.get('downloadSettings');
         const targetDirectory = downloadSettings?.downloadDirectory?.trim();
+        const downloadName = filename.replace(/\.nzb$/i, '');
         if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
             try {
                 const response = await CapacitorHttp.get({
@@ -333,14 +352,25 @@ export class DownloadManager extends EventEmitter {
                 if (response.status !== 200) {
                     throw new Error(`Failed to download NZB: HTTP ${response.status}`);
                 }
-                const downloadPath = targetDirectory || 'Downloads';
-                const normalizedPath = downloadPath.replace(/\/+$/, '');
+                let downloadPath = targetDirectory || '';
+                if (!downloadPath) {
+                    downloadPath = '/storage/emulated/0/Download';
+                }
+                let normalizedPath = downloadPath.replace(/\/+$/, '');
+                const externalRoot = '/storage/emulated/0/';
+                if (normalizedPath.startsWith(externalRoot)) {
+                    normalizedPath = normalizedPath.slice(externalRoot.length);
+                }
+                if (normalizedPath && !normalizedPath.startsWith('Download') && !normalizedPath.startsWith('Downloads')) {
+                    normalizedPath = `Download/${normalizedPath}`;
+                }
                 const sanitizedFilename = filename.endsWith('.nzb') ? filename : `${filename}.nzb`;
-                const savePath = normalizedPath ? `${normalizedPath}/${sanitizedFilename}` : sanitizedFilename;
+                const filesDir = `${normalizedPath}/${downloadName}/Files`;
+                const savePath = `${filesDir}/${sanitizedFilename}`;
                 console.log(`[DownloadManager] Downloading to path: ${savePath}, base directory: ${normalizedPath}`);
-                const dirExists = await this.fileSystem.exists(normalizedPath);
+                const dirExists = await this.fileSystem.exists(filesDir);
                 if (!dirExists) {
-                    await this.fileSystem.mkdir(normalizedPath);
+                    await this.fileSystem.mkdir(filesDir);
                 }
                 const buffer = Buffer.from(response.data);
                 await this.fileSystem.writeFile(savePath, buffer);
@@ -358,6 +388,8 @@ export class DownloadManager extends EventEmitter {
                     outputPath: savePath,
                 };
                 this.localDownloads.set(id, progress);
+                console.log('[DownloadManager] Instance:', this.instanceId, 'About to emit download-progress event for local download:', id);
+                console.log('[DownloadManager] Instance:', this.instanceId, 'Listener count:', this.listenerCount('download-progress'));
                 this.emit('download-progress', {
                     id,
                     filename: sanitizedFilename,
@@ -369,7 +401,10 @@ export class DownloadManager extends EventEmitter {
                     providerName: 'Local',
                     path: savePath,
                 });
+                console.log('[DownloadManager] Instance:', this.instanceId, 'Emitted download-progress event');
+                console.log('[DownloadManager] Instance:', this.instanceId, 'About to call handleDownloadComplete');
                 await this.handleDownloadComplete(id, progress);
+                console.log('[DownloadManager] Instance:', this.instanceId, 'handleDownloadComplete returned');
                 let currentHistory = (await this.store.get('history')) || [];
                 if (!Array.isArray(currentHistory))
                     currentHistory = [];
@@ -454,9 +489,25 @@ export class DownloadManager extends EventEmitter {
             const item = history.find((h) => h.id === id);
             if (item && item.savePath) {
                 try {
-                    const exists = await this.fileSystem.exists(item.savePath);
-                    if (exists) {
-                        await this.fileSystem.unlink(item.savePath);
+                    if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
+                        let deletePath = item.savePath;
+                        const externalRoot = '/storage/emulated/0/';
+                        if (deletePath.startsWith(externalRoot)) {
+                            deletePath = deletePath.slice(externalRoot.length);
+                        }
+                        if (deletePath && !deletePath.startsWith('Download') && !deletePath.startsWith('Downloads')) {
+                            deletePath = `Download/${deletePath}`;
+                        }
+                        await Filesystem.deleteFile({
+                            path: deletePath,
+                            directory: Directory.ExternalStorage
+                        });
+                    }
+                    else {
+                        const exists = await this.fileSystem.exists(item.savePath);
+                        if (exists) {
+                            await this.fileSystem.unlink(item.savePath);
+                        }
                     }
                 }
                 catch (error) {
