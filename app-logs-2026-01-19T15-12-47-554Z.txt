@@ -1,0 +1,3484 @@
+[2026-01-19 15:12:21] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:21] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:21] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:22] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 97.1%
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:22] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:22] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:22] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:22] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:22] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:23] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:23] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 97.1%
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:23] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:23] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:23] [INFO] [DirectUsenetClient] Download 4uuc9u completed via native downloader
+[2026-01-19 15:12:23] [INFO] [DownloadManager] About to emit download-completed event: nnzggfh
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleCompleted called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "savePath": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "status": "completed",
+  "startTime": 1768835519261,
+  "providerName": "UseNet Server",
+  "providerId": "e166d369-19fa-404f-8f6c-a87b3ab96f7f",
+  "externalId": "4uuc9u",
+  "endTime": 1768835543571,
+  "totalBytes": 406086571,
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "timestamp": 1768835543571,
+  "size": 406086571
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleCompleted called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "savePath": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "status": "completed",
+  "startTime": 1768835519261,
+  "providerName": "UseNet Server",
+  "providerId": "e166d369-19fa-404f-8f6c-a87b3ab96f7f",
+  "externalId": "4uuc9u",
+  "endTime": 1768835543571,
+  "totalBytes": 406086571,
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "timestamp": 1768835543571,
+  "size": 406086571
+}
+[2026-01-19 15:12:23] [INFO] [useDownloads] handleCompleted called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "savePath": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "status": "completed",
+  "startTime": 1768835519261,
+  "providerName": "UseNet Server",
+  "providerId": "e166d369-19fa-404f-8f6c-a87b3ab96f7f",
+  "externalId": "4uuc9u",
+  "endTime": 1768835543571,
+  "totalBytes": 406086571,
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "timestamp": 1768835543571,
+  "size": 406086571
+}
+[2026-01-19 15:12:23] [INFO] [DownloadManager] Emitted download-completed event
+[2026-01-19 15:12:23] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:23] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:34] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:34] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:36] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:36] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:38] [INFO] [ServiceContainer] getDownloadManager called, cached: true instance: jksmph
+[2026-01-19 15:12:38] [INFO] [ServiceContainer] Returning cached DownloadManager instance: jksmph
+[2026-01-19 15:12:44] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:44] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:45] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:45] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:11:59] [INFO] [DownloadManager] About to call client.addNzb(): {
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb",
+  "downloadPath": "nzb",
+  "clientType": "direct"
+}
+[2026-01-19 15:11:59] [INFO] [DownloadManager] Buffer size: 54269 First 100 chars: <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://ww
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] addNzb called, generated id: 4uuc9u
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Output path for display: nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN
+[2026-01-19 15:11:59] [INFO] [CapacitorFSAdapter] Writing file: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb, base directory: EXTERNAL_STORAGE
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Saved NZB file to: Download/nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN.nzb
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Starting download process for 4uuc9u
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Platform check - Native: true, Platform: android
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Using native Android downloader
+[2026-01-19 15:11:59] [INFO] [DownloadManager] client.addNzb() returned: 4uuc9u
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-0 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.par2
+[2026-01-19 15:11:59] [ERROR] Imported NZB from intent successfully
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:11:59] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:11:59] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0,
+  "transferredBytes": 0,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:11:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:11:59] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Native job 4uuc9u-0 finished
+[2026-01-19 15:11:59] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-1 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.vol00+01.par2
+[2026-01-19 15:12:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.000028319084700784155,
+  "transferredBytes": 11500,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.000028319084700784155,
+  "transferredBytes": 11500,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.000028319084700784155,
+  "transferredBytes": 11500,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 0,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:00] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:00] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:00] [INFO] [DirectUsenetClient] Native job 4uuc9u-1 finished
+[2026-01-19 15:12:00] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-2 for bobs.burgers.s16e06.polish.720p.web.h264-chopin.sfv
+[2026-01-19 15:12:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.001823229461089468,
+  "transferredBytes": 740389,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 545116.6791323859,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.001823229461089468,
+  "transferredBytes": 740389,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 545116.6791323859,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.001823229461089468,
+  "transferredBytes": 740389,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 545116.6791323859,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:01] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:01] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:01] [INFO] [DirectUsenetClient] Native job 4uuc9u-2 finished
+[2026-01-19 15:12:01] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-3 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.vol01+02.par2
+[2026-01-19 15:12:01] [INFO] [DirectUsenetClient] Native job 4uuc9u-3 finished
+[2026-01-19 15:12:01] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-4 for bobs.burgers.s16e06.polish.720p.web.h264-chopin.nfo
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:02] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:02] [INFO] [DirectUsenetClient] Native job 4uuc9u-4 finished
+[2026-01-19 15:12:02] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-5 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.vol03+04.par2
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:02] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005558275405270665,
+  "transferredBytes": 2257141,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 292689.3219339511,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:03] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.007323820122089189,
+  "transferredBytes": 2974105,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.007323820122089189,
+  "transferredBytes": 2974105,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.007323820122089189,
+  "transferredBytes": 2974105,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:03] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:03] [INFO] [DirectUsenetClient] Native job 4uuc9u-5 finished
+[2026-01-19 15:12:03] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-6 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.vol07+08.par2
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:03] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:03] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 1.3%
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.012676255182050823,
+  "transferredBytes": 5147657,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:03] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.014668369814179351,
+  "transferredBytes": 5956628,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.014668369814179351,
+  "transferredBytes": 5956628,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.014668369814179351,
+  "transferredBytes": 5956628,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:04] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:04] [INFO] [DirectUsenetClient] Native job 4uuc9u-6 finished
+[2026-01-19 15:12:04] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-7 for dTG4EvfuohcdzBlxbwWUbsyveD7QDb1V.vol15+12.par2
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:04] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:04] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.027110061711447236,
+  "transferredBytes": 11009032,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 692372.6504678479,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:04] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.029327707071603704,
+  "transferredBytes": 11909588,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.029327707071603704,
+  "transferredBytes": 11909588,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.029327707071603704,
+  "transferredBytes": 11909588,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:05] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:05] [INFO] [DirectUsenetClient] Native job 4uuc9u-7 finished
+[2026-01-19 15:12:05] [INFO] [DirectUsenetClient] Starting native job 4uuc9u-8 for bobs.burgers.s16e06.polish.720p.web.h264-chopin.mkv
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:05] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:05] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.04885865580617784,
+  "transferredBytes": 19840844,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 1831776.9907886065,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:05] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06012882410731085,
+  "transferredBytes": 24417508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06012882410731085,
+  "transferredBytes": 24417508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06012882410731085,
+  "transferredBytes": 24417508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:06] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06718938755549245,
+  "transferredBytes": 27284708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06718938755549245,
+  "transferredBytes": 27284708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.06718938755549245,
+  "transferredBytes": 27284708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:06] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.08307565531390101,
+  "transferredBytes": 33735908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.08307565531390101,
+  "transferredBytes": 33735908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.08307565531390101,
+  "transferredBytes": 33735908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:06] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.09719678221026422,
+  "transferredBytes": 39470308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.09719678221026422,
+  "transferredBytes": 39470308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.09719678221026422,
+  "transferredBytes": 39470308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:06] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.11484819083071822,
+  "transferredBytes": 46638308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.11484819083071822,
+  "transferredBytes": 46638308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.11484819083071822,
+  "transferredBytes": 46638308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 3768905.9388555633,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:07] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.1307344585891268,
+  "transferredBytes": 53089508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.1307344585891268,
+  "transferredBytes": 53089508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.1307344585891268,
+  "transferredBytes": 53089508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:07] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.14309044462344458,
+  "transferredBytes": 58107108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.14309044462344458,
+  "transferredBytes": 58107108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.14309044462344458,
+  "transferredBytes": 58107108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:07] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.16074185324389859,
+  "transferredBytes": 65275108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.16074185324389859,
+  "transferredBytes": 65275108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.16074185324389859,
+  "transferredBytes": 65275108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:07] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.17309783927821637,
+  "transferredBytes": 70292708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.17309783927821637,
+  "transferredBytes": 70292708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.17309783927821637,
+  "transferredBytes": 70292708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 8139882.603029085,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:08] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.18368868445048875,
+  "transferredBytes": 74593508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.18368868445048875,
+  "transferredBytes": 74593508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.18368868445048875,
+  "transferredBytes": 74593508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:08] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.20134009307094275,
+  "transferredBytes": 81761508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.20134009307094275,
+  "transferredBytes": 81761508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.20134009307094275,
+  "transferredBytes": 81761508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:08] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.21722636082935134,
+  "transferredBytes": 88212708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.21722636082935134,
+  "transferredBytes": 88212708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.21722636082935134,
+  "transferredBytes": 88212708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:08] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.23487776944980532,
+  "transferredBytes": 95380708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.23487776944980532,
+  "transferredBytes": 95380708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.23487776944980532,
+  "transferredBytes": 95380708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 12790697.433851713,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:09] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2542943189323047,
+  "transferredBytes": 103265508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2542943189323047,
+  "transferredBytes": 103265508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2542943189323047,
+  "transferredBytes": 103265508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:09] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2684154458286679,
+  "transferredBytes": 108999908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2684154458286679,
+  "transferredBytes": 108999908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2684154458286679,
+  "transferredBytes": 108999908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:09] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:09] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 28.1%
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2807714318629857,
+  "transferredBytes": 114017508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2807714318629857,
+  "transferredBytes": 114017508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2807714318629857,
+  "transferredBytes": 114017508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:09] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2913622770352581,
+  "transferredBytes": 118318308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2913622770352581,
+  "transferredBytes": 118318308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.2913622770352581,
+  "transferredBytes": 118318308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:10] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.30195312220753046,
+  "transferredBytes": 122619108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.30195312220753046,
+  "transferredBytes": 122619108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.30195312220753046,
+  "transferredBytes": 122619108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 17917515.13525849,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:10] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.31607424910389365,
+  "transferredBytes": 128353508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.31607424910389365,
+  "transferredBytes": 128353508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.31607424910389365,
+  "transferredBytes": 128353508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:10] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.33019537600025683,
+  "transferredBytes": 134087908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.33019537600025683,
+  "transferredBytes": 134087908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.33019537600025683,
+  "transferredBytes": 134087908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:10] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3425513620345747,
+  "transferredBytes": 139105508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3425513620345747,
+  "transferredBytes": 139105508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3425513620345747,
+  "transferredBytes": 139105508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:11] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.35667248893093784,
+  "transferredBytes": 144839908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.35667248893093784,
+  "transferredBytes": 144839908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.35667248893093784,
+  "transferredBytes": 144839908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 20798778.558868095,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:11] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.37608903841343716,
+  "transferredBytes": 152724708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.37608903841343716,
+  "transferredBytes": 152724708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.37608903841343716,
+  "transferredBytes": 152724708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:11] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3902101653098004,
+  "transferredBytes": 158459108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3902101653098004,
+  "transferredBytes": 158459108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.3902101653098004,
+  "transferredBytes": 158459108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:11] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.40080101048207273,
+  "transferredBytes": 162759908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.40080101048207273,
+  "transferredBytes": 162759908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.40080101048207273,
+  "transferredBytes": 162759908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:12] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4078615739302544,
+  "transferredBytes": 165627108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4078615739302544,
+  "transferredBytes": 165627108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4078615739302544,
+  "transferredBytes": 165627108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23173067.725119423,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:12] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.43257354599889,
+  "transferredBytes": 175662308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.43257354599889,
+  "transferredBytes": 175662308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.43257354599889,
+  "transferredBytes": 175662308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:12] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.44669467289525316,
+  "transferredBytes": 181396708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.44669467289525316,
+  "transferredBytes": 181396708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.44669467289525316,
+  "transferredBytes": 181396708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:12] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:13] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 46.3%
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.46258094065366173,
+  "transferredBytes": 187847908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.46258094065366173,
+  "transferredBytes": 187847908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.46258094065366173,
+  "transferredBytes": 187847908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:13] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.47670206755002487,
+  "transferredBytes": 193582308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.47670206755002487,
+  "transferredBytes": 193582308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.47670206755002487,
+  "transferredBytes": 193582308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:13] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4908231944463881,
+  "transferredBytes": 199316708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4908231944463881,
+  "transferredBytes": 199316708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.4908231944463881,
+  "transferredBytes": 199316708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23506425.25687986,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:13] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5120048847909329,
+  "transferredBytes": 207918308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5120048847909329,
+  "transferredBytes": 207918308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5120048847909329,
+  "transferredBytes": 207918308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:13] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5261260116872961,
+  "transferredBytes": 213652708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5261260116872961,
+  "transferredBytes": 213652708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5261260116872961,
+  "transferredBytes": 213652708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:14] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5420122794457047,
+  "transferredBytes": 220103908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5420122794457047,
+  "transferredBytes": 220103908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5420122794457047,
+  "transferredBytes": 220103908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:14] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5578985472041132,
+  "transferredBytes": 226555108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5578985472041132,
+  "transferredBytes": 226555108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5578985472041132,
+  "transferredBytes": 226555108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23935756.790874105,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:14] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5737848149625219,
+  "transferredBytes": 233006308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5737848149625219,
+  "transferredBytes": 233006308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5737848149625219,
+  "transferredBytes": 233006308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:14] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5896710827209305,
+  "transferredBytes": 239457508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5896710827209305,
+  "transferredBytes": 239457508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.5896710827209305,
+  "transferredBytes": 239457508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:15] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6037922096172936,
+  "transferredBytes": 245191908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6037922096172936,
+  "transferredBytes": 245191908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6037922096172936,
+  "transferredBytes": 245191908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:15] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:15] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 62.0%
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6196784773757023,
+  "transferredBytes": 251643108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6196784773757023,
+  "transferredBytes": 251643108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6196784773757023,
+  "transferredBytes": 251643108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 23835010.912268464,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:15] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:15] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 63.7%
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6373298859961563,
+  "transferredBytes": 258811108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6373298859961563,
+  "transferredBytes": 258811108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6373298859961563,
+  "transferredBytes": 258811108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:15] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6461555903063833,
+  "transferredBytes": 262395108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6461555903063833,
+  "transferredBytes": 262395108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6461555903063833,
+  "transferredBytes": 262395108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:16] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6708675623750188,
+  "transferredBytes": 272430308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6708675623750188,
+  "transferredBytes": 272430308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6708675623750188,
+  "transferredBytes": 272430308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:16] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6885189709954728,
+  "transferredBytes": 279598308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6885189709954728,
+  "transferredBytes": 279598308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.6885189709954728,
+  "transferredBytes": 279598308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 24909530.28165301,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:16] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7044052387538814,
+  "transferredBytes": 286049508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7044052387538814,
+  "transferredBytes": 286049508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7044052387538814,
+  "transferredBytes": 286049508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:16] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7185263656502445,
+  "transferredBytes": 291783908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7185263656502445,
+  "transferredBytes": 291783908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7185263656502445,
+  "transferredBytes": 291783908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:17] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7326474925466077,
+  "transferredBytes": 297518308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7326474925466077,
+  "transferredBytes": 297518308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7326474925466077,
+  "transferredBytes": 297518308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:17] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7485337603050164,
+  "transferredBytes": 303969508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7485337603050164,
+  "transferredBytes": 303969508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7485337603050164,
+  "transferredBytes": 303969508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:17] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7644200280634249,
+  "transferredBytes": 310420708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7644200280634249,
+  "transferredBytes": 310420708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7644200280634249,
+  "transferredBytes": 310420708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25657732.86479453,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:17] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7785411549597882,
+  "transferredBytes": 316155108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7785411549597882,
+  "transferredBytes": 316155108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.7785411549597882,
+  "transferredBytes": 316155108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:18] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8014879861663783,
+  "transferredBytes": 325473508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8014879861663783,
+  "transferredBytes": 325473508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8014879861663783,
+  "transferredBytes": 325473508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:18] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8156091130627415,
+  "transferredBytes": 331207908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8156091130627415,
+  "transferredBytes": 331207908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8156091130627415,
+  "transferredBytes": 331207908,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:18] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8297302399591047,
+  "transferredBytes": 336942308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8297302399591047,
+  "transferredBytes": 336942308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8297302399591047,
+  "transferredBytes": 336942308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25897881.82654059,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:18] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8385559442693317,
+  "transferredBytes": 340526308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8385559442693317,
+  "transferredBytes": 340526308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8385559442693317,
+  "transferredBytes": 340526308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:19] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8544422120277403,
+  "transferredBytes": 346977508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8544422120277403,
+  "transferredBytes": 346977508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8544422120277403,
+  "transferredBytes": 346977508,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:19] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:19] [INFO] [DownloadManager] Poll emitting: nnzggfh downloading 87.0%
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8703284797861488,
+  "transferredBytes": 353428708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8703284797861488,
+  "transferredBytes": 353428708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8703284797861488,
+  "transferredBytes": 353428708,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:19] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8915101701306937,
+  "transferredBytes": 362030308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8915101701306937,
+  "transferredBytes": 362030308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.8915101701306937,
+  "transferredBytes": 362030308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25561198.220291764,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:19] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9109267196131932,
+  "transferredBytes": 369915108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9109267196131932,
+  "transferredBytes": 369915108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9109267196131932,
+  "transferredBytes": 369915108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:20] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9285781282336472,
+  "transferredBytes": 377083108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9285781282336472,
+  "transferredBytes": 377083108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9285781282336472,
+  "transferredBytes": 377083108,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:20] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9444643959920556,
+  "transferredBytes": 383534308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9444643959920556,
+  "transferredBytes": 383534308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9444643959920556,
+  "transferredBytes": 383534308,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:20] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9605232180898688,
+  "transferredBytes": 390055580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9605232180898688,
+  "transferredBytes": 390055580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9605232180898688,
+  "transferredBytes": 390055580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 25777948.010710955,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:20] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:20] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:21] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9693489224000958,
+  "transferredBytes": 393639580,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] GenericDownloader: App component rendering
+[2026-01-19 15:12:21] [INFO] [SearchPanel] Component render, searching: false query: 
+[2026-01-19 15:12:21] [INFO] [DirectUsenetClient] Native job 4uuc9u-8 finished
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 15:12:21] [INFO] [useDownloads] handleProgress called: {
+  "id": "nnzggfh",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.9711140632621412,
+  "transferredBytes": 394356380,
+  "totalBytes": 406086571,
+  "status": "downloading",
+  "speed": 26095456.104255516,
+  "providerName": "UseNet Server",
+  "externalId": "4uuc9u",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}

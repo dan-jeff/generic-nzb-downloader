@@ -303,39 +303,50 @@ export class CapacitorFSAdapter {
     }
     async readdir(path) {
         const cleanPath = this.sanitizePath(path);
+        console.error(`[CapacitorFSAdapter] readdir called for: ${path} (clean: ${cleanPath})`);
         try {
             const result = await Filesystem.readdir({
                 path: cleanPath,
                 directory: this.baseDirectory
             });
+            console.error(`[CapacitorFSAdapter] Native readdir found ${result.files.length} entries in ${cleanPath}`);
             const items = [];
             for (const entry of result.files || []) {
                 const name = typeof entry === 'string' ? entry : entry.name;
+                // Optimistic push to ensure we see the file even if stat fails
+                // We will update type if stat succeeds, otherwise default to file
+                let type = 'file';
                 try {
                     const statResult = await Filesystem.stat({
                         path: cleanPath ? `${cleanPath}/${name}` : name,
                         directory: this.baseDirectory
                     });
-                    items.push({
-                        name,
-                        type: statResult.type === 'directory' ? 'directory' : 'file'
-                    });
+                    type = statResult.type === 'directory' ? 'directory' : 'file';
                 }
-                catch {
-                    items.push({
-                        name,
-                        type: 'file'
-                    });
+                catch (e) {
+                    console.warn(`[CapacitorFSAdapter] Stat failed for ${name}:`, e);
                 }
+                items.push({ name, type });
             }
             return items;
         }
         catch (err) {
+            console.error(`[CapacitorFSAdapter] readdir failed:`, err);
             return [];
         }
     }
     sanitizePath(path) {
-        const trimmed = path.trim();
+        let trimmed = path.trim();
+        // Handle Android absolute paths - strip common root if present
+        // This prevents double pathing like /storage/emulated/0/storage/emulated/0/...
+        const externalRoot = '/storage/emulated/0/';
+        if (trimmed.startsWith(externalRoot)) {
+            trimmed = trimmed.substring(externalRoot.length);
+        }
+        // Also handle just /storage/emulated/0 without trailing slash
+        if (trimmed === '/storage/emulated/0') {
+            return '';
+        }
         if (trimmed.startsWith('/')) {
             return trimmed.substring(1);
         }

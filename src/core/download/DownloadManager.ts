@@ -6,6 +6,7 @@ import { NewsreaderSettings, SearchProviderSettings } from '../types/search.js';
 import { IFileSystem } from '@/core/interfaces/IFileSystem.js';
 import { IStorage } from '@/core/interfaces/IStorage.js';
 import { INetwork } from '@/core/interfaces/INetwork.js';
+import NativeNzbDownloader from '@/mobile/plugins/NativeNzbDownloader.js';
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 
@@ -400,7 +401,7 @@ export class DownloadManager extends EventEmitter {
 
     const downloadSettings = await this.store.get<DownloadSettings>('downloadSettings');
     const targetDirectory = downloadSettings?.downloadDirectory?.trim();
-    const downloadName = filename.replace(/\.nzb$/i, '');
+    // const downloadName = filename.replace(/\.nzb$/i, '');
 
     if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
       try {
@@ -431,14 +432,15 @@ export class DownloadManager extends EventEmitter {
         }
 
         const sanitizedFilename = filename.endsWith('.nzb') ? filename : `${filename}.nzb`;
-        const filesDir = `${normalizedPath}/${downloadName}/Files`;
-        const savePath = `${filesDir}/${sanitizedFilename}`;
+        // Save directly to the root configured directory (normalizedPath)
+        const savePath = `${normalizedPath}/${sanitizedFilename}`;
 
         console.log(`[DownloadManager] Downloading to path: ${savePath}, base directory: ${normalizedPath}`);
 
-        const dirExists = await this.fileSystem.exists(filesDir);
+        // Ensure the directory exists (optional, but good practice if not relying solely on recursive write)
+        const dirExists = await this.fileSystem.exists(normalizedPath);
         if (!dirExists) {
-          await this.fileSystem.mkdir(filesDir);
+          await this.fileSystem.mkdir(normalizedPath);
         }
 
         const buffer = Buffer.from(response.data);
@@ -576,13 +578,20 @@ export class DownloadManager extends EventEmitter {
             if (deletePath.startsWith(externalRoot)) {
               deletePath = deletePath.slice(externalRoot.length);
             }
-            if (deletePath && !deletePath.startsWith('Download') && !deletePath.startsWith('Downloads')) {
-              deletePath = `Download/${deletePath}`;
+            if (deletePath.startsWith('Download/')) {
+              deletePath = deletePath.substring(9);
+            } else if (deletePath.startsWith('Downloads/')) {
+              deletePath = deletePath.substring(10);
             }
-            await Filesystem.deleteFile({
-              path: deletePath,
-              directory: Directory.ExternalStorage
-            });
+            try {
+              await NativeNzbDownloader.deletePath({ path: deletePath });
+            } catch (dirErr) {
+              console.error(`Failed to delete directory at ${deletePath}, falling back to file delete:`, dirErr);
+              await Filesystem.deleteFile({
+                path: deletePath,
+                directory: Directory.ExternalStorage
+              });
+            }
           } else {
             const exists = await this.fileSystem.exists(item.savePath);
             if (exists) {

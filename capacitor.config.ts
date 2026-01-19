@@ -15,6 +15,9 @@ const config: CapacitorConfig = {
     StatusBar: {
       style: 'dark',
       overlaysWebView: true
+    },
+    FileOpener: {
+      enabled: true
     }
   }
 };

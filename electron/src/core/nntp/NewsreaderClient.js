@@ -1336,6 +1336,26 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         const downloadName = filename.replace(/\.nzb$/i, '');
         const downloadSubfolder = `${downloadPath}/${downloadName}`;
         console.log(`[DirectUsenetClient] Output path for display: ${downloadSubfolder}`);
+        // Save the NZB file itself to the root directory
+        if (this.fileSystem && downloadPath) {
+            try {
+                let nzbFilePath = `${downloadPath}/${filename}`;
+                if (!nzbFilePath.toLowerCase().endsWith('.nzb')) {
+                    nzbFilePath += '.nzb';
+                }
+                const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+                if (isAndroid) {
+                    // On Android, JS adapter uses ExternalStorage root. We need to point to Download/ folder explicitly
+                    // to match what the Java plugin does (which defaults to Downloads/ relative path)
+                    nzbFilePath = `Download/${nzbFilePath}`;
+                }
+                await this.fileSystem.writeFile(nzbFilePath, content);
+                console.log(`[DirectUsenetClient] Saved NZB file to: ${nzbFilePath}`);
+            }
+            catch (err) {
+                console.warn(`[DirectUsenetClient] Failed to save NZB file: ${err}`);
+            }
+        }
         this.activeDownloads.set(id, {
             id,
             name: downloadName, // Use NZB filename without .nzb extension
@@ -1348,8 +1368,8 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
             outputPath: downloadSubfolder,
             category: category
         });
-        // Start background download - pass only downloadPath, filename handling is in Java
-        this.processDownload(id, content, filename, downloadPath).catch(err => {
+        // Start background download - pass the subfolder as the target path
+        this.processDownload(id, content, filename, downloadSubfolder).catch(err => {
             const errorMsg = err instanceof Error ? err.message : String(err);
             const errorStack = err instanceof Error ? err.stack : undefined;
             console.error(`[DirectUsenetClient] Download ${id} failed:`, errorMsg);
@@ -1370,19 +1390,26 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
             return;
         status.status = 'Downloading';
         console.log(`[DirectUsenetClient] Starting download process for ${id}`);
+        console.log(`[DirectUsenetClient] Platform check - Native: ${Capacitor.isNativePlatform()}, Platform: ${Capacitor.getPlatform()}`);
         try {
             if (!downloadPath) {
                 throw new Error('Download path not configured');
             }
-            // Create the download subfolder first
-            if (this.fileSystem) {
-                await this.fileSystem.mkdir(downloadPath);
-                console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
-            }
-            else {
-                throw new Error('IFileSystem not provided');
-            }
             const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+            // Create the download subfolder first
+            // SKIP on Android: The native plugin handles directory creation within Scoped Storage (Downloads/ folder).
+            // Attempting to mkdir here using the JS adapter (which maps to root /storage/emulated/0/) causes permission errors.
+            // Also skip if we are using CapacitorFSAdapter (implied mobile) to avoid root write issues.
+            const isMobileFS = this.fileSystem && this.fileSystem.constructor.name === 'CapacitorFSAdapter';
+            if (!isAndroid && !isMobileFS) {
+                if (this.fileSystem) {
+                    await this.fileSystem.mkdir(downloadPath);
+                    console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
+                }
+                else {
+                    throw new Error('IFileSystem not provided');
+                }
+            }
             if (isAndroid) {
                 console.log('[DirectUsenetClient] Using native Android downloader');
                 const doc = new DOMParser().parseFromString(content.toString('utf-8'), 'text/xml');
@@ -1393,13 +1420,15 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
                     useSSL = true;
                 }
                 const maxConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 10;
+                // Cap connections on Android to avoid SocketException/Connection Abort
+                const actualConnections = Math.min(maxConnections, 4);
                 const server = {
                     host: this.settings.hostname,
                     port: this.settings.port,
                     ssl: useSSL,
                     user: this.settings.username,
                     pass: this.settings.password,
-                    connections: maxConnections
+                    connections: actualConnections
                 };
                 let totalDownloadedBeforeCurrentFile = 0;
                 // Speed calculation state
@@ -1515,6 +1544,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
                     progressListener.remove();
                     errorListener.remove();
                 }
+                await this.cleanupPar2Files(downloadPath);
                 status.status = 'Completed';
                 status.progress = 100;
                 status.remainingSize = 0;
@@ -1544,12 +1574,14 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
                 const filenameMatch = subject.match(/"([^"]+)"/);
                 const extractedFilename = filenameMatch ? filenameMatch[1] : `file-${fileElements.indexOf(fileElement)}`;
                 const segmentsDir = `${downloadPath}/.segments`;
-                await this.fileSystem.mkdir(segmentsDir);
+                if (this.fileSystem) {
+                    await this.fileSystem.mkdir(segmentsDir);
+                }
                 console.log(`[DirectUsenetClient] Created segments directory: ${segmentsDir}`);
                 const downloadedSegments = new Map();
                 let downloadedBytesFile = 0;
                 // Parallel segment download (matching desktop implementation)
-                const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+                // isAndroid is already defined at the top of the function
                 const maxConcurrent = isAndroid ? 1 : (this.settings.segmentConcurrency || 10);
                 if (isAndroid) {
                     console.log('[DirectUsenetClient] Android detected: forcing sequential download (concurrency 1)');
@@ -1646,6 +1678,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
                 };
                 await FileAssembler.assembleFile(job, fileWithSegments, this.fileSystem);
             }
+            await this.cleanupPar2Files(downloadPath);
             status.status = 'Completed';
             status.progress = 100;
             status.remainingSize = 0;
@@ -1661,6 +1694,94 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
             console.error(`[DirectUsenetClient] Full error object:`, JSON.stringify(err, Object.getOwnPropertyNames(err)));
             status.status = 'Failed';
             throw err;
+        }
+    }
+    async cleanupPar2Files(downloadPath) {
+        if (!this.fileSystem) {
+            return;
+        }
+        // Give the filesystem a moment to settle after native downloads
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+        const isMobileFS = this.fileSystem.constructor.name === 'CapacitorFSAdapter';
+        if (isAndroid) {
+            const normalizedPath = downloadPath.replace(/^\/storage\/emulated\/0\//, '');
+            let nativePath = normalizedPath;
+            if (nativePath.startsWith('Download/')) {
+                nativePath = nativePath.substring(9);
+            }
+            else if (nativePath.startsWith('Downloads/')) {
+                nativePath = nativePath.substring(10);
+            }
+            try {
+                await NativeNzbDownloader.cleanupPar2Files({ downloadPath: nativePath });
+                return;
+            }
+            catch (err) {
+                console.error('[DirectUsenetClient] Native PAR2 cleanup failed, falling back:', err);
+            }
+        }
+        let targetPath = downloadPath;
+        if (isAndroid || isMobileFS) {
+            targetPath = downloadPath.replace(/^\/storage\/emulated\/0\//, '');
+            // Ensure path starts with Download/ on Android/MobileFS if it's relative
+            if (!targetPath.startsWith('/') && !targetPath.startsWith('Download/')) {
+                targetPath = `Download/${targetPath}`;
+            }
+        }
+        const performCleanup = async (path) => {
+            try {
+                console.error(`[DirectUsenetClient] cleanup listing path: ${path}`);
+                const files = await this.fileSystem.readdir(path);
+                const par2Files = files.filter(f => {
+                    return f.name.toLowerCase().endsWith('.par2');
+                });
+                if (par2Files.length === 0) {
+                    console.error(`[DirectUsenetClient] No PAR2 files found in ${path}`);
+                    return false;
+                }
+                console.error(`[DirectUsenetClient] Found ${par2Files.length} PAR2 files in ${path}, deleting...`);
+                for (const par2File of par2Files) {
+                    const fullPath = `${path}/${par2File.name}`;
+                    try {
+                        await this.fileSystem.unlink(fullPath);
+                    }
+                    catch (err) {
+                        console.error(`[DirectUsenetClient] Failed to delete PAR2 file ${par2File.name}:`, err);
+                    }
+                }
+                return true;
+            }
+            catch (err) {
+                console.error(`[DirectUsenetClient] Error cleaning up PAR2 files in ${path}:`, err);
+                // Debug: List 'Download' to see what is actually there
+                if (path !== 'Download') {
+                    try {
+                        const downloadFiles = await this.fileSystem.readdir('Download');
+                        console.error(`[DirectUsenetClient] Contents of 'Download': ${downloadFiles.map(f => f.name).join(', ')}`);
+                    }
+                    catch (e) {
+                        console.error(`[DirectUsenetClient] Failed to list 'Download':`, e);
+                    }
+                }
+                return false;
+            }
+        };
+        let cleanedUp = false;
+        if (await performCleanup(targetPath)) {
+            cleanedUp = true;
+        }
+        if (await performCleanup(`${targetPath}/Files`)) {
+            cleanedUp = true;
+        }
+        if (!cleanedUp && (isAndroid || isMobileFS)) {
+            if (targetPath.startsWith('Download/')) {
+                const strippedPath = targetPath.substring(9);
+                if (strippedPath) {
+                    await performCleanup(strippedPath);
+                    await performCleanup(`${strippedPath}/Files`);
+                }
+            }
         }
     }
     async getStatus(ids) {

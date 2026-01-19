@@ -49,6 +49,7 @@ import { useSettings } from '../hooks/useSettings';
 import DirectoryPicker from './DirectoryPicker';
 import debugLogger from '../utils/debugLogger';
 import { serviceContainer, Platform } from '../core/ServiceContainer';
+import { updateService } from '../core/UpdateService';
 
 // Type Definitions
 type SettingsView = 'root' | 'downloads' | 'updates' | 'indexers' | 'newsreaders' | 'logs';
@@ -125,57 +126,43 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
 
   useEffect(() => {
     fetchSettings();
-    fetchUpdateInfo();
-    const electronBridge = getElectronBridge();
-    const removeUpdateListener = electronBridge?.onUpdateStatus
-      ? electronBridge.onUpdateStatus((status: any) => {
-          switch (status.type) {
-            case 'checking':
-              setUpdateStatus('checking');
-              setUpdateMessage('Checking for updates...');
-              break;
-            case 'available':
-              setUpdateStatus('available');
-              setUpdateMessage(`Version ${status.version} available`);
-              break;
-            case 'not-available':
-              setUpdateStatus('not-available');
-              setUpdateMessage('Up to date');
-              break;
-            case 'error':
-              setUpdateStatus('error');
-              setUpdateMessage(status.error || 'Update check failed');
-              break;
-            case 'downloading':
-              setUpdateStatus('downloading');
-              setUpdateProgress(status.progress?.percent || 0);
-              setUpdateMessage(`Downloading... ${Math.round(status.progress?.percent || 0)}%`);
-              break;
-            case 'downloaded':
-              setUpdateStatus('downloaded');
-              setUpdateMessage(`Version ${status.version} ready to install`);
-              break;
-          }
-        })
-      : () => {};
-    return () => removeUpdateListener();
-  }, []);
+    
+    updateService.setStatusCallback((status) => {
+      switch (status.type) {
+        case 'checking':
+          setUpdateStatus('checking');
+          setUpdateMessage('Checking for updates...');
+          break;
+        case 'available':
+          setUpdateStatus('available');
+          setUpdateMessage(`Version ${status.version} available`);
+          break;
+        case 'not-available':
+          setUpdateStatus('not-available');
+          setUpdateMessage('Up to date');
+          break;
+        case 'error':
+          setUpdateStatus('error');
+          setUpdateMessage(status.error || 'Update check failed');
+          break;
+        case 'downloading':
+          setUpdateStatus('downloading');
+          setUpdateProgress(status.progress?.percent || 0);
+          setUpdateMessage(`Downloading... ${Math.round(status.progress?.percent || 0)}%`);
+          break;
+        case 'downloaded':
+          setUpdateStatus('downloaded');
+          setUpdateMessage(`Version ${status.version} ready to install`);
+          break;
+        case 'installing':
+          setUpdateStatus('downloading');
+          setUpdateMessage('Installing update...');
+          break;
+      }
+    });
 
-  // Helper Functions
-  const fetchUpdateInfo = async () => {
-    try {
-      const electronBridge = getElectronBridge();
-      if (!electronBridge?.getAppVersion || !electronBridge?.getAutoUpdate) return;
-      const [version, autoUpdateEnabled] = await Promise.all([
-        electronBridge.getAppVersion(),
-        electronBridge.getAutoUpdate(),
-      ]);
-      setAppVersion(version);
-      setAutoUpdate(autoUpdateEnabled);
-    } catch (error) {
-      console.error('Failed to fetch update info:', error);
-    }
-  };
+    setAppVersion(updateService.getCurrentVersion());
+  }, []);
 
   const showSnackbar = (message: string, severity: 'success' | 'error') => {
     setSnackbar({ open: true, message, severity });
@@ -515,20 +502,27 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
 
   const renderUpdates = () => (
     <Box sx={{ p: 2 }}>
-       <FormControlLabel
-        control={<Switch checked={autoUpdate} onChange={handleAutoUpdateChange} />}
-        label={
-          <Box>
-            <Typography sx={{ fontWeight: 500 }}>Automatically install updates</Typography>
-            <Typography variant="caption" color="text.secondary">Checks GitHub releases and downloads updates</Typography>
-          </Box>
-        }
-        sx={{ mb: 3, display: 'flex', alignItems: 'flex-start' }}
-      />
+       {serviceContainer.platform === Platform.Electron && (
+        <FormControlLabel
+          control={<Switch checked={autoUpdate} onChange={handleAutoUpdateChange} />}
+          label={
+            <Box>
+              <Typography sx={{ fontWeight: 500 }}>Automatically install updates</Typography>
+              <Typography variant="caption" color="text.secondary">Checks GitHub releases and downloads updates</Typography>
+            </Box>
+          }
+          sx={{ mb: 3, display: 'flex', alignItems: 'flex-start' }}
+        />
+      )}
+      {serviceContainer.platform === Platform.Android && (
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Android updates are downloaded from GitHub releases. Tap "Check Now" to verify for updates.
+        </Typography>
+      )}
       <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-        <Button variant="outlined" onClick={getElectronBridge()?.checkForUpdate} disabled={updateStatus === 'checking'}>Check Now</Button>
+        <Button variant="outlined" onClick={() => updateService.checkForUpdates()} disabled={updateStatus === 'checking'}>Check Now</Button>
         {updateStatus === 'downloaded' && (
-          <Button variant="contained" onClick={getElectronBridge()?.quitAndInstall}>Install & Restart</Button>
+          <Button variant="contained" onClick={() => updateService.downloadAndInstallUpdate()}>Install Update</Button>
         )}
       </Box>
       {updateMessage && <Typography variant="caption" sx={{ display: 'block', mb: 1 }}>{updateMessage}</Typography>}

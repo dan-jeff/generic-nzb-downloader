@@ -14,7 +14,13 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 import org.json.JSONException;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,6 +73,408 @@ public class NativeNzbDownloader extends Plugin {
         }
 
         call.resolve();
+    }
+
+    @PluginMethod
+    public void cleanupPar2Files(PluginCall call) {
+        String downloadPath = call.getString("downloadPath");
+        if (downloadPath == null) {
+            call.reject("Missing downloadPath");
+            return;
+        }
+
+        try {
+            File baseDir = resolvePath(downloadPath);
+            android.util.Log.i("NativeNzbDownloader", "cleanupPar2Files baseDir: " + baseDir.getAbsolutePath());
+            logFileInfo("cleanupPar2Files baseDir", baseDir);
+
+            List<File> candidateDirs = new ArrayList<>();
+            candidateDirs.add(baseDir);
+            File legacyDir = new File(baseDir.getParentFile(), "Download/" + baseDir.getName());
+            if (!legacyDir.getAbsolutePath().equals(baseDir.getAbsolutePath())) {
+                candidateDirs.add(legacyDir);
+            }
+
+            boolean deletedAny = false;
+            for (File dir : candidateDirs) {
+                logFileInfo("cleanupPar2Files candidate", dir);
+                if (!dir.exists()) {
+                    continue;
+                }
+
+                File[] files = dir.listFiles();
+                if (files != null) {
+                    android.util.Log.i("NativeNzbDownloader", "cleanupPar2Files entries: " + files.length + " in " + dir.getAbsolutePath());
+                    for (File file : files) {
+                        if (file.isFile() && file.getName().toLowerCase().endsWith(".par2")) {
+                            boolean deleted = file.delete();
+                            if (!deleted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                String relativePath = file.getParentFile().getAbsolutePath().replace("/storage/emulated/0/", "");
+                                if (!relativePath.endsWith("/")) {
+                                    relativePath += "/";
+                                }
+                                deleted = deleteViaMediaStore(relativePath, file.getName()) > 0;
+                            }
+                            if (!deleted) {
+                                android.util.Log.w("NativeNzbDownloader", "Failed to delete PAR2 file: " + file.getAbsolutePath());
+                            } else {
+                                deletedAny = true;
+                                android.util.Log.i("NativeNzbDownloader", "Deleted PAR2 file: " + file.getAbsolutePath());
+                            }
+                        }
+                    }
+                } else {
+                    android.util.Log.w("NativeNzbDownloader", "cleanupPar2Files listFiles returned null: " + dir.getAbsolutePath());
+                }
+
+                File filesDir = new File(dir, "Files");
+                logFileInfo("cleanupPar2Files Files dir", filesDir);
+                if (filesDir.exists() && filesDir.isDirectory()) {
+                    File[] subFiles = filesDir.listFiles();
+                    if (subFiles != null) {
+                        android.util.Log.i("NativeNzbDownloader", "cleanupPar2Files Files entries: " + subFiles.length);
+                        for (File file : subFiles) {
+                            if (file.isFile() && file.getName().toLowerCase().endsWith(".par2")) {
+                                boolean deleted = file.delete();
+                                if (!deleted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                    String relativePath = file.getParentFile().getAbsolutePath().replace("/storage/emulated/0/", "");
+                                    if (!relativePath.endsWith("/")) {
+                                        relativePath += "/";
+                                    }
+                                    deleted = deleteViaMediaStore(relativePath, file.getName()) > 0;
+                                }
+                                if (!deleted) {
+                                    android.util.Log.w("NativeNzbDownloader", "Failed to delete PAR2 file: " + file.getAbsolutePath());
+                                } else {
+                                    deletedAny = true;
+                                    android.util.Log.i("NativeNzbDownloader", "Deleted PAR2 file: " + file.getAbsolutePath());
+                                }
+                            }
+                        }
+                    } else {
+                        android.util.Log.w("NativeNzbDownloader", "cleanupPar2Files Files listFiles returned null: " + filesDir.getAbsolutePath());
+                    }
+                } else {
+                    android.util.Log.i("NativeNzbDownloader", "cleanupPar2Files Files dir missing: " + filesDir.getAbsolutePath());
+                }
+            }
+
+            if (!deletedAny && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                String relativePath = baseDir.getAbsolutePath().replace("/storage/emulated/0/", "");
+                if (!relativePath.endsWith("/")) {
+                    relativePath += "/";
+                }
+                int deleted = deleteViaMediaStorePattern(relativePath, "%.par2");
+                if (deleted > 0) {
+                    deletedAny = true;
+                } else {
+                    int fallbackDeleted = deleteViaMediaStorePattern("Download/" + relativePath, "%.par2");
+                    if (fallbackDeleted > 0) {
+                        deletedAny = true;
+                    }
+                }
+
+                if (!deletedAny) {
+                    int relaxedDeleted = deleteViaMediaStorePattern(relativePath, "%par2%");
+                    if (relaxedDeleted > 0) {
+                        deletedAny = true;
+                    }
+                }
+            }
+
+            if (!deletedAny) {
+                android.util.Log.w("NativeNzbDownloader", "cleanupPar2Files did not delete any PAR2 files");
+            }
+
+            call.resolve();
+        } catch (Exception e) {
+            call.reject("Failed to cleanup PAR2 files: " + (e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName()));
+        }
+    }
+
+    @PluginMethod
+    public void deletePath(PluginCall call) {
+        String path = call.getString("path");
+        if (path == null) {
+            call.reject("Missing path");
+            return;
+        }
+
+        try {
+            File target = resolvePath(path);
+            android.util.Log.i("NativeNzbDownloader", "deletePath target: " + target.getAbsolutePath());
+            logFileInfo("deletePath target", target);
+
+            List<File> candidateTargets = new ArrayList<>();
+            candidateTargets.add(target);
+            File legacyTarget = new File(target.getParentFile(), "Download/" + target.getName());
+            if (!legacyTarget.getAbsolutePath().equals(target.getAbsolutePath())) {
+                candidateTargets.add(legacyTarget);
+            }
+
+            boolean deletedAny = false;
+            for (File candidate : candidateTargets) {
+                logFileInfo("deletePath candidate", candidate);
+                if (!candidate.exists()) {
+                    continue;
+                }
+
+                if (deleteWithMediaStoreFallback(candidate)) {
+                    deletedAny = true;
+                }
+            }
+
+            if (!deletedAny && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                String relativePath = target.getAbsolutePath().replace("/storage/emulated/0/", "");
+                if (!relativePath.endsWith("/")) {
+                    relativePath += "/";
+                }
+                int deleted = deleteViaMediaStoreRelativePathAll(relativePath);
+                if (deleted > 0) {
+                    deletedAny = true;
+                } else {
+                    int fallbackDeleted = deleteViaMediaStoreRelativePathAll("Download/" + relativePath);
+                    if (fallbackDeleted > 0) {
+                        deletedAny = true;
+                    }
+                }
+            }
+
+            if (deletedAny) {
+                deleteEmptyDir(target);
+                deleteEmptyDir(target.getParentFile());
+            } else {
+                android.util.Log.w("NativeNzbDownloader", "deletePath no candidates existed");
+            }
+
+            call.resolve();
+        } catch (Exception e) {
+            call.reject("Failed to delete path: " + (e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName()));
+        }
+    }
+
+    private File resolvePath(String path) {
+        android.util.Log.i("NativeNzbDownloader", "Resolving path: " + path);
+        if (path.startsWith("/")) {
+            File resolved = new File(path);
+            android.util.Log.i("NativeNzbDownloader", "Resolved absolute path: " + resolved.getAbsolutePath());
+            return resolved;
+        }
+        File publicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File resolved = new File(publicDir, path);
+        android.util.Log.i("NativeNzbDownloader", "Resolved public path: " + resolved.getAbsolutePath());
+        return resolved;
+    }
+
+    private void logFileInfo(String prefix, File file) {
+        android.util.Log.i("NativeNzbDownloader", prefix + " path=" + file.getAbsolutePath()
+                + " exists=" + file.exists()
+                + " isDir=" + file.isDirectory()
+                + " isFile=" + file.isFile()
+                + " canRead=" + file.canRead()
+                + " canWrite=" + file.canWrite()
+                + " length=" + file.length());
+    }
+
+    private int deleteViaMediaStore(String relativePath, String displayName) {
+        try {
+            ContentResolver resolver = getContext().getContentResolver();
+            Uri collection = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL);
+
+            String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=? AND " + MediaStore.MediaColumns.DISPLAY_NAME + "=?";
+            String[] selectionArgs = new String[] { relativePath, displayName };
+
+            try (Cursor cursor = resolver.query(collection, new String[] { MediaStore.MediaColumns._ID }, selection, selectionArgs, null)) {
+                if (cursor == null) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore query returned null for " + relativePath + displayName);
+                    return 0;
+                }
+                if (!cursor.moveToFirst()) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore entry not found for " + relativePath + displayName);
+                    return 0;
+                }
+
+                long id = cursor.getLong(0);
+                Uri contentUri = ContentUris.withAppendedId(collection, id);
+                int deleted = resolver.delete(contentUri, null, null);
+                if (deleted > 0) {
+                    android.util.Log.i("NativeNzbDownloader", "Deleted via MediaStore: " + contentUri);
+                } else {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore delete returned 0 for " + contentUri);
+                }
+                return deleted;
+            }
+        } catch (Exception e) {
+            android.util.Log.w("NativeNzbDownloader", "MediaStore delete failed for " + relativePath + displayName + ": " + e.getMessage());
+            return 0;
+        }
+    }
+
+    private int deleteViaMediaStorePattern(String relativePath, String namePattern) {
+        int totalDeleted = 0;
+        try {
+            ContentResolver resolver = getContext().getContentResolver();
+            Uri downloads = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL);
+
+            String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=? AND " + MediaStore.MediaColumns.DISPLAY_NAME + " LIKE ?";
+            String[] selectionArgs = new String[] { relativePath, namePattern };
+
+            try (Cursor cursor = resolver.query(downloads, new String[] { MediaStore.MediaColumns._ID }, selection, selectionArgs, null)) {
+                if (cursor == null) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore pattern query returned null for " + relativePath + namePattern);
+                } else {
+                    while (cursor.moveToNext()) {
+                        long id = cursor.getLong(0);
+                        Uri contentUri = ContentUris.withAppendedId(downloads, id);
+                        int deleted = resolver.delete(contentUri, null, null);
+                        if (deleted > 0) {
+                            totalDeleted += deleted;
+                            android.util.Log.i("NativeNzbDownloader", "Deleted via MediaStore: " + contentUri);
+                        } else {
+                            android.util.Log.w("NativeNzbDownloader", "MediaStore delete returned 0 for " + contentUri);
+                        }
+                    }
+                }
+            }
+
+            String absoluteBase = "/storage/emulated/0/" + relativePath;
+            if (!absoluteBase.endsWith("/")) {
+                absoluteBase += "/";
+            }
+            String dataPattern = absoluteBase + namePattern;
+
+            Uri filesCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+            String filesSelection = MediaStore.MediaColumns.DATA + " LIKE ?";
+            String[] filesArgs = new String[] { dataPattern };
+
+            try (Cursor cursor = resolver.query(filesCollection, new String[] { MediaStore.MediaColumns._ID }, filesSelection, filesArgs, null)) {
+                if (cursor == null) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore files pattern query returned null for " + dataPattern);
+                } else {
+                    while (cursor.moveToNext()) {
+                        long id = cursor.getLong(0);
+                        Uri contentUri = ContentUris.withAppendedId(filesCollection, id);
+                        int deleted = resolver.delete(contentUri, null, null);
+                        if (deleted > 0) {
+                            totalDeleted += deleted;
+                            android.util.Log.i("NativeNzbDownloader", "Deleted via MediaStore (files): " + contentUri);
+                        } else {
+                            android.util.Log.w("NativeNzbDownloader", "MediaStore delete returned 0 for " + contentUri);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.w("NativeNzbDownloader", "MediaStore pattern delete failed for " + relativePath + namePattern + ": " + e.getMessage());
+        }
+        return totalDeleted;
+    }
+
+    private int deleteViaMediaStoreRelativePathAll(String relativePath) {
+        int totalDeleted = 0;
+        try {
+            ContentResolver resolver = getContext().getContentResolver();
+            Uri downloads = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL);
+
+            String selection = MediaStore.MediaColumns.RELATIVE_PATH + "=?";
+            String[] selectionArgs = new String[] { relativePath };
+
+            try (Cursor cursor = resolver.query(downloads, new String[] { MediaStore.MediaColumns._ID }, selection, selectionArgs, null)) {
+                if (cursor == null) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore relative query returned null for " + relativePath);
+                } else {
+                    while (cursor.moveToNext()) {
+                        long id = cursor.getLong(0);
+                        Uri contentUri = ContentUris.withAppendedId(downloads, id);
+                        int deleted = resolver.delete(contentUri, null, null);
+                        if (deleted > 0) {
+                            totalDeleted += deleted;
+                            android.util.Log.i("NativeNzbDownloader", "Deleted via MediaStore: " + contentUri);
+                        } else {
+                            android.util.Log.w("NativeNzbDownloader", "MediaStore delete returned 0 for " + contentUri);
+                        }
+                    }
+                }
+            }
+
+            String absoluteBase = "/storage/emulated/0/" + relativePath;
+            if (!absoluteBase.endsWith("/")) {
+                absoluteBase += "/";
+            }
+            Uri filesCollection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL);
+            String filesSelection = MediaStore.MediaColumns.DATA + " LIKE ?";
+            String[] filesArgs = new String[] { absoluteBase + "%" };
+
+            try (Cursor cursor = resolver.query(filesCollection, new String[] { MediaStore.MediaColumns._ID }, filesSelection, filesArgs, null)) {
+                if (cursor == null) {
+                    android.util.Log.w("NativeNzbDownloader", "MediaStore files relative query returned null for " + absoluteBase);
+                } else {
+                    while (cursor.moveToNext()) {
+                        long id = cursor.getLong(0);
+                        Uri contentUri = ContentUris.withAppendedId(filesCollection, id);
+                        int deleted = resolver.delete(contentUri, null, null);
+                        if (deleted > 0) {
+                            totalDeleted += deleted;
+                            android.util.Log.i("NativeNzbDownloader", "Deleted via MediaStore (files): " + contentUri);
+                        } else {
+                            android.util.Log.w("NativeNzbDownloader", "MediaStore delete returned 0 for " + contentUri);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.w("NativeNzbDownloader", "MediaStore relative delete failed for " + relativePath + ": " + e.getMessage());
+        }
+        return totalDeleted;
+    }
+
+    private void deleteEmptyDir(File dir) {
+        if (dir == null) {
+            return;
+        }
+        if (dir.exists() && dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            if (children != null && children.length == 0) {
+                if (!dir.delete()) {
+                    android.util.Log.w("NativeNzbDownloader", "Failed to delete empty dir: " + dir.getAbsolutePath());
+                } else {
+                    android.util.Log.i("NativeNzbDownloader", "Deleted empty dir: " + dir.getAbsolutePath());
+                }
+            }
+        }
+    }
+
+    private boolean deleteWithMediaStoreFallback(File file) {
+        logFileInfo("deleteRecursively", file);
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                android.util.Log.i("NativeNzbDownloader", "deleteRecursively children count: " + children.length);
+                for (File child : children) {
+                    deleteWithMediaStoreFallback(child);
+                }
+            } else {
+                android.util.Log.w("NativeNzbDownloader", "deleteRecursively children list null for: " + file.getAbsolutePath());
+            }
+        }
+
+        if (file.isFile() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            String relativePath = file.getParentFile().getAbsolutePath().replace("/storage/emulated/0/", "");
+            if (!relativePath.endsWith("/")) {
+                relativePath += "/";
+            }
+            if (deleteViaMediaStore(relativePath, file.getName()) > 0) {
+                return true;
+            }
+        }
+
+        if (!file.delete()) {
+            android.util.Log.w("NativeNzbDownloader", "Failed to delete path: " + file.getAbsolutePath());
+            return false;
+        } else {
+            android.util.Log.i("NativeNzbDownloader", "Deleted path: " + file.getAbsolutePath());
+            return true;
+        }
     }
 
     @PluginMethod
@@ -418,5 +826,55 @@ public class NativeNzbDownloader extends Plugin {
         ret.put("jobId", jobId);
         ret.put("message", error != null ? error : "Unknown native error");
         notifyListeners("error", ret);
+    }
+
+    @PluginMethod
+    public void fetchNzbContent(PluginCall call) {
+        String url = call.getString("url");
+        if (url == null) {
+            call.reject("Missing url");
+            return;
+        }
+
+        try {
+            android.net.Uri uri = android.net.Uri.parse(url);
+            java.io.InputStream inputStream;
+
+            if ("content".equalsIgnoreCase(uri.getScheme())) {
+                inputStream = getContext().getContentResolver().openInputStream(uri);
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                inputStream = new java.io.FileInputStream(new File(uri.getPath()));
+            } else {
+                call.reject("Unsupported URI scheme: " + uri.getScheme());
+                return;
+            }
+
+            if (inputStream == null) {
+                call.reject("Failed to open input stream for URI: " + url);
+                return;
+            }
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int nRead;
+            byte[] data = new byte[16384];
+
+            while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+            byte[] bytes = buffer.toByteArray();
+            
+            String base64 = android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP);
+            
+            JSObject ret = new JSObject();
+            ret.put("data", base64);
+            call.resolve(ret);
+            
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            call.reject("Failed to read NZB content: " + e.getMessage());
+        }
     }
 }

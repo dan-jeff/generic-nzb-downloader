@@ -1,0 +1,3239 @@
+[2026-01-19 11:21:01] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:01] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:02] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:02] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:02] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:02] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:02] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:02] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:02] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:02] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:02] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:03] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:03] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:03] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:03] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:03] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:03] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:03] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:03] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:03] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:04] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:04] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:04] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:04] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:04] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:04] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:04] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:04] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:04] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:05] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:05] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:05] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:05] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:05] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:05] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:05] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:05] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:05] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:06] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:06] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:06] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:06] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:06] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:06] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:06] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:06] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:06] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:07] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:07] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:07] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:07] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:07] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:07] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:07] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:07] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:07] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:08] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:08] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:08] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:08] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:08] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:08] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:08] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:08] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:08] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:09] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:09] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:09] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:09] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:09] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:09] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:09] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:09] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:09] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:10] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:10] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:10] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:10] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:10] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:10] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:10] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:10] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:10] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:11] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:11] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:11] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:11] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:11] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:11] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:11] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:11] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:11] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:12] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:12] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:12] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:12] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:12] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:12] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:12] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:12] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:12] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:13] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:13] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:13] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:13] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:13] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:13] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:13] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:13] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:13] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:14] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:14] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:14] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:14] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:14] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:14] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:14] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:14] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:14] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:15] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:15] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:15] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:15] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:15] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:15] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:15] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:15] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:15] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:16] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:16] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:16] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:16] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:16] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:16] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:16] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:16] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:16] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:17] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:17] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:17] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:17] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:17] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:17] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:18] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:18] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:18] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:18] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:18] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:18] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:18] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:18] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:18] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:19] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:19] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:19] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:19] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:19] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:19] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:19] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:19] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:19] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:20:59] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:20:59] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:20:59] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:20:59] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:20:59] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:20:59] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:20:59] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:00] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:00] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:00] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:00] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:00] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:00] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:00] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:00] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:00] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:01] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:01] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:01] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:01] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
+[2026-01-19 11:21:01] [INFO] [DownloadManager] Poll emitting: lv5puu failed 0.5%
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] [useDownloads] handleProgress called: {
+  "id": "lv5puu",
+  "filename": "Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN",
+  "percent": 0.005443107844115338,
+  "transferredBytes": 2210373,
+  "totalBytes": 406086571,
+  "status": "failed",
+  "speed": 74953.35995135995,
+  "providerName": "UseNet Server",
+  "externalId": "ghw4t",
+  "path": "nzb/Bobs.Burgers.S16E06.POLiSH.720p.WEB.H264-CHOPiN"
+}
+[2026-01-19 11:21:01] [INFO] GenericDownloader: App component rendering
+[2026-01-19 11:21:01] [INFO] [SearchPanel] Component render, searching: false query: Bobs burgers 
