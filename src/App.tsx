@@ -25,6 +25,8 @@ import { serviceContainer } from '@/core/ServiceContainer';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
+import { Filesystem } from '@capacitor/filesystem';
+import { Buffer } from 'buffer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,6 +57,8 @@ function CustomTabPanel(props: TabPanelProps) {
     </Box>
   );
 }
+
+import NativeNzbDownloader from './mobile/plugins/NativeNzbDownloader';
 
 function App() {
   console.log('GenericDownloader: App component rendering');
@@ -91,8 +95,74 @@ function App() {
       CapacitorApp.exitApp();
     });
 
+    // App URL Listener (Intents)
+    const appUrlOpenListener = CapacitorApp.addListener('appUrlOpen', async (data) => {
+      console.error('GenericDownloader: App URL Opened:', data.url);
+      
+      try {
+        // Simple check for NZB file extension or presence in URL
+        // Content URIs might look like: content://.../something.nzb or just random IDs
+        // We'll try to process it if we can read it.
+        
+        let filename = 'imported.nzb';
+        try {
+           const decoded = decodeURIComponent(data.url);
+           // Handle content://com.android.providers.downloads.documents/document/raw%3A%2F...
+           const cleanName = decoded.split('/').pop();
+           if (cleanName && cleanName.toLowerCase().endsWith('.nzb')) {
+             filename = cleanName;
+           } else if (data.url.includes('.nzb')) {
+             // Fallback logic
+             filename = `imported_${Date.now()}.nzb`;
+           }
+        } catch (e) {
+           console.warn('Error extracting filename:', e);
+        }
+
+        console.error('Attempting to read file from URL:', data.url);
+        
+        let buffer: Buffer | null = null;
+
+        try {
+          // Use our native plugin to fetch content (handles content:// URIs with Intent permissions)
+          const result = await NativeNzbDownloader.fetchNzbContent({ url: data.url });
+          if (result.data) {
+             buffer = Buffer.from(result.data, 'base64');
+          }
+        } catch (nativeError) {
+          console.error('Native fetch failed:', nativeError);
+          
+          // Fallback to Filesystem if native plugin fails (e.g. not updated yet?)
+          try {
+            const contents = await Filesystem.readFile({
+              path: data.url,
+            });
+            if (contents.data) {
+               buffer = Buffer.from(contents.data as string, 'base64');
+            }
+          } catch (fsError) {
+             console.error('Filesystem fallback failed:', fsError);
+             throw nativeError; // Throw the native error as it's more likely the root cause
+          }
+        }
+
+        if (buffer) {
+          console.error(`Read ${buffer.length} bytes from intent URL`);
+          
+          const dm = await serviceContainer.getDownloadManager();
+          await dm.addDownload(buffer, filename);
+          
+          setActiveTab(0); // Switch to downloads view
+          console.error('Imported NZB from intent successfully');
+        }
+      } catch (error) {
+        console.error('Failed to handle intent URL:', error);
+      }
+    });
+
     return () => {
       backButtonListener.then(listener => listener.remove());
+      appUrlOpenListener.then(listener => listener.remove());
     };
   }, [activeTab]);
 

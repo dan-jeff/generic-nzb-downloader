@@ -36,6 +36,9 @@ export interface NativeDownloadError {
 export interface NativeNzbDownloaderPlugin {
   addJob(options: NativeDownloadJob): Promise<void>;
   cancelJob(options: { jobId: string }): Promise<void>;
+  cleanupPar2Files(options: { downloadPath: string }): Promise<void>;
+  deletePath(options: { path: string }): Promise<void>;
+  fetchNzbContent(options: { url: string }): Promise<{ data: string }>;
   addListener(
     eventName: 'progress',
     listenerFunc: (progress: NativeDownloadProgress) => void

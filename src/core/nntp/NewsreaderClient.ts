@@ -1643,6 +1643,9 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     if (this.fileSystem && downloadPath) {
         try {
             let nzbFilePath = `${downloadPath}/${filename}`;
+            if (!nzbFilePath.toLowerCase().endsWith('.nzb')) {
+              nzbFilePath += '.nzb';
+            }
             const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
             if (isAndroid) {
                 // On Android, JS adapter uses ExternalStorage root. We need to point to Download/ folder explicitly
@@ -1693,6 +1696,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
 
     status.status = 'Downloading';
     console.log(`[DirectUsenetClient] Starting download process for ${id}`);
+    console.log(`[DirectUsenetClient] Platform check - Native: ${Capacitor.isNativePlatform()}, Platform: ${Capacitor.getPlatform()}`);
 
     try {
       if (!downloadPath) {
@@ -1704,7 +1708,10 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       // Create the download subfolder first
       // SKIP on Android: The native plugin handles directory creation within Scoped Storage (Downloads/ folder).
       // Attempting to mkdir here using the JS adapter (which maps to root /storage/emulated/0/) causes permission errors.
-      if (!isAndroid) {
+      // Also skip if we are using CapacitorFSAdapter (implied mobile) to avoid root write issues.
+      const isMobileFS = this.fileSystem && this.fileSystem.constructor.name === 'CapacitorFSAdapter';
+      
+      if (!isAndroid && !isMobileFS) {
         if (this.fileSystem) {
           await this.fileSystem.mkdir(downloadPath);
           console.log(`[DirectUsenetClient] Created download directory: ${downloadPath}`);
@@ -1868,6 +1875,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
           errorListener.remove();
         }
 
+        await this.cleanupPar2Files(downloadPath);
         status.status = 'Completed';
         status.progress = 100;
         status.remainingSize = 0;
@@ -2031,6 +2039,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         await FileAssembler.assembleFile(job, fileWithSegments, this.fileSystem);
       }
 
+      await this.cleanupPar2Files(downloadPath);
       status.status = 'Completed';
       status.progress = 100;
       status.remainingSize = 0;
@@ -2046,6 +2055,102 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
       console.error(`[DirectUsenetClient] Full error object:`, JSON.stringify(err, Object.getOwnPropertyNames(err)));
       status.status = 'Failed';
       throw err;
+    }
+  }
+
+  private async cleanupPar2Files(downloadPath: string): Promise<void> {
+    if (!this.fileSystem) {
+      return;
+    }
+
+    // Give the filesystem a moment to settle after native downloads
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
+    const isMobileFS = this.fileSystem.constructor.name === 'CapacitorFSAdapter';
+
+    if (isAndroid) {
+      const normalizedPath = downloadPath.replace(/^\/storage\/emulated\/0\//, '');
+      let nativePath = normalizedPath;
+      if (nativePath.startsWith('Download/')) {
+        nativePath = nativePath.substring(9);
+      } else if (nativePath.startsWith('Downloads/')) {
+        nativePath = nativePath.substring(10);
+      }
+      try {
+        await NativeNzbDownloader.cleanupPar2Files({ downloadPath: nativePath });
+        return;
+      } catch (err) {
+        console.error('[DirectUsenetClient] Native PAR2 cleanup failed, falling back:', err);
+      }
+    }
+
+    let targetPath = downloadPath;
+    if (isAndroid || isMobileFS) {
+      targetPath = downloadPath.replace(/^\/storage\/emulated\/0\//, '');
+      // Ensure path starts with Download/ on Android/MobileFS if it's relative
+      if (!targetPath.startsWith('/') && !targetPath.startsWith('Download/')) {
+        targetPath = `Download/${targetPath}`;
+      }
+    }
+
+    const performCleanup = async (path: string): Promise<boolean> => {
+      try {
+        console.error(`[DirectUsenetClient] cleanup listing path: ${path}`);
+        const files = await this.fileSystem!.readdir(path);
+        
+        const par2Files = files.filter(f => {
+          return f.name.toLowerCase().endsWith('.par2');
+        });
+
+        if (par2Files.length === 0) {
+          console.error(`[DirectUsenetClient] No PAR2 files found in ${path}`);
+          return false;
+        }
+
+        console.error(`[DirectUsenetClient] Found ${par2Files.length} PAR2 files in ${path}, deleting...`);
+        for (const par2File of par2Files) {
+          const fullPath = `${path}/${par2File.name}`;
+          try {
+            await this.fileSystem!.unlink(fullPath);
+          } catch (err) {
+            console.error(`[DirectUsenetClient] Failed to delete PAR2 file ${par2File.name}:`, err);
+          }
+        }
+        return true;
+      } catch (err) {
+        console.error(`[DirectUsenetClient] Error cleaning up PAR2 files in ${path}:`, err);
+        
+        // Debug: List 'Download' to see what is actually there
+        if (path !== 'Download') {
+            try {
+                const downloadFiles = await this.fileSystem!.readdir('Download');
+                console.error(`[DirectUsenetClient] Contents of 'Download': ${downloadFiles.map(f => f.name).join(', ')}`);
+            } catch (e) {
+                console.error(`[DirectUsenetClient] Failed to list 'Download':`, e);
+            }
+        }
+        return false;
+      }
+    };
+
+    let cleanedUp = false;
+    if (await performCleanup(targetPath)) {
+      cleanedUp = true;
+    }
+
+    if (await performCleanup(`${targetPath}/Files`)) {
+      cleanedUp = true;
+    }
+
+    if (!cleanedUp && (isAndroid || isMobileFS)) {
+      if (targetPath.startsWith('Download/')) {
+        const strippedPath = targetPath.substring(9);
+        if (strippedPath) {
+          await performCleanup(strippedPath);
+          await performCleanup(`${strippedPath}/Files`);
+        }
+      }
     }
   }
 
