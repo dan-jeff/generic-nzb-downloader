@@ -15,3 +15,9 @@ android/app/release/
 android/app/debug/
 *.apk
 *.aab
+
+# Local debug artifacts
+adb_logcat_dump.txt
+app-logs-*.txt
+debug.log
+window_dump.xml
