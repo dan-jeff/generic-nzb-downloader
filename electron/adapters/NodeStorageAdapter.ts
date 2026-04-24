@@ -8,8 +8,8 @@ interface StoreType {
 export class NodeStorageAdapter implements IStorage {
   private store: Store<StoreType>;
 
-  constructor() {
-    this.store = new Store();
+  constructor(store?: Store<StoreType>) {
+    this.store = store ?? new Store();
   }
 
   get<T>(key: string): Promise<T | undefined>;

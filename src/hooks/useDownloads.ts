@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { DownloadProgress, DownloadHistoryItem } from '../electron';
 import { serviceContainer } from '@/core/ServiceContainer';
 import { DownloadManager } from '@/core/download/DownloadManager';
+import { getElectronBridge } from '../utils/platform';
 
 export const useDownloads = () => {
   const [activeDownloads, setActiveDownloads] = useState<Map<string, DownloadProgress>>(new Map());
@@ -9,26 +10,24 @@ export const useDownloads = () => {
 
   const fetchHistory = useCallback(async () => {
     try {
-      const electron = (window as any).electron;
-      if (electron && electron.getHistory) {
-        const data = await electron.getHistory();
-        setHistory(data);
-      } else {
-        const storage = serviceContainer.getStorageAdapter();
-        const rawData = (await storage.get<any[]>('history')) || [];
-        const data: DownloadHistoryItem[] = rawData.map(item => ({
-          id: item.id,
-          url: item.url,
-          filename: item.filename,
-          path: item.savePath,
-          timestamp: item.endTime || item.startTime,
-          size: item.totalBytes || 0,
-          providerName: item.providerName,
-          externalId: item.externalId,
-          status: item.status
-        }));
-        setHistory(data);
+      const electron = getElectronBridge();
+      if (electron) {
+        setHistory(await electron.getHistory());
+        return;
       }
+      const storage = serviceContainer.getStorageAdapter();
+      const rawData = (await storage.get<any[]>('history')) || [];
+      setHistory(rawData.map(item => ({
+        id: item.id,
+        url: item.url,
+        filename: item.filename,
+        path: item.savePath,
+        timestamp: item.endTime || item.startTime,
+        size: item.totalBytes || 0,
+        providerName: item.providerName,
+        externalId: item.externalId,
+        status: item.status,
+      })));
     } catch (error) {
       console.error('Failed to fetch history:', error);
     }
@@ -37,16 +36,15 @@ export const useDownloads = () => {
   useEffect(() => {
     fetchHistory();
 
-    const electron = (window as any).electron;
+    const electron = getElectronBridge();
     let mounted = true;
     let unsubscribeProgress: (() => void) | undefined;
     let unsubscribeCompleted: (() => void) | undefined;
     let manager: DownloadManager | null = null;
 
-    const handleProgress = (progress: any) => {
+    const handleProgress = (progress: DownloadProgress) => {
       if (!mounted) return;
-      console.log('[useDownloads] handleProgress called:', progress);
-      setActiveDownloads((prev) => {
+      setActiveDownloads(prev => {
         const next = new Map(prev);
         if (progress.status === 'completed') {
           next.delete(progress.id);
@@ -57,41 +55,30 @@ export const useDownloads = () => {
       });
     };
 
-    const handleCompleted = (item: any) => {
+    const handleCompleted = (item: DownloadHistoryItem) => {
       if (!mounted) return;
-      console.log('[useDownloads] handleCompleted called:', item);
-      setActiveDownloads((prev) => {
+      setActiveDownloads(prev => {
         const next = new Map(prev);
         next.delete(item.id);
         return next;
       });
-      setHistory((prev) => [item, ...prev]);
+      setHistory(prev => [item, ...prev]);
     };
 
-    if (electron && electron.onDownloadProgress && electron.onDownloadCompleted) {
-      console.log('[useDownloads] Setting up Electron event listeners');
+    if (electron) {
       unsubscribeProgress = electron.onDownloadProgress(handleProgress);
       unsubscribeCompleted = electron.onDownloadCompleted(handleCompleted);
     } else {
-      console.log('[useDownloads] Setting up DownloadManager event listeners');
-      const init = async () => {
+      (async () => {
         manager = await serviceContainer.getDownloadManager();
-        if (!mounted) {
-          console.log('[useDownloads] Component unmounted before manager ready, skipping listener setup');
-          return;
-        }
-        console.log('[useDownloads] DownloadManager ready, instance:', (manager as any).instanceId);
-        console.log('[useDownloads] EventEmitter listener count before attach:', manager.listenerCount('download-progress'), manager.listenerCount('download-completed'));
+        if (!mounted) return;
         manager.on('download-progress', handleProgress);
         manager.on('download-completed', handleCompleted);
-        console.log('[useDownloads] EventEmitter listener count after attach:', manager.listenerCount('download-progress'), manager.listenerCount('download-completed'));
-      };
-      init();
+      })();
     }
 
     return () => {
       mounted = false;
-      console.log('[useDownloads] Cleanup: removing event listeners');
       unsubscribeProgress?.();
       unsubscribeCompleted?.();
       if (manager) {
@@ -102,43 +89,33 @@ export const useDownloads = () => {
   }, [fetchHistory]);
 
   const startDownload = async (url: string | ArrayBuffer, target?: 'local' | 'newsreader', filename?: string, providerId?: string) => {
-    const electron = (window as any).electron;
-    const capacitor = (window as any).Capacitor;
-    console.log('[useDownloads] startDownload called:', { url, target, filename });
-    console.log('[useDownloads] Platform:', capacitor && capacitor.isNativePlatform ? capacitor.getPlatform() : 'unknown');
-
     try {
-      if (electron && electron.startDownload) {
-        console.log('[useDownloads] Using Electron download');
+      const electron = getElectronBridge();
+      if (electron) {
         await electron.startDownload(url, target, filename, providerId);
-      } else {
-        console.log('[useDownloads] Using DownloadManager');
-        const downloadManager = await serviceContainer.getDownloadManager();
-        const buffer = typeof url === 'string' ? url : Buffer.from(url);
-        console.log('[useDownloads] Buffer created, type:', typeof url);
-        await downloadManager.addDownload(buffer, filename || 'download', undefined, target);
+        return;
       }
+      const downloadManager = await serviceContainer.getDownloadManager();
+      const buffer = typeof url === 'string' ? url : Buffer.from(url);
+      await downloadManager.addDownload(buffer, filename || 'download', undefined, target);
     } catch (error) {
-      console.log('[useDownloads] Caught error in startDownload:', error);
-      console.log('[useDownloads] Error type:', typeof error);
-      console.log('[useDownloads] Error constructor:', error?.constructor?.name);
-      const errorMsg = error instanceof Error ? error.message : (typeof error === 'object' && error !== null ? JSON.stringify(error) : String(error));
+      const message = error instanceof Error
+        ? error.message
+        : (typeof error === 'object' && error !== null ? JSON.stringify(error) : String(error));
       console.error('Failed to start download:', error);
-      throw new Error(errorMsg || 'Unknown download error');
+      throw new Error(message || 'Unknown download error');
     }
   };
 
   const clearHistory = async () => {
     try {
-      const electron = (window as any).electron;
-      if (electron && electron.clearHistory) {
+      const electron = getElectronBridge();
+      if (electron) {
         await electron.clearHistory();
-        setHistory([]);
       } else {
-        const storage = serviceContainer.getStorageAdapter();
-        await storage.set('history', []);
-        setHistory([]);
+        await serviceContainer.getStorageAdapter().set('history', []);
       }
+      setHistory([]);
     } catch (error) {
       console.error('Failed to clear history:', error);
     }
@@ -146,39 +123,35 @@ export const useDownloads = () => {
 
   const pauseDownload = async (id: string) => {
     try {
-      const electron = (window as any).electron;
-      if (electron && electron.pauseDownload) {
+      const electron = getElectronBridge();
+      if (electron) {
         await electron.pauseDownload(id);
       } else {
-        const downloadManager = await serviceContainer.getDownloadManager();
-        await downloadManager.pause(id);
+        await (await serviceContainer.getDownloadManager()).pause(id);
       }
     } catch (error) {
       console.error('Failed to pause download:', error);
     }
   };
 
+  const removeFromActive = (id: string) => {
+    setActiveDownloads(prev => {
+      const next = new Map(prev);
+      next.delete(id);
+      return next;
+    });
+  };
+
   const deleteDownload = async (id: string) => {
     try {
-      const electron = (window as any).electron;
-      if (electron && electron.deleteDownload) {
+      const electron = getElectronBridge();
+      if (electron) {
         await electron.deleteDownload(id);
-        setActiveDownloads((prev) => {
-          const next = new Map(prev);
-          next.delete(id);
-          return next;
-        });
-        fetchHistory();
       } else {
-        const downloadManager = await serviceContainer.getDownloadManager();
-        await downloadManager.delete(id, false);
-        setActiveDownloads((prev) => {
-          const next = new Map(prev);
-          next.delete(id);
-          return next;
-        });
-        fetchHistory();
+        await (await serviceContainer.getDownloadManager()).delete(id, false);
       }
+      removeFromActive(id);
+      fetchHistory();
     } catch (error) {
       console.error('Failed to delete download:', error);
     }
@@ -186,25 +159,14 @@ export const useDownloads = () => {
 
   const deleteDownloadWithFiles = async (id: string) => {
     try {
-      const electron = (window as any).electron;
-      if (electron && electron.deleteDownloadWithFiles) {
+      const electron = getElectronBridge();
+      if (electron) {
         await electron.deleteDownloadWithFiles(id);
-        setActiveDownloads((prev) => {
-          const next = new Map(prev);
-          next.delete(id);
-          return next;
-        });
-        fetchHistory();
       } else {
-        const downloadManager = await serviceContainer.getDownloadManager();
-        await downloadManager.deleteWithFiles(id);
-        setActiveDownloads((prev) => {
-          const next = new Map(prev);
-          next.delete(id);
-          return next;
-        });
-        fetchHistory();
+        await (await serviceContainer.getDownloadManager()).deleteWithFiles(id);
       }
+      removeFromActive(id);
+      fetchHistory();
     } catch (error) {
       console.error('Failed to delete download with files:', error);
     }
@@ -218,5 +180,6 @@ export const useDownloads = () => {
     pauseDownload,
     deleteDownload,
     deleteDownloadWithFiles,
+    refreshHistory: fetchHistory,
   };
 };

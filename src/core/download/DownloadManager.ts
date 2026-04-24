@@ -3,10 +3,10 @@ import axios from 'axios';
 import { BaseNewsreaderClient, SABnzbdClient, NZBGetClient, DirectUsenetClient } from '../nntp/NewsreaderClient.js';
 import { DownloadStatus } from '../types/download.js';
 import { NewsreaderSettings, SearchProviderSettings } from '../types/search.js';
-import { IFileSystem } from '@/core/interfaces/IFileSystem.js';
-import { IStorage } from '@/core/interfaces/IStorage.js';
-import { INetwork } from '@/core/interfaces/INetwork.js';
-import NativeNzbDownloader from '@/mobile/plugins/NativeNzbDownloader.js';
+import { IFileSystem } from '../interfaces/IFileSystem.js';
+import { IStorage } from '../interfaces/IStorage.js';
+import { INetwork } from '../interfaces/INetwork.js';
+import NativeNzbDownloader from '../../mobile/plugins/NativeNzbDownloader.js';
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Typography,
@@ -14,6 +14,7 @@ import {
 } from '@mui/icons-material';
 import { DownloadHistoryItem } from '../electron';
 import { formatBytes } from '../utils/format';
+import { useCollapsedState, CollapseSignal } from '../hooks/useCollapsedState';
 
 interface HistoryCardProps {
   item: DownloadHistoryItem;
@@ -21,7 +22,7 @@ interface HistoryCardProps {
   onDelete: (id: string) => void;
   onDeleteDisk: (id: string) => void;
   onOpenLocation: (path: string) => void;
-  collapseSignal?: { expanded: boolean; timestamp: number } | null;
+  collapseSignal?: CollapseSignal | null;
 }
 
 const HistoryCard: React.FC<HistoryCardProps> = ({
@@ -32,43 +33,17 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
   onOpenLocation,
   collapseSignal,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  useEffect(() => {
-    const collapsed = localStorage.getItem(`collapsed_${item.id}`);
-    if (collapsed === 'true') {
-      setIsCollapsed(true);
-    }
-  }, [item.id]);
-
-  useEffect(() => {
-    if (collapseSignal) {
-      const shouldCollapse = !collapseSignal.expanded;
-      setIsCollapsed(shouldCollapse);
-      localStorage.setItem(`collapsed_${item.id}`, String(shouldCollapse));
-    }
-  }, [collapseSignal, item.id]);
-
-  const toggleCollapse = () => {
-    const newState = !isCollapsed;
-    setIsCollapsed(newState);
-    localStorage.setItem(`collapsed_${item.id}`, String(newState));
-  };
+  const [isCollapsed, toggleCollapse] = useCollapsedState(item.id, collapseSignal);
 
   return (
-    <Paper 
-      sx={{ 
-        p: isMobile ? 2 : 2.5, 
-        background: 'rgba(30, 41, 59, 0.4)',
-        border: '1px solid rgba(148, 163, 184, 0.12)',
-        borderRadius: 1,
-        transition: 'all 0.15s ease',
+    <Paper
+      sx={{
+        p: isMobile ? 2 : 2.5,
+        transition: 'background-color 0.15s ease, border-color 0.15s ease',
         cursor: 'default',
         '&:hover': {
-          background: 'rgba(30, 41, 59, 0.6)',
-          borderColor: 'rgba(0, 229, 255, 0.3)',
-          transform: 'translateY(-1px)',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+          bgcolor: 'action.hover',
+          borderColor: 'primary.main',
         }
       }}
     >
@@ -88,20 +63,20 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
         {/* Title Content */}
         <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', wordBreak: 'break-word', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary', wordBreak: 'break-word', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: '100%' }}>
                     {item.filename}
                 </Typography>
                 
                 {/* Badges - Expanded Only */}
                 {!isCollapsed && !isMobile && (
-                    <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <Typography variant="caption" sx={{ color: 'success.main', fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         COMPLETED
                     </Typography>
                 )}
             </Box>
              {/* Mobile Badges - Expanded Only */}
              {!isCollapsed && isMobile && (
-                <Typography variant="caption" sx={{ color: '#4caf50', fontWeight: 800, fontSize: '0.775rem', textTransform: 'uppercase', letterSpacing: '0.05em', mt: 1, display: 'block' }}>
+                <Typography variant="caption" sx={{ color: 'success.main', fontWeight: 800, fontSize: '0.775rem', textTransform: 'uppercase', letterSpacing: '0.05em', mt: 1, display: 'block' }}>
                     COMPLETED
                 </Typography>
             )}
@@ -116,23 +91,23 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
                 <IconButton
                     size={isMobile ? "medium" : "small"}
                     onClick={() => onOpenLocation(item.path)}
-                    sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}
+                    sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}
                 >
-                    <OpenIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                    <OpenIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
                 <Tooltip title="Delete Record">
-                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onDelete(item.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
-                    <DeleteIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onDelete(item.id)} sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'error.main', bgcolor: 'action.hover' } }}>
+                    <DeleteIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
                 <Tooltip title="Delete from Disk">
-                <IconButton 
-                    size={isMobile ? "medium" : "small"} 
-                    onClick={() => onDeleteDisk(item.id)} 
-                    sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                <IconButton
+                    size={isMobile ? "medium" : "small"}
+                    onClick={() => onDeleteDisk(item.id)}
+                    sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'error.main', bgcolor: 'action.hover' } }}
                 >
-                    <DeleteForeverIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                    <DeleteForeverIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
             </Box>
@@ -142,19 +117,14 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
       {/* Progress Bar (Always Visible) */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box sx={{ flex: 1 }}>
-          <LinearProgress 
-            variant="determinate" 
-            value={100} 
-            sx={{ 
+          <LinearProgress
+            variant="determinate"
+            value={100}
+            color="success"
+            sx={{
               height: isMobile ? 6 : 4,
               borderRadius: 2,
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              '& .MuiLinearProgress-bar': {
-                borderRadius: 2,
-                backgroundColor: '#4caf50',
-                boxShadow: '0 0 8px #4caf5044',
-              }
-            }} 
+            }}
           />
         </Box>
         {/* Percentage - Expanded Only */}
@@ -172,7 +142,7 @@ const HistoryCard: React.FC<HistoryCardProps> = ({
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                 {formatBytes(item.size)}
             </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.3)', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
+            <Typography variant="caption" sx={{ color: 'text.disabled', fontSize: isMobile ? '0.825rem' : '0.775rem' }}>
                 {new Date(item.timestamp).toLocaleDateString()}
             </Typography>
             </Box>

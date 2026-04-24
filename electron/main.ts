@@ -5,20 +5,25 @@ import { fileURLToPath } from 'url';
 import Store from 'electron-store';
 import { download } from 'electron-dl';
 import electronUpdater from 'electron-updater';
-import { SearchProviderSettings } from './types/search.js';
-import { SearchManager } from './search/SearchManager.js';
-import { DownloadManager as SharedDownloadManager } from '../src/core/download/DownloadManager.js';
-import { NodeNetworkAdapter } from './adapters/NodeNetworkAdapter.js';
-import { NodeFSAdapter } from './adapters/NodeFSAdapter.js';
+import { SearchProviderSettings } from '../src/core/types/search.js';
+import { SearchManager } from '../src/core/search/SearchManager.js';
+import { DownloadManager } from '../src/core/download/DownloadManager.js';
 import { NodeStorageAdapter } from './adapters/NodeStorageAdapter.js';
+import { NodeFSAdapter } from './adapters/NodeFSAdapter.js';
+import { NodeNetworkAdapter } from './adapters/NodeNetworkAdapter.js';
 
 const { autoUpdater } = electronUpdater;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = process.env.NODE_ENV === 'development';
 
+// Compiled main lives at dist-electron/main/electron/main.js.
+// The source electron/ dir (containing preload.cjs) and dist/ dir (containing the
+// renderer HTML) are three levels up. In the packaged asar the same structure is preserved.
+const projectRoot = path.resolve(__dirname, '..', '..', '..');
+
 app.commandLine.appendSwitch('js-flags', '--max-old-space-size=8192');
+
 interface DownloadSettings {
   downloadDirectory: string;
 }
@@ -30,7 +35,6 @@ interface StoreSchema {
   autoUpdate: boolean;
 }
 
-// Initialize electron-store
 const store = new Store<StoreSchema>({
   defaults: {
     history: [],
@@ -44,56 +48,56 @@ const store = new Store<StoreSchema>({
   },
 });
 
-// Initialize Search Manager
 const searchManager = new SearchManager(store.get('searchSettings'));
 
 let mainWindow: BrowserWindow | null = null;
-let downloadManager: SharedDownloadManager | null = null;
+let downloadManager: DownloadManager | null = null;
 let isCleaningUp = false;
 let isQuitting = false;
+
+function createDownloadManager(): DownloadManager {
+  const storageAdapter = new NodeStorageAdapter(store as unknown as Store<{ [key: string]: any }>);
+  const fileSystemAdapter = new NodeFSAdapter();
+  const networkFactory = () => new NodeNetworkAdapter();
+  const manager = new DownloadManager(storageAdapter, fileSystemAdapter, networkFactory);
+
+  manager.on('download-progress', (progress) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('download-progress', progress);
+    }
+  });
+
+  manager.on('download-completed', (item) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('download-completed', item);
+    }
+  });
+
+  return manager;
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     title: 'Generic NZB Downloader',
-    icon: path.join(__dirname, '../assets/icon.png'),
+    icon: path.join(projectRoot, 'assets/icon.png'),
     width: 1200,
     height: 800,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.cjs'),
+      preload: path.join(projectRoot, 'electron/preload.cjs'),
     },
     autoHideMenuBar: true,
   });
 
   mainWindow.setMenuBarVisibility(false);
 
-  // Initialize adapters for Electron
-  const storageAdapter = new NodeStorageAdapter();
-  const fileSystemAdapter = new NodeFSAdapter();
-  const networkFactory = () => new NodeNetworkAdapter();
-
-  // Initialize shared Download Manager with Node adapters
-  downloadManager = new SharedDownloadManager(storageAdapter, fileSystemAdapter, networkFactory);
-
-  // Set up event bridging from DownloadManager to renderer
-  downloadManager.on('download-progress', (progress) => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.webContents.send('download-progress', progress);
-    }
-  });
-
-  downloadManager.on('download-completed', (item) => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.webContents.send('download-completed', item);
-    }
-  });
+  downloadManager = createDownloadManager();
 
   if (isDev) {
     mainWindow.loadURL('http://localhost:5174');
-    // mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    mainWindow.loadFile(path.join(projectRoot, 'dist/index.html'));
   }
 
   mainWindow.on('closed', () => {
@@ -101,14 +105,14 @@ function createWindow() {
     downloadManager = null;
   });
 
-  // Handle external links
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
   });
 }
 
-// IPC Handlers
+// Local (non-NZB) downloads go through electron-dl directly; newsreader downloads
+// go through the shared DownloadManager. Both write to the same on-disk history.
 ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target?: 'local' | 'newsreader', filename?: string, providerId?: string) => {
   if (!downloadManager || !mainWindow) return { success: false, error: 'Download Manager not initialized' };
 
@@ -118,7 +122,6 @@ ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target
     const isNzb = Buffer.isBuffer(downloadContent) || (typeof url === 'string' && url.endsWith('.nzb'));
 
     if (target === 'local' || (!target && !isNzb)) {
-      // Handle local downloads with electron-dl for Electron
       const downloadItem = {
         id,
         url: typeof url === 'string' ? url : '',
@@ -129,26 +132,22 @@ ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target
         providerName: 'Local',
       };
 
-      const downloadSettings = store.get('downloadSettings');
-      const targetDirectory = downloadSettings?.downloadDirectory?.trim();
+      const targetDirectory = store.get('downloadSettings')?.downloadDirectory?.trim();
+      store.set('history', [downloadItem, ...(store.get('history') || [])]);
 
-      // Add to history
-      const history = store.get('history') || [];
-      store.set('history', [downloadItem, ...history]);
+      const patchHistory = (patch: (item: any) => any) => {
+        const current = store.get('history') || [];
+        store.set('history', current.map((h: any) => h.id === id ? patch(h) : h));
+      };
 
-      const downloadOptions = {
+      const downloadOptions: any = {
         onStarted: (item: any) => {
           downloadItem.filename = item.getFilename();
           downloadItem.savePath = item.getSavePath();
-
-          const currentHistory = store.get('history') || [];
-          const updatedHistory = currentHistory.map((h: any) =>
-            h.id === id ? { ...h, filename: downloadItem.filename, savePath: downloadItem.savePath } : h
-          );
-          store.set('history', updatedHistory);
+          patchHistory(h => ({ ...h, filename: downloadItem.filename, savePath: downloadItem.savePath }));
         },
         onProgress: (progress: any) => {
-          const progressData = {
+          mainWindow?.webContents.send('download-progress', {
             id,
             filename: downloadItem.filename || progress.filename,
             percent: progress.percent,
@@ -158,10 +157,7 @@ ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target
             speed: 0,
             providerName: 'Local',
             path: downloadItem.savePath,
-          };
-          if (mainWindow && !mainWindow.isDestroyed()) {
-            mainWindow.webContents.send('download-progress', progressData);
-          }
+          });
         },
         onCompleted: (item: any) => {
           const completedItem = {
@@ -174,87 +170,49 @@ ipcMain.handle('start-download', async (_event, url: string | Uint8Array, target
             startTime: downloadItem.startTime,
             providerName: 'Local',
           };
-
-          const currentHistory = store.get('history') || [];
-          const updatedHistory = currentHistory.map((h: any) =>
-            h.id === id ? completedItem : h
-          );
-          store.set('history', updatedHistory);
-
-          if (mainWindow && !mainWindow.isDestroyed()) {
-            mainWindow.webContents.send('download-completed', {
-              ...completedItem,
-              path: completedItem.savePath,
-              timestamp: completedItem.endTime,
-              size: completedItem.totalBytes,
-            });
-          }
+          patchHistory(() => completedItem);
+          mainWindow?.webContents.send('download-completed', {
+            ...completedItem,
+            path: completedItem.savePath,
+            timestamp: completedItem.endTime,
+            size: completedItem.totalBytes,
+          });
         },
         onError: (error: Error) => {
           console.error('Local download error:', error);
-          const currentHistory = store.get('history') || [];
-          const updatedHistory = currentHistory.map((h: any) =>
-            h.id === id ? { ...h, status: 'failed' } : h
-          );
-          store.set('history', updatedHistory);
+          patchHistory(h => ({ ...h, status: 'failed' }));
         }
       };
+      if (targetDirectory) downloadOptions.directory = targetDirectory;
 
-      if (targetDirectory) {
-        (downloadOptions as any).directory = targetDirectory;
-      }
-
-      // Start download with electron-dl
       download(mainWindow, typeof url === 'string' ? url : '', downloadOptions).catch((error: Error) => {
         console.error('Local download error:', error);
-        const currentHistory = store.get('history') || [];
-        const updatedHistory = currentHistory.map((h: any) =>
-          h.id === id ? { ...h, status: 'failed' } : h
-        );
-        store.set('history', updatedHistory);
+        patchHistory(h => ({ ...h, status: 'failed' }));
       });
 
       return { success: true, id };
-    } else {
-      // Handle newsreader downloads with shared DownloadManager
-      const newId = await downloadManager.addDownload(downloadContent, filename || '', providerId, 'newsreader');
-      return { success: true, id: newId };
     }
+
+    const newId = await downloadManager.addDownload(downloadContent, filename || '', providerId, 'newsreader');
+    return { success: true, id: newId };
   } catch (error) {
     console.error('Download error:', error);
     return { success: false, error: (error as Error).message };
   }
 });
 
-ipcMain.handle('pause-download', async (_event, id: string) => {
-  if (!downloadManager) return false;
-  return await downloadManager.pause(id);
-});
-
-ipcMain.handle('delete-download', async (_event, id: string, removeFiles: boolean) => {
-  if (!downloadManager) return false;
-  return await downloadManager.delete(id, removeFiles);
-});
-
-ipcMain.handle('delete-download-files', async (_event, id: string) => {
-  if (!downloadManager) return false;
-  return await downloadManager.deleteWithFiles(id);
-});
+ipcMain.handle('pause-download', async (_event, id: string) => downloadManager?.pause(id) ?? false);
+ipcMain.handle('delete-download', async (_event, id: string, removeFiles: boolean) => downloadManager?.delete(id, removeFiles) ?? false);
+ipcMain.handle('delete-download-files', async (_event, id: string) => downloadManager?.deleteWithFiles(id) ?? false);
 
 ipcMain.handle('open-path', async (_event, targetPath: string) => {
   if (!targetPath) return false;
-
   try {
-    if (fs.existsSync(targetPath)) {
-      const stats = fs.statSync(targetPath);
-      if (stats.isFile()) {
-        shell.showItemInFolder(targetPath);
-        return true;
-      }
+    if (fs.existsSync(targetPath) && fs.statSync(targetPath).isFile()) {
+      shell.showItemInFolder(targetPath);
+      return true;
     }
-
-    const result = await shell.openPath(targetPath);
-    return result === '';
+    return (await shell.openPath(targetPath)) === '';
   } catch (error) {
     console.error('Failed to open path:', error);
     return false;
@@ -272,7 +230,7 @@ ipcMain.handle('get-history', () => {
     size: item.totalBytes || 0,
     providerName: item.providerName,
     externalId: item.externalId,
-    status: item.status
+    status: item.status,
   }));
 });
 
@@ -281,54 +239,36 @@ ipcMain.handle('clear-history', () => {
   return true;
 });
 
-ipcMain.handle('search', async (_event, query: string) => {
-  return await searchManager.search(query);
-});
-
-ipcMain.handle('get-search-settings', () => {
-  return store.get('searchSettings');
-});
-
+ipcMain.handle('search', async (_event, query: string) => searchManager.search(query));
+ipcMain.handle('get-search-settings', () => store.get('searchSettings'));
 ipcMain.handle('update-search-settings', (_event, settings: SearchProviderSettings[]) => {
   store.set('searchSettings', settings);
   searchManager.updateProviders(settings);
-  if (downloadManager) {
-    downloadManager.updateSettings();
-  }
+  downloadManager?.updateSettings();
   return true;
 });
-
-ipcMain.handle('get-download-settings', () => {
-  return store.get('downloadSettings');
-});
-
+ipcMain.handle('get-download-settings', () => store.get('downloadSettings'));
 ipcMain.handle('update-download-settings', (_event, settings: DownloadSettings) => {
   store.set('downloadSettings', settings);
   return true;
 });
 
-const sendUpdateStatus = (payload: {
+type UpdateStatus = {
   type: 'checking' | 'available' | 'not-available' | 'error' | 'downloading' | 'downloaded';
   version?: string;
   error?: string;
-  progress?: {
-    percent: number;
-    transferred: number;
-    total: number;
-  };
-}) => {
+  progress?: { percent: number; transferred: number; total: number };
+};
+
+const sendUpdateStatus = (payload: UpdateStatus) => {
   mainWindow?.webContents.send('update-status', payload);
 };
 
 ipcMain.handle('get-app-version', () => app.getVersion());
-
 ipcMain.handle('get-auto-update', () => store.get('autoUpdate'));
-
 ipcMain.on('set-auto-update', (_event, enable: boolean) => {
   store.set('autoUpdate', enable);
-  if (enable && !isDev) {
-    autoUpdater.checkForUpdatesAndNotify();
-  }
+  if (enable && !isDev) autoUpdater.checkForUpdatesAndNotify();
 });
 
 ipcMain.on('check-for-update', async () => {
@@ -336,80 +276,38 @@ ipcMain.on('check-for-update', async () => {
     sendUpdateStatus({ type: 'not-available', version: app.getVersion() });
     return;
   }
-
   try {
     await autoUpdater.checkForUpdates();
   } catch (error) {
-    sendUpdateStatus({
-      type: 'error',
-      error: error instanceof Error ? error.message : String(error),
-    });
+    sendUpdateStatus({ type: 'error', error: error instanceof Error ? error.message : String(error) });
   }
 });
 
-ipcMain.on('quit-and-install', () => {
-  autoUpdater.quitAndInstall();
-});
+ipcMain.on('quit-and-install', () => autoUpdater.quitAndInstall());
 
 const configureAutoUpdates = () => {
-  autoUpdater.on('checking-for-update', () => {
-    sendUpdateStatus({ type: 'checking' });
-  });
-
-  autoUpdater.on('update-available', (info: any) => {
-    sendUpdateStatus({ type: 'available', version: info.version });
-  });
-
-  autoUpdater.on('update-not-available', (info: any) => {
-    sendUpdateStatus({ type: 'not-available', version: info.version });
-  });
-
-  autoUpdater.on('error', (error: Error | unknown) => {
-    sendUpdateStatus({
-      type: 'error',
-      error: error instanceof Error ? error.message : String(error),
-    });
-  });
-
-  autoUpdater.on('update-downloaded', (info: any) => {
-    sendUpdateStatus({ type: 'downloaded', version: info.version });
-  });
-
-  autoUpdater.on('download-progress', (info: any) => {
-    sendUpdateStatus({
-      type: 'downloading',
-      progress: {
-        percent: info.percent,
-        transferred: info.transferred,
-        total: info.total,
-      },
-    });
-  });
+  autoUpdater.on('checking-for-update', () => sendUpdateStatus({ type: 'checking' }));
+  autoUpdater.on('update-available', (info: any) => sendUpdateStatus({ type: 'available', version: info.version }));
+  autoUpdater.on('update-not-available', (info: any) => sendUpdateStatus({ type: 'not-available', version: info.version }));
+  autoUpdater.on('error', (error: Error | unknown) =>
+    sendUpdateStatus({ type: 'error', error: error instanceof Error ? error.message : String(error) }));
+  autoUpdater.on('update-downloaded', (info: any) => sendUpdateStatus({ type: 'downloaded', version: info.version }));
+  autoUpdater.on('download-progress', (info: any) => sendUpdateStatus({
+    type: 'downloading',
+    progress: { percent: info.percent, transferred: info.transferred, total: info.total },
+  }));
 };
 
 async function performCleanup() {
   if (isCleaningUp) return;
   isCleaningUp = true;
-
-  console.log('Starting cleanup...');
-  
-  // Ensure store writes are finished
-  // electron-store writes are usually synchronous or handled by the library,
-  // but we can ensure we've finished our logic.
-  
-  console.log('Cleanup complete');
   isCleaningUp = false;
 }
 
 app.whenReady().then(() => {
   createWindow();
   configureAutoUpdates();
-
-  const autoUpdateEnabled = store.get('autoUpdate');
-  if (autoUpdateEnabled && !isDev) {
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-
+  if (store.get('autoUpdate') && !isDev) autoUpdater.checkForUpdatesAndNotify();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
@@ -418,21 +316,10 @@ app.whenReady().then(() => {
 app.on('window-all-closed', async () => {
   if (isQuitting) return;
   isQuitting = true;
-
   await performCleanup();
   if (process.platform !== 'darwin') app.quit();
 });
 
-app.on('before-quit', () => {
-  isQuitting = true;
-});
-
-process.on('SIGINT', async () => {
-  await performCleanup();
-  process.exit(0);
-});
-
-process.on('SIGTERM', async () => {
-  await performCleanup();
-  process.exit(0);
-});
+app.on('before-quit', () => { isQuitting = true; });
+process.on('SIGINT', async () => { await performCleanup(); process.exit(0); });
+process.on('SIGTERM', async () => { await performCleanup(); process.exit(0); });

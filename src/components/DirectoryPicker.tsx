@@ -102,11 +102,11 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
       fullWidth
       PaperProps={{
         sx: {
-          background: 'rgba(15, 23, 42, 0.95)',
+          bgcolor: 'background.paper',
           backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(148, 163, 184, 0.12)',
+          border: '1px solid', borderColor: 'divider',
           borderRadius: 1,
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          boxShadow: 6,
         },
       }}
     >
@@ -114,7 +114,7 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
         sx={{
           py: 2,
           px: 2.5,
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid', borderColor: 'divider',
           display: 'flex',
           alignItems: 'center',
           gap: 1.5,
@@ -127,7 +127,7 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
             fontSize: '1rem',
             textTransform: 'uppercase',
             letterSpacing: '0.02em',
-            color: '#fff',
+            color: 'text.primary',
           }}
         >
           Select Directory
@@ -142,11 +142,11 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
               mx: 2,
               mt: 2,
               mb: 0,
-              background: 'rgba(220, 38, 38, 0.15)',
-              border: '1px solid rgba(220, 38, 38, 0.3)',
-              color: '#fca5a5',
+              bgcolor: 'error.main', color: 'error.contrastText',
+              border: '1px solid', borderColor: 'error.main',
+              color: 'error.main',
               fontSize: '0.875rem',
-              '& .MuiAlert-icon': { color: '#f87171' },
+              '& .MuiAlert-icon': { color: 'error.main' },
             }}
           >
             {error}
@@ -157,7 +157,7 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
           sx={{
             px: 2.5,
             py: 1.5,
-            borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -207,13 +207,13 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
                 width: 8,
               },
               '&::-webkit-scrollbar-track': {
-                background: 'rgba(255, 255, 255, 0.02)',
+                bgcolor: 'action.hover',
               },
               '&::-webkit-scrollbar-thumb': {
-                background: 'rgba(148, 163, 184, 0.3)',
+                bgcolor: 'action.hover',
                 borderRadius: 4,
                 '&:hover': {
-                  background: 'rgba(148, 163, 184, 0.5)',
+                  bgcolor: 'action.selected',
                 },
               },
             }}
@@ -234,10 +234,10 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
                     sx={{
                       px: 2.5,
                       py: 1,
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.02)',
+                      borderBottom: '1px solid', borderColor: 'divider',
                       cursor: isDirectory ? 'pointer' : 'default',
                       '&:hover': isDirectory ? {
-                        backgroundColor: 'rgba(0, 229, 255, 0.06)',
+                        bgcolor: 'action.hover',
                       } : {},
                       opacity: isDirectory ? 1 : 0.4,
                     }}
@@ -276,7 +276,7 @@ const DirectoryPicker: React.FC<DirectoryPickerProps> = ({
         sx={{
           px: 2.5,
           py: 2,
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          borderTop: '1px solid', borderColor: 'divider',
           gap: 1,
         }}
       >

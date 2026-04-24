@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { SearchResult } from '../types/search';
 import { serviceContainer } from '@/core/ServiceContainer';
+import { getElectronBridge } from '../utils/platform';
 
 type SearchError = {
   message: string;
@@ -23,18 +24,16 @@ export const useSearch = () => {
       setError(null);
       setIsRetrying(false);
       
-      const electron = (window as any).electron;
-      
-      if (electron && electron.search) {
+      const electron = getElectronBridge();
+      if (electron) {
         const searchResults = await electron.search(query);
         setResults(searchResults);
         return searchResults;
-      } else {
-        const searchManager = await serviceContainer.getSearchManager();
-        const searchResults = await searchManager.search(query);
-        setResults(searchResults);
-        return searchResults;
       }
+      const searchManager = await serviceContainer.getSearchManager();
+      const searchResults = await searchManager.search(query);
+      setResults(searchResults);
+      return searchResults;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Search failed';
       const errorBody = error instanceof Error && 'body' in error ? (error as { body?: string }).body : undefined;

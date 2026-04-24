@@ -65,6 +65,6 @@ export interface ElectronBridge {
 
 declare global {
   interface Window {
-    electron: ElectronBridge;
+    electron?: ElectronBridge;
   }
 }

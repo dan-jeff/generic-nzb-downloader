@@ -8,20 +8,29 @@ import {
   useMediaQuery,
   useTheme,
   Chip,
-  BottomNavigation,
-  BottomNavigationAction,
+  Snackbar,
+  Alert,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import {
   Download as DownloadIcon,
   Search as SearchIcon,
   Settings as SettingsIcon,
-  FiberManualRecord as ActiveIcon,
+  LightMode as LightIcon,
+  DarkMode as DarkIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
 import DownloadPanel from './components/DownloadPanel';
 import SearchPanel from './components/SearchPanel';
-import SettingsPanel, { SettingsPanelHandle } from './components/SettingsPanel';
+import { SettingsPanelHandle } from './components/SettingsPanel';
+import SettingsSheet from './components/SettingsSheet';
+import BackgroundBubbles from './components/BackgroundBubbles';
 import { useDownloads } from './hooks/useDownloads';
 import { serviceContainer } from '@/core/ServiceContainer';
+import { getElectronBridge } from './utils/platform';
+import { useThemeMode } from './contexts/ThemeModeContext';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
@@ -32,26 +41,29 @@ interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+  transitionDir?: 'left' | 'right' | null;
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
+function CustomTabPanel({ children, value, index, transitionDir }: TabPanelProps) {
+  const active = value === index;
   return (
     <Box
-      component="div"
       role="tabpanel"
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`panel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      key={active && transitionDir ? `${index}-${transitionDir}` : index}
+      className={
+        active && transitionDir === 'right' ? 'page-enter-right' :
+        active && transitionDir === 'left'  ? 'page-enter-left'  : undefined
+      }
       sx={{
         height: '100%',
-        display: value === index ? 'flex' : 'none',
+        display: active ? 'flex' : 'none',
         flexDirection: 'column',
         overflow: 'auto',
       }}
-      {...other}
     >
-      <Box sx={{ pt: 3, pb: 1, flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ pt: 1.5, pb: 1, flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
         {children}
       </Box>
     </Box>
@@ -60,100 +72,71 @@ function CustomTabPanel(props: TabPanelProps) {
 
 import NativeNzbDownloader from './mobile/plugins/NativeNzbDownloader';
 
+const TAB_COUNT = 2;
+
 function App() {
-  console.log('GenericDownloader: App component rendering');
   const [activeTab, setActiveTab] = useState(0);
   const [appVersion, setAppVersion] = useState('');
   const [searchExpandTimestamp, setSearchExpandTimestamp] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [transitionDir, setTransitionDir] = useState<'left' | 'right' | null>(null);
+  const [webUnavailableOpen, setWebUnavailableOpen] = useState(false);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { activeDownloads, history } = useDownloads();
+  const { mode, toggle: toggleMode } = useThemeMode();
+  useDownloads();
+
   const settingsRef = React.useRef<SettingsPanelHandle>(null);
-  const touchStartRef = React.useRef<{ x: number; y: number } | null>(null);
+  const touchStartRef = React.useRef<{ x: number; y: number; time: number; target: EventTarget | null } | null>(null);
 
   useEffect(() => {
-    // Back Button Logic
     const backButtonListener = CapacitorApp.addListener('backButton', () => {
-      // 1. If Settings is active, let it handle the back action
-      if (activeTab === 2 && settingsRef.current?.handleBack()) {
+      if (settingsOpen) {
+        if (settingsRef.current?.handleBack()) return;
+        setSettingsOpen(false);
         return;
       }
-
-      // 2. If browser history exists (unlikely in this single-page layout but safe to check)
-      /* 
-         Note: We typically don't use window.history.back() here because 
-         we are managing tabs manually. 
-      */
-
-      // 3. If not on the first tab, go to first tab
       if (activeTab !== 0) {
         setActiveTab(0);
         return;
       }
-
-      // 4. If on first tab, exit app
       CapacitorApp.exitApp();
     });
 
-    // App URL Listener (Intents)
     const appUrlOpenListener = CapacitorApp.addListener('appUrlOpen', async (data) => {
-      console.error('GenericDownloader: App URL Opened:', data.url);
-      
       try {
-        // Simple check for NZB file extension or presence in URL
-        // Content URIs might look like: content://.../something.nzb or just random IDs
-        // We'll try to process it if we can read it.
-        
         let filename = 'imported.nzb';
         try {
-           const decoded = decodeURIComponent(data.url);
-           // Handle content://com.android.providers.downloads.documents/document/raw%3A%2F...
-           const cleanName = decoded.split('/').pop();
-           if (cleanName && cleanName.toLowerCase().endsWith('.nzb')) {
-             filename = cleanName;
-           } else if (data.url.includes('.nzb')) {
-             // Fallback logic
-             filename = `imported_${Date.now()}.nzb`;
-           }
+          const decoded = decodeURIComponent(data.url);
+          const cleanName = decoded.split('/').pop();
+          if (cleanName && cleanName.toLowerCase().endsWith('.nzb')) {
+            filename = cleanName;
+          } else if (data.url.includes('.nzb')) {
+            filename = `imported_${Date.now()}.nzb`;
+          }
         } catch (e) {
-           console.warn('Error extracting filename:', e);
+          console.warn('Error extracting filename:', e);
         }
 
-        console.error('Attempting to read file from URL:', data.url);
-        
         let buffer: Buffer | null = null;
-
         try {
-          // Use our native plugin to fetch content (handles content:// URIs with Intent permissions)
           const result = await NativeNzbDownloader.fetchNzbContent({ url: data.url });
-          if (result.data) {
-             buffer = Buffer.from(result.data, 'base64');
-          }
+          if (result.data) buffer = Buffer.from(result.data, 'base64');
         } catch (nativeError) {
-          console.error('Native fetch failed:', nativeError);
-          
-          // Fallback to Filesystem if native plugin fails (e.g. not updated yet?)
           try {
-            const contents = await Filesystem.readFile({
-              path: data.url,
-            });
-            if (contents.data) {
-               buffer = Buffer.from(contents.data as string, 'base64');
-            }
+            const contents = await Filesystem.readFile({ path: data.url });
+            if (contents.data) buffer = Buffer.from(contents.data as string, 'base64');
           } catch (fsError) {
-             console.error('Filesystem fallback failed:', fsError);
-             throw nativeError; // Throw the native error as it's more likely the root cause
+            console.error('Filesystem fallback failed:', fsError);
+            throw nativeError;
           }
         }
 
         if (buffer) {
-          console.error(`Read ${buffer.length} bytes from intent URL`);
-          
           const dm = await serviceContainer.getDownloadManager();
           await dm.addDownload(buffer, filename);
-          
-          setActiveTab(0); // Switch to downloads view
-          console.error('Imported NZB from intent successfully');
+          setActiveTab(1); // jump to Downloads so the user sees the imported item
         }
       } catch (error) {
         console.error('Failed to handle intent URL:', error);
@@ -161,22 +144,21 @@ function App() {
     });
 
     return () => {
-      backButtonListener.then(listener => listener.remove());
-      appUrlOpenListener.then(listener => listener.remove());
+      backButtonListener.then(l => l.remove());
+      appUrlOpenListener.then(l => l.remove());
     };
-  }, [activeTab]);
+  }, [activeTab, settingsOpen]);
 
   useEffect(() => {
     const initializeServices = async () => {
       try {
         if (Capacitor.isNativePlatform()) {
           try {
-            await StatusBar.setStyle({ style: Style.Dark });
+            await StatusBar.setStyle({ style: mode === 'dark' ? Style.Dark : Style.Light });
           } catch (e) {
             console.error('Failed to set status bar style', e);
           }
         }
-
         await serviceContainer.getNetworkAdapter();
         await serviceContainer.getFileSystemAdapter();
         await serviceContainer.getStorageAdapter();
@@ -189,12 +171,9 @@ function App() {
 
     const fetchVersion = async () => {
       try {
-        const electronBridge = typeof window !== 'undefined' ? (window as any).electron : undefined;
-        if (!electronBridge?.getAppVersion) {
-          return;
-        }
-        const version = await electronBridge.getAppVersion();
-        setAppVersion(version);
+        const electron = getElectronBridge();
+        if (!electron) return;
+        setAppVersion(await electron.getAppVersion());
       } catch (error) {
         console.error('Failed to fetch app version:', error);
       }
@@ -202,25 +181,29 @@ function App() {
 
     initializeServices();
     fetchVersion();
-  }, []);
+
+    const onTlsUnavailable = () => setWebUnavailableOpen(true);
+    window.addEventListener('tls-socket-web-unavailable', onTlsUnavailable);
+    return () => window.removeEventListener('tls-socket-web-unavailable', onTlsUnavailable);
+  }, [mode]);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTransitionDir(newValue > activeTab ? 'right' : newValue < activeTab ? 'left' : null);
     setActiveTab(newValue);
   };
-
-  const activeCount = activeDownloads.length;
 
   const handleSwipe = React.useCallback((direction: 'left' | 'right') => {
     setActiveTab((prev) => {
       const next = direction === 'left' ? prev + 1 : prev - 1;
-      if (next < 0 || next > 2) return prev;
+      if (next < 0 || next >= TAB_COUNT) return prev;
+      setTransitionDir(direction === 'left' ? 'right' : 'left');
       return next;
     });
   }, []);
 
   const handleTouchStart = React.useCallback((event: React.TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now(), target: event.target };
   }, []);
 
   const handleTouchEnd = React.useCallback((event: React.TouchEvent<HTMLDivElement>) => {
@@ -230,208 +213,246 @@ function App() {
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - start.x;
     const deltaY = touch.clientY - start.y;
-
+    const deltaT = Date.now() - start.time;
     touchStartRef.current = null;
 
-    const horizontalThreshold = 60;
-    const verticalThreshold = 40;
+    if (deltaT > 600) return;
 
-    if (Math.abs(deltaX) < horizontalThreshold || Math.abs(deltaY) > verticalThreshold) {
-      return;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    // Swipe-up opens settings — only if the gesture begins inside the bottom
+    // swipe-indicator strip, so everyday page swipes don't trigger it.
+    if (!settingsOpen && deltaY < -60 && absY > absX * 1.5) {
+      const distanceFromBottom = window.innerHeight - start.y;
+      if (distanceFromBottom < 90) {
+        setSettingsOpen(true);
+        return;
+      }
     }
 
-    if (deltaX < 0) {
-      handleSwipe('left');
-    } else {
-      handleSwipe('right');
+    // Otherwise horizontal swipe flips tabs.
+    if (absX < 80) return;
+    if (absY > absX * 0.6) return;
+
+    // Bail if the gesture began inside a horizontal scroll container.
+    let el: (Node & ParentNode) | null = start.target as Node & ParentNode | null;
+    while (el && el !== document.body) {
+      if (el instanceof Element) {
+        const style = window.getComputedStyle(el);
+        if (
+          (style.overflowX === 'auto' || style.overflowX === 'scroll') &&
+          el.scrollWidth > el.clientWidth
+        ) {
+          return;
+        }
+      }
+      el = el.parentNode;
     }
-  }, [handleSwipe]);
+
+    handleSwipe(deltaX < 0 ? 'left' : 'right');
+  }, [handleSwipe, settingsOpen]);
 
   return (
-    <Container
-      maxWidth={false}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      sx={{ 
-        pt: { xs: 'calc(env(safe-area-inset-top) + 16px)', sm: 'calc(env(safe-area-inset-top) + 24px)' },
-        pb: 'env(safe-area-inset-bottom)',
-        pl: { xs: 'max(16px, env(safe-area-inset-left))', sm: 3 },
-        pr: { xs: 'max(16px, env(safe-area-inset-right))', sm: 3 },
-        height: '100%', 
-        display: 'flex', 
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Professional Compact Header */}
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          flexDirection: isMobile ? 'column' : 'row',
-          justifyContent: 'space-between', 
-          alignItems: isMobile ? 'flex-start' : 'center', 
-          mb: 3,
-          gap: 2,
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          pb: 2
+    <>
+      <BackgroundBubbles />
+
+      <Container
+        maxWidth={false}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        sx={{
+          position: 'relative',
+          zIndex: 1,
+          pt: { xs: 'calc(env(safe-area-inset-top) + 16px)', sm: 'calc(env(safe-area-inset-top) + 24px)' },
+          pb: 'env(safe-area-inset-bottom)',
+          pl: { xs: 'max(16px, env(safe-area-inset-left))', sm: 3 },
+          pr: { xs: 'max(16px, env(safe-area-inset-right))', sm: 3 },
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <DownloadIcon sx={{ fontSize: isMobile ? 24 : 28, color: 'primary.main' }} />
-          <Typography 
-            variant="h4" 
-            component="h1" 
-            sx={{ 
-              letterSpacing: '0.05em', 
-              fontWeight: 900, 
-              fontSize: isMobile ? '1rem' : '1.25rem',
-              textTransform: 'uppercase'
-            }}
-          >
-            GENERIC NZB <Box component="span" sx={{ color: 'primary.main' }}>DOWNLOADER</Box>
-          </Typography>
-        </Box>
-
-        {/* Downloads Widget */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <ActiveIcon sx={{ fontSize: 8, color: activeCount > 0 ? 'primary.main' : 'text.secondary' }} />
-            <Typography variant="body2" sx={{ fontWeight: 700, whiteSpace: 'nowrap', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
-              {activeCount} ACTIVE
+        {/* Header: title (left) + action icons (right) */}
+        <Box sx={{ mb: 1, pb: 0.75, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
+            <DownloadIcon sx={{ fontSize: isMobile ? 22 : 26, color: 'primary.main' }} />
+            <Typography
+              variant="h4"
+              component="h1"
+              sx={{
+                letterSpacing: '0.04em',
+                fontWeight: 800,
+                fontSize: isMobile ? '1rem' : '1.25rem',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              Generic NZB <Box component="span" sx={{ color: 'primary.main' }}>Downloader</Box>
             </Typography>
           </Box>
-          <Box sx={{ width: 1, height: 12, borderLeft: '1px solid', borderColor: 'divider' }} />
-          <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 700, whiteSpace: 'nowrap', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
-            {history.length} DONE
-          </Typography>
 
-          {activeDownloads.length > 0 && !isMobile && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, ml: 1 }}>
-              {activeDownloads.slice(0, 3).map((download) => (
-                <Box key={download.id} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 400 }}>•</Typography>
-                  <Typography 
-                    variant="caption" 
-                    sx={{ 
-                      color: 'text.primary', 
-                      fontWeight: 600, 
-                      maxWidth: 120, 
-                      overflow: 'hidden', 
-                      textOverflow: 'ellipsis', 
-                      whiteSpace: 'nowrap',
-                      fontSize: '0.7rem'
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25, flexShrink: 0 }}>
+            {!isMobile && appVersion && (
+              <Chip
+                label={`v${appVersion}`}
+                size="small"
+                variant="outlined"
+                sx={{ height: 20, fontSize: '0.65rem', fontWeight: 700, borderColor: 'divider', mr: 0.5 }}
+              />
+            )}
+            <Tooltip title={mode === 'dark' ? 'Switch to light' : 'Switch to dark'}>
+              <IconButton onClick={toggleMode} size="small" aria-label="toggle theme">
+                {mode === 'dark' ? <LightIcon fontSize="small" /> : <DarkIcon fontSize="small" />}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Settings">
+              <IconButton onClick={() => setSettingsOpen(true)} size="small" aria-label="open settings">
+                <SettingsIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
+
+        {/* Desktop tabs — Search on left (0), Downloads on right (1) */}
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', display: isMobile ? 'none' : 'block' }}>
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            aria-label="primary navigation"
+            textColor="primary"
+            indicatorColor="primary"
+            sx={{ minHeight: 32 }}
+          >
+            <Tab
+              icon={<SearchIcon sx={{ fontSize: 18 }} />}
+              iconPosition="start"
+              label="Search"
+              sx={{ minHeight: 32 }}
+              onClick={() => { if (activeTab === 0) setSearchExpandTimestamp(Date.now()); }}
+            />
+            <Tab icon={<DownloadIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Downloads" sx={{ minHeight: 32 }} />
+          </Tabs>
+        </Box>
+
+        <Box sx={{ flex: 1, minHeight: 0, pb: isMobile ? 'calc(env(safe-area-inset-bottom) + 52px)' : 0 }}>
+          <CustomTabPanel value={activeTab} index={0} transitionDir={transitionDir}>
+            <SearchPanel expandSignal={searchExpandTimestamp} />
+          </CustomTabPanel>
+          <CustomTabPanel value={activeTab} index={1} transitionDir={transitionDir}>
+            <DownloadPanel />
+          </CustomTabPanel>
+        </Box>
+
+        {/* Mobile swipe indicator — dots + current-tab label + directional chevrons */}
+        {isMobile && (
+          <Box
+            sx={{
+              position: 'fixed',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 2,
+              pt: 1,
+              pb: 'calc(env(safe-area-inset-bottom) + 10px)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 0.5,
+              pointerEvents: 'none', // gestures pass through; only the dots inside capture taps
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, pointerEvents: 'auto' }}>
+              <ChevronLeftIcon
+                sx={{
+                  fontSize: 18,
+                  color: activeTab > 0 ? 'text.secondary' : 'transparent',
+                  transition: 'color 0.2s',
+                }}
+              />
+              {[
+                { label: 'Search',    icon: <SearchIcon   sx={{ fontSize: 14 }} /> },
+                { label: 'Downloads', icon: <DownloadIcon sx={{ fontSize: 14 }} /> },
+              ].map((t, i) => {
+                const active = activeTab === i;
+                return (
+                  <Box
+                    key={i}
+                    onClick={() => setActiveTab(i)}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      px: active ? 1.25 : 0,
+                      py: 0.5,
+                      borderRadius: 999,
+                      bgcolor: active ? 'action.selected' : 'transparent',
+                      color: active ? 'primary.main' : 'text.disabled',
+                      fontWeight: 700,
+                      fontSize: '0.7rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
                     }}
                   >
-                    {download.filename}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 700, fontSize: '0.7rem' }}>
-                    {Math.round(download.percent * 100)}%
-                  </Typography>
-                </Box>
-              ))}
+                    {active ? (
+                      <>
+                        {t.icon}
+                        {t.label}
+                      </>
+                    ) : (
+                      <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'text.disabled', opacity: 0.5 }} />
+                    )}
+                  </Box>
+                );
+              })}
+              <ChevronRightIcon
+                sx={{
+                  fontSize: 18,
+                  color: activeTab < 1 ? 'text.secondary' : 'transparent',
+                  transition: 'color 0.2s',
+                }}
+              />
             </Box>
-          )}
+            <Typography variant="caption" sx={{ color: 'text.disabled', fontSize: '0.65rem', letterSpacing: '0.05em' }}>
+              swipe to switch
+            </Typography>
+          </Box>
+        )}
 
-          {!isMobile && (
-            <Chip 
-              label={`v${appVersion || '...'}`} 
-              size="small" 
-              variant="outlined" 
-              sx={{ height: 20, fontSize: '0.65rem', fontWeight: 700, borderColor: 'divider', ml: 1 }} 
-            />
-          )}
-        </Box>
-      </Box>
-
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', display: isMobile ? 'none' : 'block' }}>
-        <Tabs 
-          value={activeTab} 
-          onChange={handleTabChange} 
-          aria-label="navigation tabs"
-          textColor="primary"
-          indicatorColor="primary"
-          sx={{ minHeight: 32 }}
-        >
-          <Tab 
-            icon={<DownloadIcon sx={{ fontSize: 18 }} />} 
-            iconPosition="start" 
-            label="Downloads" 
-            sx={{ minHeight: 32 }}
-          />
-          <Tab 
-            icon={<SearchIcon sx={{ fontSize: 18 }} />} 
-            iconPosition="start" 
-            label="Search" 
-            sx={{ minHeight: 32 }}
-            onClick={() => {
-              if (activeTab === 1) {
-                setSearchExpandTimestamp(Date.now());
-              }
-            }}
-          />
-          <Tab 
-            icon={<SettingsIcon sx={{ fontSize: 18 }} />} 
-            iconPosition="start" 
-            label="Settings" 
-            sx={{ minHeight: 32 }}
-          />
-        </Tabs>
-      </Box>
-
-      <Box sx={{ flex: 1, minHeight: 0, pb: isMobile ? 'calc(56px + env(safe-area-inset-bottom))' : 0 }}>
-        <CustomTabPanel value={activeTab} index={0}>
-          <DownloadPanel />
-        </CustomTabPanel>
-        <CustomTabPanel value={activeTab} index={1}>
-          <SearchPanel expandSignal={searchExpandTimestamp} />
-        </CustomTabPanel>
-        <CustomTabPanel value={activeTab} index={2}>
-          <SettingsPanel ref={settingsRef} />
-        </CustomTabPanel>
-      </Box>
-
-      <BottomNavigation
-        value={activeTab}
-        onChange={handleTabChange}
-        showLabels
-        sx={{ 
-          position: 'fixed', 
-          bottom: 0, 
-          left: 0, 
-          right: 0,
-          display: isMobile ? 'flex' : 'none',
-          zIndex: 1000,
-          bgcolor: 'background.paper',
-          borderTop: '1px solid',
-          borderColor: 'divider',
-          pb: 'env(safe-area-inset-bottom)',
-          height: 'auto',
-          '& .MuiBottomNavigationAction-root': {
-            minWidth: 'auto',
-            padding: '6px 0'
-          }
-        }}
-      >
-        <BottomNavigationAction 
-          label="Downloads" 
-          icon={<DownloadIcon />} 
-        />
-        <BottomNavigationAction 
-          label="Search" 
-          icon={<SearchIcon />} 
-          onClick={() => {
-            if (activeTab === 1) {
-              setSearchExpandTimestamp(Date.now());
-            }
+        <Snackbar
+          open={webUnavailableOpen}
+          autoHideDuration={6000}
+          onClose={() => setWebUnavailableOpen(false)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          sx={{
+            // Keep above the bottom navigation on mobile
+            bottom: isMobile
+              ? 'calc(env(safe-area-inset-bottom) + 64px) !important'
+              : undefined,
           }}
-        />
-        <BottomNavigationAction 
-          label="Settings" 
-          icon={<SettingsIcon />} 
-        />
-      </BottomNavigation>
-    </Container>
+        >
+          <Alert
+            severity="info"
+            variant="filled"
+            onClose={() => setWebUnavailableOpen(false)}
+            sx={{ maxWidth: 480 }}
+          >
+            Direct Usenet needs a TLS socket, which isn't available in the browser. Use SABnzbd / NZBget here, or run the Electron or Android build.
+          </Alert>
+        </Snackbar>
+      </Container>
+
+      <SettingsSheet
+        open={settingsOpen}
+        onOpen={() => setSettingsOpen(true)}
+        onClose={() => setSettingsOpen(false)}
+        panelRef={settingsRef}
+      />
+    </>
   );
 }
 

@@ -3,7 +3,7 @@
   "version": "0.0.7",
   "type": "module",
   "description": "A generic NZB downloader application built with Electron, Vite, React, and TypeScript",
-  "main": "electron/main.js",
+  "main": "dist-electron/main/electron/main.js",
   "author": {
     "name": "Dan",
     "email": "dan_jeff@hotmail.co.uk"
@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "vite",
     "dev:electron": "concurrently --kill-others --raw \"npm run dev\" \"npm run build:electron:watch\" \"npm run dev:electron-only\"",
-    "dev:electron-only": "wait-on http://localhost:5174 && sleep 2 && NODE_ENV=development npx electron . --no-sandbox --disable-gpu --disable-dev-shm-usage",
+    "dev:electron-only": "wait-on http://localhost:5174 dist-electron/main/electron/main.js && NODE_ENV=development npx electron . --no-sandbox --disable-gpu --disable-dev-shm-usage",
     "build": "vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build:electron:watch": "tsc -p tsconfig.electron.json --watch",
@@ -32,7 +32,7 @@
     "@capacitor/android": "^8.0.1",
     "@capacitor/app": "^8.0.0",
     "@capacitor/cli": "^8.0.1",
-    "@capacitor-community/file-opener": "^6.0.0",
+    "@capacitor-community/file-opener": "^8.0.0",
     "@capacitor/core": "^8.0.1",
     "@capacitor/filesystem": "^8.0.0",
     "@capacitor/preferences": "^8.0.0",
@@ -97,10 +97,10 @@
     "icon": "assets/icon.png",
     "files": [
       "dist/**/*",
-      "electron/**/*",
+      "dist-electron/main/**/*",
+      "electron/preload.cjs",
       "node_modules/**/*",
-      "assets/**/*",
-      "!electron/**/*.ts"
+      "assets/**/*"
     ],
     "win": {
       "target": "nsis",

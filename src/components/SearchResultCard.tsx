@@ -46,13 +46,11 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
       sx={{
         p: 2,
         mb: 1.5,
-        background: 'rgba(30, 41, 59, 0.4)',
-        border: '1px solid rgba(148, 163, 184, 0.12)',
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'background-color 0.15s ease, border-color 0.15s ease',
         '&:hover': {
-          background: 'rgba(30, 41, 59, 0.6)',
-          borderColor: 'rgba(139, 92, 246, 0.3)',
+          bgcolor: 'action.hover',
+          borderColor: 'secondary.main',
         },
       }}
     >
@@ -65,7 +63,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
             variant="body2"
             sx={{
               fontWeight: 700,
-              color: 'rgba(255,255,255,0.95)',
+              color: 'text.primary',
               wordBreak: 'break-word',
               fontSize: '0.9rem',
               lineHeight: 1.3,
@@ -89,7 +87,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
                   '& .MuiChip-label': { px: 0.75 }
                 }}
               />
-               <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace' }}>
+               <Typography variant="caption" sx={{ color: 'text.secondary', fontFamily: 'monospace' }}>
                 {formatBytes(result.size)}
               </Typography>
             </Box>
@@ -99,49 +97,48 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
         {/* Right: Quick Action (Collapsed) or Expand Icon */}
         <Box sx={{ display: 'flex', alignItems: 'flex-start', height: '100%', pt: 0 }}>
             {!isExpanded ? (
-                <IconButton 
-                    size="small" 
+                <IconButton
+                    size="small"
                     onClick={(e) => handleAction(e, 'newsreader')}
-                    sx={{ 
+                    sx={{
                         color: 'secondary.main',
-                        background: 'rgba(156, 39, 176, 0.1)',
-                        '&:hover': { background: 'rgba(156, 39, 176, 0.2)' }
+                        '&:hover': { bgcolor: 'action.hover' }
                     }}
                 >
                     <CloudDownloadIcon sx={{ fontSize: 20 }} />
                 </IconButton>
             ) : (
-                <CollapseIcon sx={{ color: 'rgba(255,255,255,0.3)', fontSize: 20 }} />
+                <CollapseIcon sx={{ color: 'text.disabled', fontSize: 20 }} />
             )}
         </Box>
       </Box>
 
       {/* Expanded Details */}
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-        <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
           
           {/* Metadata Grid */}
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 2 }}>
             <Box>
-                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', mb: 0.5 }}>Size</Typography>
-                <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'rgba(255,255,255,0.9)' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.5 }}>Size</Typography>
+                <Typography variant="body2" sx={{ fontFamily: 'monospace', color: 'text.primary' }}>
                     {formatBytes(result.size)}
                 </Typography>
             </Box>
             <Box>
-                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', mb: 0.5 }}>Date</Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.5 }}>Date</Typography>
+                <Typography variant="body2" sx={{ color: 'text.primary' }}>
                     {result.date}
                 </Typography>
             </Box>
             <Box>
-                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', mb: 0.5 }}>Provider</Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.5 }}>Provider</Typography>
+                <Typography variant="body2" sx={{ color: 'text.primary' }}>
                     {result.source}
                 </Typography>
             </Box>
              <Box>
-                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', mb: 0.5 }}>Type</Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.5 }}>Type</Typography>
                 <Chip
                     label={result.type.toUpperCase()}
                     size="small"
@@ -157,33 +154,20 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ result, onDownload,
             <Button
               fullWidth
               variant="contained"
+              color="primary"
               startIcon={<DownloadIcon />}
               onClick={(e) => handleAction(e, 'local')}
-              sx={{
-                py: 1,
-                background: 'linear-gradient(135deg, #00E5FF 0%, #00B4D8 100%)',
-                color: '#0F172A',
-                fontWeight: 700,
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #00B4D8 0%, #00E5FF 100%)',
-                },
-              }}
+              sx={{ py: 1, fontWeight: 600 }}
             >
               Download NZB
             </Button>
             <Button
               fullWidth
               variant="contained"
+              color="secondary"
               startIcon={<CloudDownloadIcon />}
               onClick={(e) => handleAction(e, 'newsreader')}
-              sx={{
-                py: 1,
-                background: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%)',
-                fontWeight: 700,
-                '&:hover': {
-                    background: 'linear-gradient(135deg, #7B1FA2 0%, #9C27B0 100%)',
-                },
-              }}
+              sx={{ py: 1, fontWeight: 600 }}
             >
               Send to Newsreader
             </Button>

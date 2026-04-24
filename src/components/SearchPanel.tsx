@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
@@ -250,15 +250,50 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
     });
   };
 
+  // Swipe handlers to collapse/expand the search section.
+  // Attached to the SEARCH header (always visible) and the controls Paper.
+  const searchTouchRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleSearchTouchStart = (event: React.TouchEvent) => {
+    const t = event.touches[0];
+    searchTouchRef.current = { x: t.clientX, y: t.clientY, time: Date.now() };
+  };
+
+  const handleSearchTouchEnd = (event: React.TouchEvent) => {
+    const start = searchTouchRef.current;
+    if (!start) return;
+    searchTouchRef.current = null;
+
+    const t = event.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Date.now() - start.time > 600) return;
+
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+    if (absY < 40) return;
+    if (absY < absX * 1.5) return; // mostly-vertical only
+
+    if (dy < 0 && !isSearchCollapsed) {
+      setIsSearchCollapsed(true);
+    } else if (dy > 0 && isSearchCollapsed) {
+      setIsSearchCollapsed(false);
+    }
+  };
+
   return (
     <>
       {console.log('[SearchPanel] Component render, searching:', searching, 'query:', query)}
       <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
-      <Box sx={{ mb: 4 }}>
+      <Box
+        sx={{ mb: 4, touchAction: 'pan-x' }}
+        onTouchStart={handleSearchTouchStart}
+        onTouchEnd={handleSearchTouchEnd}
+      >
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <SearchIcon sx={{ color: 'primary.main', fontSize: 26 }} />
-            <Typography variant="h5" sx={{ color: '#fff' }}>SEARCH</Typography>
+            <Typography variant="h5" sx={{ color: 'text.primary' }}>SEARCH</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {allResults.length > 0 && (
@@ -267,8 +302,8 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                   onClick={handleToggleExpandAll}
                   size={isMobile ? "medium" : "small"}
                   sx={{ 
-                    color: 'rgba(255,255,255,0.3)', 
-                    '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                    color: 'text.disabled', 
+                    '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } 
                   }}
                 >
                   {resultsCollapseSignal?.expanded ? (
@@ -284,8 +319,8 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                 onClick={handleSortMenuOpen}
                 size={isMobile ? "medium" : "small"}
                 sx={{ 
-                  color: 'rgba(255,255,255,0.3)', 
-                  '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                  color: 'text.disabled', 
+                  '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } 
                 }}
               >
                 <SortIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
@@ -296,8 +331,8 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                 onClick={() => setIsSearchCollapsed(!isSearchCollapsed)}
                 size={isMobile ? "medium" : "small"}
                 sx={{ 
-                  color: 'rgba(255,255,255,0.3)', 
-                  '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                  color: 'text.disabled', 
+                  '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } 
                 }}
               >
                 {isSearchCollapsed ? 
@@ -317,9 +352,9 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
         onClose={handleSortMenuClose}
         PaperProps={{
           sx: {
-            background: '#1e293b',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,0.1)',
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            border: '1px solid', borderColor: 'divider',
             minWidth: 200,
           }
         }}
@@ -341,7 +376,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
           {sortField === 'source' && <ListItemIcon sx={{ minWidth: 'auto !important' }}><CheckIcon sx={{ fontSize: 16, color: 'primary.main' }} /></ListItemIcon>}
         </MenuItem>
         
-        <Divider sx={{ my: 1, borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider sx={{ my: 1, borderColor: 'divider' }} />
         
         <MenuItem onClick={() => { setSortOrder('asc'); handleSortMenuClose(); }}>
           <ListItemText>Ascending</ListItemText>
@@ -355,7 +390,11 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
 
       {/* Search Controls */}
       <Collapse in={!isSearchCollapsed}>
-        <Paper sx={{ p: 3, mb: 3, background: 'linear-gradient(145deg, #141B2D 0%, #0F172A 100%)' }}>
+        <Paper
+          sx={{ p: 3, mb: 3 }}
+          onTouchStart={handleSearchTouchStart}
+          onTouchEnd={handleSearchTouchEnd}
+        >
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, sm: 9, md: 10 }}>
               <TextField
@@ -388,12 +427,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                 variant="contained"
                 onClick={handleSearch}
                 disabled={!query.trim() || searching}
-                sx={{ 
-                  height: 40,
-                  whiteSpace: 'nowrap',
-                  background: 'primary.main',
-                  '&:hover': { background: 'primary.dark' }
-                }}
+                sx={{ height: 40, whiteSpace: 'nowrap' }}
               >
                 {searching ? <CircularProgress size={20} color="inherit" /> : 'Search'}
               </Button>
@@ -401,7 +435,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
           </Grid>
 
           {allResults.length > 0 && (
-            <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+            <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
               <Grid container spacing={3}>
                 {/* Include Filter */}
                 <Grid size={{ xs: 12, md: 6 }}>
@@ -416,7 +450,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <FilterIcon sx={{ color: 'rgba(255,255,255,0.3)', fontSize: 18 }} />
+                          <FilterIcon sx={{ color: 'text.disabled', fontSize: 18 }} />
                         </InputAdornment>
                       ),
                     }}
@@ -500,15 +534,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
       {isRetrying && retryCountdown > 0 && (
         <Alert
           severity="warning"
-          sx={{
-            mb: 3,
-            backgroundColor: 'rgba(237, 137, 54, 0.12)',
-            color: 'rgba(255, 193, 7, 1)',
-            border: '1px solid rgba(255, 193, 7, 0.3)',
-            '& .MuiAlert-icon': {
-              color: 'rgba(255, 193, 7, 1)',
-            },
-          }}
+          sx={{ mb: 3 }}
         >
           ⚠ Rate limited by indexer — retrying in {retryCountdown}s...
         </Alert>
@@ -528,7 +554,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
             }}
           >
             <CircularProgress size={40} sx={{ mb: 2 }} />
-            <Typography sx={{ color: 'rgba(255,255,255,0.5)' }}>Searching providers...</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Searching providers...</Typography>
           </Box>
         ) : searchError ? (
           <Box sx={{ textAlign: 'center', p: 3 }}>
@@ -542,12 +568,12 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                   wordBreak: 'break-word',
                   maxHeight: 220,
                   overflow: 'auto',
-                  backgroundColor: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid rgba(148, 163, 184, 0.2)',
+                  bgcolor: 'background.paper',
+                  border: '1px solid', borderColor: 'divider',
                   borderRadius: 1,
                   p: 2,
                   mb: 2,
-                  color: 'rgba(255,255,255,0.8)',
+                  color: 'text.primary',
                   fontSize: '0.75rem',
                 }}
               >
@@ -590,15 +616,15 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                   <TableRow
                     sx={{
                       '& th': {
-                        borderBottom: '1px solid rgba(255,255,255,0.08)',
+                        borderBottom: '1px solid', borderColor: 'divider',
                         pb: 1,
                         pt: 0,
                         fontWeight: 800,
-                        color: 'rgba(255,255,255,0.3)',
+                        color: 'text.disabled',
                         textTransform: 'uppercase',
                         fontSize: '0.725rem',
                         letterSpacing: '0.05em',
-                        backgroundColor: 'rgba(10, 15, 29, 0.98)',
+                        bgcolor: 'background.paper',
                       },
                     }}
                   >
@@ -675,9 +701,9 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                     <TableRow
                       key={result.id}
                       sx={{
-                        backgroundColor: index % 2 === 0 ? 'transparent' : 'rgba(148, 163, 184, 0.03)',
-                        '&:hover': { backgroundColor: 'rgba(139, 92, 246, 0.08)' },
-                        '& td': { borderBottom: '1px solid rgba(148, 163, 184, 0.06)', py: 0.75 },
+                        backgroundColor: index % 2 === 0 ? 'transparent' : 'action.hover',
+                        '&:hover': { bgcolor: 'action.hover' },
+                        '& td': { borderBottom: '1px solid', py: 0.75 },
                       }}
                     >
                       <TableCell
@@ -691,7 +717,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                       >
                         <Typography
                           variant="body2"
-                          sx={{ fontWeight: 600, fontSize: '0.9375rem', color: 'rgba(255,255,255,0.9)' }}
+                          sx={{ fontWeight: 600, fontSize: '0.9375rem', color: 'text.primary' }}
                         >
                           {result.title}
                         </Typography>
@@ -699,18 +725,18 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                       <TableCell align="right">
                         <Typography
                           variant="caption"
-                          sx={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace', fontWeight: 500 }}
+                          sx={{ color: 'text.secondary', fontFamily: 'monospace', fontWeight: 500 }}
                         >
                           {formatBytes(result.size)}
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                           {result.date}
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.5)' }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                           {result.source}
                         </Typography>
                       </TableCell>
@@ -729,7 +755,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                             <IconButton
                               size="small"
                               onClick={() => handleDownload(result.link, result.title, 'local')}
-                              sx={{ p: 0.5, color: 'primary.main', '&:hover': { background: 'rgba(0, 229, 255, 0.1)' } }}
+                              sx={{ p: 0.5, color: 'primary.main', '&:hover': { bgcolor: 'action.hover' } }}
                             >
                               <DownloadIcon sx={{ fontSize: 18 }} />
                             </IconButton>
@@ -738,7 +764,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
                             <IconButton
                               size="small"
                               onClick={() => handleDownload(result.link, result.title, 'newsreader')}
-                              sx={{ p: 0.5, color: 'secondary.main', '&:hover': { background: 'rgba(156, 39, 176, 0.1)' } }}
+                              sx={{ p: 0.5, color: 'secondary.main', '&:hover': { bgcolor: 'action.hover' } }}
                             >
                               <CloudDownloadIcon sx={{ fontSize: 18 }} />
                             </IconButton>
@@ -760,7 +786,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ expandSignal }) => {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              color: 'rgba(255,255,255,0.2)',
+              color: 'text.disabled',
             }}
           >
             {hasSearched ? (

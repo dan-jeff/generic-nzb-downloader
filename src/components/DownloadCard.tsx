@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Typography,
@@ -17,6 +17,7 @@ import {
 } from '@mui/icons-material';
 import { DownloadProgress } from '../electron';
 import { formatBytes, formatDuration } from '../utils/format';
+import { useCollapsedState, CollapseSignal } from '../hooks/useCollapsedState';
 
 interface DownloadCardProps {
   download: DownloadProgress;
@@ -25,7 +26,7 @@ interface DownloadCardProps {
   onDelete: (id: string) => void;
   onDeleteDisk: (id: string) => void;
   onOpenLocation: (path: string) => void;
-  collapseSignal?: { expanded: boolean; timestamp: number } | null;
+  collapseSignal?: CollapseSignal | null;
 }
 
 const getStatusColor = (status: string) => {
@@ -35,7 +36,7 @@ const getStatusColor = (status: string) => {
     case 'queued': return '#00bcd4';      // Cyan
     case 'failed': return '#f44336';      // Red
     case 'completed': return '#4caf50';   // Green
-    default: return 'rgba(255,255,255,0.5)';
+    default: return '#94A3B8';
   }
 };
 
@@ -48,28 +49,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
   onOpenLocation,
   collapseSignal,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  useEffect(() => {
-    const collapsed = localStorage.getItem(`collapsed_${download.id}`);
-    if (collapsed === 'true') {
-      setIsCollapsed(true);
-    }
-  }, [download.id]);
-
-  useEffect(() => {
-    if (collapseSignal) {
-      const shouldCollapse = !collapseSignal.expanded;
-      setIsCollapsed(shouldCollapse);
-      localStorage.setItem(`collapsed_${download.id}`, String(shouldCollapse));
-    }
-  }, [collapseSignal, download.id]);
-
-  const toggleCollapse = () => {
-    const newState = !isCollapsed;
-    setIsCollapsed(newState);
-    localStorage.setItem(`collapsed_${download.id}`, String(newState));
-  };
+  const [isCollapsed, toggleCollapse] = useCollapsedState(download.id, collapseSignal);
 
   const remainingBytes = download.totalBytes - download.transferredBytes;
   const speed = download.speed || 0;
@@ -77,19 +57,14 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
   const timeRemaining = formatDuration(remainingSeconds);
 
   return (
-    <Paper 
-      sx={{ 
-        p: isMobile ? 2 : 2.5, 
-        background: 'rgba(30, 41, 59, 0.4)',
-        border: '1px solid rgba(148, 163, 184, 0.12)',
-        borderRadius: 1,
-        transition: 'all 0.15s ease',
+    <Paper
+      sx={{
+        p: isMobile ? 2 : 2.5,
+        transition: 'background-color 0.15s ease, border-color 0.15s ease',
         cursor: 'default',
         '&:hover': {
-          background: 'rgba(30, 41, 59, 0.6)',
-          borderColor: 'rgba(0, 229, 255, 0.3)',
-          transform: 'translateY(-1px)',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+          bgcolor: 'action.hover',
+          borderColor: 'primary.main',
         }
       }}
     >
@@ -109,17 +84,17 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
         {/* Title Content */}
         <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: '#fff', wordBreak: 'break-word', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary', wordBreak: 'break-word', fontSize: isMobile ? '0.875rem' : '0.9375rem', width: '100%' }}>
                     {download.filename}
                 </Typography>
                 
                 {/* Show badges only if NOT collapsed */}
                 {!isCollapsed && !isMobile && (
                     <>
-                        <Chip 
-                            label={download.providerName} 
-                            size="small" 
-                            sx={{ height: 16, fontSize: '0.675rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
+                        <Chip
+                            label={download.providerName}
+                            size="small"
+                            sx={{ height: 18, fontSize: '0.675rem', fontWeight: 700, textTransform: 'uppercase', bgcolor: 'action.hover', color: 'text.secondary', borderRadius: 0.5, px: 0.5 }}
                         />
                         <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.725rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                             {download.status}
@@ -130,10 +105,10 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
              {/* Mobile Badges - Expanded Only */}
              {!isCollapsed && isMobile && (
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, flexWrap: 'wrap' }}>
-                    <Chip 
-                        label={download.providerName} 
-                        size="small" 
-                        sx={{ height: 20, fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', borderRadius: 0.5, px: 0.5 }} 
+                    <Chip
+                        label={download.providerName}
+                        size="small"
+                        sx={{ height: 22, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', bgcolor: 'action.hover', color: 'text.secondary', borderRadius: 0.5, px: 0.5 }}
                     />
                     <Typography variant="caption" sx={{ color: getStatusColor(download.status), fontWeight: 800, fontSize: '0.775rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         {download.status}
@@ -151,28 +126,28 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
                 <IconButton
                     size={isMobile ? "medium" : "small"}
                     onClick={() => onOpenLocation(download.path || download.filename)}
-                    sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}
+                    sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}
                 >
-                    <OpenIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                    <OpenIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
                 <Tooltip title={download.status === 'paused' ? "Resume" : "Pause"}>
-                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onPause(download.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: 'primary.main', backgroundColor: 'rgba(0, 229, 255, 0.1)' } }}>
-                    {download.status === 'paused' ? <ResumeIcon sx={{ fontSize: isMobile ? 24 : 18 }} /> : <PauseIcon sx={{ fontSize: isMobile ? 24 : 18 }} />}
+                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onPause(download.id)} sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}>
+                    {download.status === 'paused' ? <ResumeIcon sx={{ fontSize: isMobile ? 22 : 18 }} /> : <PauseIcon sx={{ fontSize: isMobile ? 22 : 18 }} />}
                 </IconButton>
                 </Tooltip>
                 <Tooltip title="Delete">
-                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onDelete(download.id)} sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#ff4444', backgroundColor: 'rgba(255, 68, 68, 0.1)' } }}>
-                    <DeleteIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                <IconButton size={isMobile ? "medium" : "small"} onClick={() => onDelete(download.id)} sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'error.main', bgcolor: 'action.hover' } }}>
+                    <DeleteIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
                 <Tooltip title="Delete from Disk">
-                <IconButton 
-                    size={isMobile ? "medium" : "small"} 
-                    onClick={() => onDeleteDisk(download.id)} 
-                    sx={{ width: isMobile ? 48 : 24, height: isMobile ? 48 : 24, color: 'text.secondary', '&:hover': { color: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)' } }}
+                <IconButton
+                    size={isMobile ? "medium" : "small"}
+                    onClick={() => onDeleteDisk(download.id)}
+                    sx={{ width: isMobile ? 40 : 28, height: isMobile ? 40 : 28, color: 'text.secondary', '&:hover': { color: 'error.main', bgcolor: 'action.hover' } }}
                 >
-                    <DeleteForeverIcon sx={{ fontSize: isMobile ? 24 : 18 }} />
+                    <DeleteForeverIcon sx={{ fontSize: isMobile ? 22 : 18 }} />
                 </IconButton>
                 </Tooltip>
             </Box>
@@ -182,19 +157,17 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
       {/* Progress Bar (Always Visible) */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box sx={{ flex: 1 }}>
-          <LinearProgress 
-            variant="determinate" 
-            value={download.percent * 100} 
-            sx={{ 
+          <LinearProgress
+            variant="determinate"
+            value={download.percent * 100}
+            sx={{
               height: isMobile ? 6 : 4,
               borderRadius: 2,
-              backgroundColor: 'rgba(255,255,255,0.05)',
               '& .MuiLinearProgress-bar': {
                 borderRadius: 2,
                 backgroundColor: getStatusColor(download.status),
-                boxShadow: `0 0 8px ${getStatusColor(download.status)}44`,
               }
-            }} 
+            }}
           />
         </Box>
         {/* Percentage - Expanded Only */}

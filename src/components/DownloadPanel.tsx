@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import {
   Box,
   Typography,
-  Paper,
   List,
   IconButton,
   Tooltip,
@@ -15,13 +14,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-
-const getElectronBridge = () => {
-  if (typeof window === 'undefined') {
-    return undefined;
-  }
-  return (window as any).electron as any | undefined;
-};
 import {
   DeleteSweep as ClearIcon,
   CheckCircle as CompletedIcon,
@@ -33,19 +25,22 @@ import {
 import { useDownloads } from '../hooks/useDownloads';
 import DownloadCard from './DownloadCard';
 import HistoryCard from './HistoryCard';
+import PullToRefresh from './PullToRefresh';
+import { getElectronBridge } from '../utils/platform';
 
   const DownloadPanel: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
-  const { 
-    activeDownloads, 
-    history, 
+  const {
+    activeDownloads,
+    history,
     startDownload,
     clearHistory,
     pauseDownload,
     deleteDownload,
     deleteDownloadWithFiles,
+    refreshHistory,
   } = useDownloads();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -113,13 +108,18 @@ import HistoryCard from './HistoryCard';
     });
   };
 
+  const handleRefresh = async () => {
+    await refreshHistory();
+  };
+
   return (
-    <Box 
+    <PullToRefresh onRefresh={handleRefresh}>
+    <Box
       onDrop={handleDrop}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      sx={{ 
+      sx={{
         height: '100%',
         position: 'relative',
         '&::after': !isMobile && isDragging ? {
@@ -131,7 +131,7 @@ import HistoryCard from './HistoryCard';
           bottom: 0,
           border: '2px dashed #00bcd4',
           borderRadius: 2,
-          backgroundColor: 'rgba(0, 188, 212, 0.05)',
+          bgcolor: 'action.hover',
           pointerEvents: 'none',
           zIndex: 10,
         } : {},
@@ -149,7 +149,7 @@ import HistoryCard from './HistoryCard';
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <ActiveIcon sx={{ color: 'primary.main', fontSize: isMobile ? 22 : 26 }} />
-            <Typography variant="h5" sx={{ color: '#fff', fontSize: isMobile ? '1.25rem' : 'h5.fontSize' }}>DOWNLOADS</Typography>
+            <Typography variant="h5" sx={{ color: 'text.primary', fontSize: isMobile ? '1.25rem' : 'h5.fontSize' }}>DOWNLOADS</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {(activeDownloadsFiltered.length > 0 || history.length > 0) && (
@@ -158,8 +158,8 @@ import HistoryCard from './HistoryCard';
                   onClick={handleToggleExpandAll}
                   size={isMobile ? "medium" : "small"}
                   sx={{ 
-                    color: 'rgba(255,255,255,0.3)', 
-                    '&:hover': { color: 'primary.main', background: 'rgba(0, 188, 212, 0.1)' } 
+                    color: 'text.disabled', 
+                    '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } 
                   }}
                 >
                   {downloadsCollapseSignal?.expanded ? (
@@ -171,12 +171,12 @@ import HistoryCard from './HistoryCard';
               </Tooltip>
             )}
             <Tooltip title="Add NZB">
-              <IconButton onClick={() => fileInputRef.current?.click()} size={isMobile ? "medium" : "small"} sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}>
+              <IconButton onClick={() => fileInputRef.current?.click()} size={isMobile ? "medium" : "small"} sx={{ color: 'text.disabled', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}>
                 <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
               </IconButton>
             </Tooltip>
             <Tooltip title="Clear History">
-              <IconButton onClick={clearHistory} size={isMobile ? "medium" : "small"} sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#ff4444', background: 'rgba(255, 68, 68, 0.1)' } }}>
+              <IconButton onClick={clearHistory} size={isMobile ? "medium" : "small"} sx={{ color: 'text.disabled', '&:hover': { color: 'error.main', bgcolor: 'action.hover' } }}>
                 <ClearIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
               </IconButton>
             </Tooltip>
@@ -211,17 +211,11 @@ import HistoryCard from './HistoryCard';
       )}
 
       {/* History */}
-      <Box>
+      {history.length > 0 && (
+        <Box>
           <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2, color: 'text.secondary', fontWeight: 800, letterSpacing: '0.1em', fontSize: '0.775rem' }}>
-          <CompletedIcon sx={{ fontSize: 14 }} /> COMPLETED
-        </Typography>
-        {history.length === 0 ? (
-          <Paper sx={{ background: 'rgba(255,255,255,0.01)', borderRadius: 1 }}>
-            <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.2)', textAlign: 'center', display: 'block', py: 3 }}>
-              NO HISTORY
-            </Typography>
-          </Paper>
-        ) : (
+            <CompletedIcon sx={{ fontSize: 14 }} /> COMPLETED
+          </Typography>
           <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {history.map((item) => (
               <HistoryCard
@@ -238,8 +232,27 @@ import HistoryCard from './HistoryCard';
               />
             ))}
           </List>
-        )}
-      </Box>
+        </Box>
+      )}
+
+      {/* Empty state — matches SearchPanel's style + placement */}
+      {activeDownloadsFiltered.length === 0 && history.length === 0 && (
+        <Box
+          sx={{
+            textAlign: 'center',
+            flex: 1,
+            minHeight: 240,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'text.disabled',
+          }}
+        >
+          <CompletedIcon sx={{ fontSize: 62, mb: 2, opacity: 0.1 }} />
+          <Typography>Downloaded files will appear here</Typography>
+        </Box>
+      )}
 
       {/* Confirmation Dialog */}
       <Dialog
@@ -247,22 +260,22 @@ import HistoryCard from './HistoryCard';
         onClose={() => setConfirmDeleteId(null)}
         PaperProps={{
           sx: {
-            background: '#1e293b',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,0.1)',
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            border: '1px solid', borderColor: 'divider',
           }
         }}
       >
-        <DialogTitle sx={{ color: '#fff' }}>
+        <DialogTitle sx={{ color: 'text.primary' }}>
           Delete File from Disk?
         </DialogTitle>
         <DialogContent>
-          <DialogContentText sx={{ color: 'rgba(255,255,255,0.7)' }}>
+          <DialogContentText sx={{ color: 'text.primary' }}>
             Are you sure you want to permanently delete this file? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setConfirmDeleteId(null)} sx={{ color: 'rgba(255,255,255,0.5)' }}>
+          <Button onClick={() => setConfirmDeleteId(null)} sx={{ color: 'text.secondary' }}>
             Cancel
           </Button>
           <Button 
@@ -281,6 +294,7 @@ import HistoryCard from './HistoryCard';
         </DialogActions>
       </Dialog>
     </Box>
+    </PullToRefresh>
   );
 };
 

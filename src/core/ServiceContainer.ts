@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
-import { IFileSystem } from '@/core/interfaces/IFileSystem.js';
-import { IStorage } from '@/core/interfaces/IStorage.js';
+import { IFileSystem } from './interfaces/IFileSystem.js';
+import { IStorage } from './interfaces/IStorage.js';
 import { NodeFSAdapter } from '../../electron/adapters/NodeFSAdapter.js';
 import { CapacitorFSAdapter } from '../../src/mobile/adapters/CapacitorFSAdapter.js';
 import { NodeStorageAdapter } from '../../electron/adapters/NodeStorageAdapter.js';
@@ -8,7 +8,7 @@ import { ElectronRendererStorageAdapter } from './adapters/ElectronRendererStora
 import { CapacitorStorageAdapter } from '../../src/mobile/adapters/CapacitorStorageAdapter.js';
 import { NodeNetworkAdapter } from '../../electron/adapters/NodeNetworkAdapter.js';
 import { TlsSocketNetworkAdapter } from '../../src/mobile/adapters/TlsSocketNetworkAdapter.js';
-import { INetwork } from '@/core/interfaces/INetwork.js';
+import { INetwork } from './interfaces/INetwork.js';
 import { DownloadManager } from './download/DownloadManager.js';
 import { SearchManager } from './search/SearchManager.js';
 
@@ -127,11 +127,13 @@ export class ServiceContainer {
     if (this._platform === Platform.Electron) {
       return new ElectronRendererStorageAdapter();
     }
-    if (this.isMobile) {
+    // Mobile (Android/iOS native) and Web both use @capacitor/preferences;
+    // its web fallback is localStorage, which is what we want for `npm run dev`.
+    if (this.isMobile || this._platform === Platform.Web) {
       return new CapacitorStorageAdapter();
-    } else {
-      return new NodeStorageAdapter();
     }
+    // Node (electron-store) fallback — only valid when code runs in the Electron main process.
+    return new NodeStorageAdapter();
   }
 
   async getDownloadManager(): Promise<DownloadManager> {

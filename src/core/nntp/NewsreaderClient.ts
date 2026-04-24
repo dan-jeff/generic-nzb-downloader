@@ -754,7 +754,7 @@ export class NntpConnectionPool {
     this.username = username;
     this.password = password;
     this.networkFactory = networkFactory;
-    this.maxConnections = config.maxConnections || 4;
+    this.maxConnections = config.maxConnections || 20;
     this.articleTimeoutMs = config.articleTimeoutMs || 15000;
   }
 
@@ -1639,26 +1639,6 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
     const downloadSubfolder = `${downloadPath}/${downloadName}`;
     console.log(`[DirectUsenetClient] Output path for display: ${downloadSubfolder}`);
 
-    // Save the NZB file itself to the root directory
-    if (this.fileSystem && downloadPath) {
-        try {
-            let nzbFilePath = `${downloadPath}/${filename}`;
-            if (!nzbFilePath.toLowerCase().endsWith('.nzb')) {
-              nzbFilePath += '.nzb';
-            }
-            const isAndroid = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android';
-            if (isAndroid) {
-                // On Android, JS adapter uses ExternalStorage root. We need to point to Download/ folder explicitly
-                // to match what the Java plugin does (which defaults to Downloads/ relative path)
-                nzbFilePath = `Download/${nzbFilePath}`;
-            }
-            await this.fileSystem.writeFile(nzbFilePath, content);
-            console.log(`[DirectUsenetClient] Saved NZB file to: ${nzbFilePath}`);
-        } catch (err) {
-            console.warn(`[DirectUsenetClient] Failed to save NZB file: ${err}`);
-        }
-    }
-
     this.activeDownloads.set(id, {
       id,
       name: downloadName,  // Use NZB filename without .nzb extension
@@ -1731,9 +1711,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
           useSSL = true;
         }
 
-        const maxConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 10;
-        // Cap connections on Android to avoid SocketException/Connection Abort
-        const actualConnections = Math.min(maxConnections, 4);
+        const actualConnections = this.settings.maxConnections || this.settings.segmentConcurrency || 20;
 
         const server = {
           host: this.settings.hostname!,
@@ -1920,12 +1898,7 @@ export class DirectUsenetClient extends BaseNewsreaderClient {
         const downloadedSegments = new Map<number, StoredSegment>();
         let downloadedBytesFile = 0;
 
-        // Parallel segment download (matching desktop implementation)
-        // isAndroid is already defined at the top of the function
-        const maxConcurrent = isAndroid ? 1 : (this.settings.segmentConcurrency || 10);
-        if (isAndroid) {
-          console.log('[DirectUsenetClient] Android detected: forcing sequential download (concurrency 1)');
-        }
+        const maxConcurrent = this.settings.segmentConcurrency || 20;
         let index = 0;
         const activeDownloads = new Map<string, Promise<void>>();
 

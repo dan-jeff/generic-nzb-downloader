@@ -1,10 +1,8 @@
 import debugLogger from './utils/debugLogger';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
-import theme from './theme';
+import { ThemeModeProvider } from './contexts/ThemeModeContext';
 import './index.css';
 
 console.log('GenericDownloader: main.tsx executing');
@@ -18,10 +16,9 @@ try {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
       <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+        <ThemeModeProvider>
           <App />
-        </ThemeProvider>
+        </ThemeModeProvider>
       </React.StrictMode>
     );
     console.log('GenericDownloader: React mount command issued');

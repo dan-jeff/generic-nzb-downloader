@@ -50,6 +50,7 @@ import DirectoryPicker from './DirectoryPicker';
 import debugLogger from '../utils/debugLogger';
 import { serviceContainer, Platform } from '../core/ServiceContainer';
 import { updateService } from '../core/UpdateService';
+import { getElectronBridge } from '../utils/platform';
 
 // Type Definitions
 type SettingsView = 'root' | 'downloads' | 'updates' | 'indexers' | 'newsreaders' | 'logs';
@@ -57,13 +58,6 @@ type SettingsView = 'root' | 'downloads' | 'updates' | 'indexers' | 'newsreaders
 export interface SettingsPanelHandle {
   handleBack: () => boolean;
 }
-
-const getElectronBridge = () => {
-  if (typeof window === 'undefined') {
-    return undefined;
-  }
-  return (window as any).electron as any | undefined;
-};
 
 const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
   // Hooks
@@ -339,13 +333,13 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
     <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         {currentView !== 'root' ? (
-          <IconButton onClick={() => setCurrentView('root')} sx={{ color: 'white', p: 0.5 }}>
+          <IconButton onClick={() => setCurrentView('root')} sx={{ color: 'text.primary', p: 0.5 }}>
             <ArrowBackIcon />
           </IconButton>
         ) : (
           <SettingsIcon sx={{ color: 'primary.main', fontSize: 26 }} />
         )}
-        <Typography variant="h5" sx={{ color: '#fff', fontWeight: 600 }}>
+        <Typography variant="h5" sx={{ color: 'text.primary', fontWeight: 600 }}>
           {currentView === 'root' ? 'SETTINGS' : 
            currentView === 'downloads' ? 'DOWNLOADS' :
            currentView === 'updates' ? 'UPDATES' :
@@ -357,7 +351,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
       <Box sx={{ display: 'flex', gap: 1 }}>
         {currentView === 'root' && (
           <Tooltip title="Discard changes">
-            <IconButton onClick={fetchSettings} size={isMobile ? "medium" : "small"} sx={{ color: 'rgba(255,255,255,0.3)' }}>
+            <IconButton onClick={fetchSettings} size={isMobile ? "medium" : "small"} sx={{ color: 'text.disabled' }}>
               <RefreshIcon />
             </IconButton>
           </Tooltip>
@@ -367,7 +361,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
             <IconButton
               onClick={addIndexer}
               size={isMobile ? "medium" : "small"}
-              sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}
+              sx={{ color: 'text.disabled', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}
             >
               <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
             </IconButton>
@@ -378,7 +372,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
             <IconButton
               onClick={addNewsreader}
               size={isMobile ? "medium" : "small"}
-              sx={{ color: 'rgba(255,255,255,0.3)', '&:hover': { color: '#00bcd4', background: 'rgba(0, 188, 212, 0.1)' } }}
+              sx={{ color: 'text.disabled', '&:hover': { color: 'primary.main', bgcolor: 'action.hover' } }}
             >
               <AddIcon sx={{ fontSize: isMobile ? 26 : 22 }} />
             </IconButton>
@@ -390,10 +384,10 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
             disabled={saving}
             size={isMobile ? "medium" : "small"}
             sx={{ 
-              color: saving ? 'rgba(255,255,255,0.3)' : 'primary.main',
-              border: '1px solid rgba(255,255,255,0.1)',
-              bgcolor: 'rgba(33, 150, 243, 0.1)',
-              '&:hover': { bgcolor: 'rgba(33, 150, 243, 0.2)' }
+              color: saving ? 'text.disabled' : 'primary.main',
+              border: '1px solid', borderColor: 'divider',
+              bgcolor: 'action.hover',
+              '&:hover': { bgcolor: 'action.selected' }
             }}
           >
             {saving ? <CircularProgress size={24} /> : <SaveIcon />}
@@ -410,7 +404,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
         <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 700, letterSpacing: '0.05em' }}>GENERAL</Typography>
       </Box>
       <ListItem disablePadding>
-        <ListItemButton onClick={() => setCurrentView('downloads')} sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <ListItemButton onClick={() => setCurrentView('downloads')} sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon><FolderOpenIcon color="primary" sx={{ opacity: 0.8 }} /></ListItemIcon>
           <ListItemText 
             primary="Downloads" 
@@ -422,7 +416,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton onClick={() => setCurrentView('updates')} sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <ListItemButton onClick={() => setCurrentView('updates')} sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon><UpdateIcon color="primary" sx={{ opacity: 0.8 }} /></ListItemIcon>
           <ListItemText 
             primary="Updates" 
@@ -438,7 +432,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
         <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 700, letterSpacing: '0.05em' }}>PROVIDERS</Typography>
       </Box>
       <ListItem disablePadding>
-        <ListItemButton onClick={() => setCurrentView('indexers')} sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <ListItemButton onClick={() => setCurrentView('indexers')} sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon><CloudIcon color="primary" sx={{ opacity: 0.8 }} /></ListItemIcon>
           <ListItemText 
             primary="NZB Indexers" 
@@ -449,7 +443,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton onClick={() => setCurrentView('newsreaders')} sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <ListItemButton onClick={() => setCurrentView('newsreaders')} sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon><StorageIcon color="primary" sx={{ opacity: 0.8 }} /></ListItemIcon>
           <ListItemText 
             primary="Newsreaders" 
@@ -493,7 +487,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
           placeholder="e.g. C:\\Downloads"
           InputLabelProps={{ sx: { fontSize: '0.875rem' } }}
         />
-        <IconButton onClick={() => setDirectoryPickerOpen(true)} sx={{ color: 'primary.main', bgcolor: 'rgba(124, 58, 237, 0.1)' }}>
+        <IconButton onClick={() => setDirectoryPickerOpen(true)} sx={{ color: 'primary.main', bgcolor: 'action.hover' }}>
           <FolderOpenIcon />
         </IconButton>
       </Box>
@@ -533,7 +527,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
   const renderIndexers = () => (
     <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
       {nzbProvider?.indexers?.map((indexer) => (
-        <Paper key={indexer.id} sx={{ p: 2, bgcolor: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(148, 163, 184, 0.12)' }}>
+        <Paper key={indexer.id} sx={{ p: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
             <FormControlLabel
               control={<Switch size="small" checked={indexer.enabled ?? true} onChange={() => handleIndexerToggle(indexer.id)} />}
@@ -565,7 +559,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
   const renderNewsreaders = () => (
     <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
       {nzbProvider?.newsreaders?.map((nr) => (
-        <Paper key={nr.id} sx={{ p: 2, bgcolor: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(148, 163, 184, 0.12)' }}>
+        <Paper key={nr.id} sx={{ p: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
              <FormControlLabel
               control={<Switch size="small" checked={nr.enabled} onChange={() => handleNewsreaderToggle(nr.id)} />}
@@ -603,9 +597,9 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
               <Accordion 
                 disableGutters 
                 sx={{ 
-                  background: 'rgba(0,0,0,0.2)', 
+                  bgcolor: 'action.hover', 
                   boxShadow: 'none',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: '1px solid', borderColor: 'divider',
                   borderRadius: 1,
                   '&:before': { display: 'none' }
                 }}
@@ -619,10 +613,10 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
                 <AccordionDetails sx={{ pt: 0, pb: 1.5 }}>
                   <Grid container spacing={2}>
                     <Grid size={{ xs: 12, sm: 6 }}>
-                      <TextField fullWidth label="Max Connections" type="number" size="small" value={nr.maxConnections ?? 2} onChange={(e) => handleNewsreaderChange(nr.id, 'maxConnections', e.target.value)} />
+                      <TextField fullWidth label="Max Connections" type="number" size="small" value={nr.maxConnections ?? 20} onChange={(e) => handleNewsreaderChange(nr.id, 'maxConnections', e.target.value)} />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6 }}>
-                      <TextField fullWidth label="Segment Concurrency" type="number" size="small" value={nr.segmentConcurrency ?? 10} onChange={(e) => handleNewsreaderChange(nr.id, 'segmentConcurrency', e.target.value)} />
+                      <TextField fullWidth label="Segment Concurrency" type="number" size="small" value={nr.segmentConcurrency ?? 20} onChange={(e) => handleNewsreaderChange(nr.id, 'segmentConcurrency', e.target.value)} />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <TextField fullWidth label="Article Timeout (ms)" type="number" size="small" value={nr.articleTimeoutMs ?? 15000} onChange={(e) => handleNewsreaderChange(nr.id, 'articleTimeoutMs', e.target.value)} />
@@ -640,7 +634,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
 
             {/* Fallback Providers */}
             <Grid size={{ xs: 12 }}>
-              <Box sx={{ mt: 1.5, p: 1, borderRadius: 1, background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <Box sx={{ mt: 1.5, p: 1, borderRadius: 1, bgcolor: 'action.hover', border: '1px solid', borderColor: 'divider' }}>
                 <Typography sx={{ fontWeight: 600, fontSize: '0.875rem', mb: 1 }}>Fallback Providers</Typography>
                 {nzbProvider?.newsreaders?.filter(other => other.type === 'direct' && other.id !== nr.id).length === 0 ? (
                   <Typography sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>No other direct providers configured</Typography>
@@ -690,9 +684,9 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
           setDebugLogs([]);
         }} disabled={!debugLogs.length}>Clear</Button>
       </Box>
-      <Box sx={{ bgcolor: 'rgba(0,0,0,0.5)', borderRadius: 1, p: 2, fontFamily: 'monospace', fontSize: '0.75rem', maxHeight: '60vh', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
+      <Box sx={{ bgcolor: 'action.hover', borderRadius: 1, p: 2, fontFamily: 'monospace', fontSize: '0.75rem', maxHeight: '60vh', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
         {debugLogs.length ? debugLogs.map((l, i) => (
-          <Box key={i} sx={{ color: l.includes('[ERROR]') ? '#f87171' : l.includes('[WARN]') ? '#fbbf24' : '#e2e8f0', mb: 0.5 }}>{l}</Box>
+          <Box key={i} sx={{ color: l.includes('[ERROR]') ? 'error.main' : l.includes('[WARN]') ? 'warning.main' : 'text.primary', mb: 0.5 }}>{l}</Box>
         )) : <Typography color="text.secondary">No logs available</Typography>}
       </Box>
     </Box>
@@ -705,7 +699,7 @@ const SettingsPanel = forwardRef<SettingsPanelHandle>((_props, ref) => {
   return (
     <Box ref={panelRef} sx={{ width: '100%', maxWidth: 800, mx: 'auto' }}>
       {renderHeader()}
-      <Paper sx={{ background: 'rgba(15, 23, 42, 0.3)', borderRadius: 2, overflow: 'hidden', border: '1px solid rgba(148, 163, 184, 0.12)' }}>
+      <Paper sx={{ bgcolor: 'background.paper', borderRadius: 2, overflow: 'hidden', border: '1px solid', borderColor: 'divider' }}>
         {currentView === 'root' && renderRootMenu()}
         {currentView === 'downloads' && renderDownloads()}
         {currentView === 'updates' && renderUpdates()}

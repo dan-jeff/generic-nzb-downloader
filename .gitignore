@@ -3,6 +3,10 @@ dist/
 dist-electron/
 .vite/
 
+# Compiled Electron main output — now lives in dist-electron/main/ (see tsconfig.electron.json)
+electron/**/*.js
+electron/**/*.js.map
+
 # Android build artifacts
 android/app/build/
 android/build/
